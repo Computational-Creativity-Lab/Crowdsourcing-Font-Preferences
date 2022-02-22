@@ -1,0 +1,31 @@
+.container {
+  padding: 20px;
+  justify-items: start;
+  height: 100%;
+  background: #03091a;
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.fontName {
+  color: white;
+  font-size: 14px;
+  display: block;
+  position: absolute;
+  top: 20px;
+}
+
+.pengram {
+  font-size: 48px;
+  color: white;
+  display: block;
+  text-align: center;
+  padding: 0px 20px;
+}
+
+.container:hover {
+  transform: scale(1.01);
+}
