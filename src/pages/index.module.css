@@ -1,9 +1,7 @@
 .container {
   height: 100%;
-  display: flex;
-  align-items: stretch;
-  /* flex-flow: column; */
-  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .globalContainer {
@@ -69,4 +67,25 @@
 
 .bottomLeft p {
   justify-content: end;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr;
+  }
+
+  .leftCol {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    height: auto;
+  }
+
+  .adjective {
+    padding: 0px 24px 0px 24px;
+  }
+
+  .question {
+    padding-bottom: 10px;
+  }
 }

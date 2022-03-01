@@ -30,7 +30,7 @@ export default function Home() {
               <h1 className={styles.adjective}> Playful</h1>
             </div>
 
-            <h3 className={styles.bottomLeft}>Q1/{qCount}</h3>
+            <h3 className={styles.bottomLeft}>Q{qCount}/10</h3>
           </div>
           <div className={styles.rightCol}>
             <motion.div onClick={handleQCount} className={styles.topRight}>
