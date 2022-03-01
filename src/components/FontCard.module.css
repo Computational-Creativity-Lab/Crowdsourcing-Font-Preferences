@@ -8,24 +8,29 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  transform: scale(1);
+  transition: 0.2s;
+}
+
+.container:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+.container:active {
+  transform: scale(1);
 }
 
 .fontName {
-  color: white;
-  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
   display: block;
   position: absolute;
   top: 20px;
 }
 
 .pengram {
-  font-size: 48px;
   color: white;
   display: block;
   text-align: center;
   padding: 0px 20px;
-}
-
-.container:hover {
-  transform: scale(1.01);
 }

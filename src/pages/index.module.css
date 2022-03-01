@@ -1,58 +1,65 @@
 .container {
-  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  /* flex-flow: column; */
+  height: 100%;
+}
+
+.globalContainer {
   display: grid;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  height: 100vh;
+  grid-template-rows: auto 1fr;
 }
 
 .topLeft {
   grid-column-start: 1;
   grid-row-start: 1;
   height: 100%;
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
+}
+
+.rightCol {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 100%;
+}
+
+.leftCol {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
 }
 
 .topRight {
-  grid-column-start: 2;
   grid-row-start: 1;
   height: 100%;
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
 }
 
 .bottomRight {
-  grid-column-start: 2;
   grid-row-start: 2;
   height: 100%;
-  padding: 20px;
+  padding: 10px 20px 20px 20px;
 }
 
 .label {
-  font-size: px;
   padding-bottom: 20px;
 }
 
 .question {
-  font-size: 48px;
   padding-bottom: 40px;
 }
 
 .adjective {
   display: inline-block;
-  font-size: 120px;
   border: solid black;
-  line-height: 120%;
   border-radius: 80px;
   width: auto;
-  padding: 0px 80px;
+  padding: 0px 64px 10px 64px;
 }
 
 .bottomLeft {
-  grid-column-start: 1;
-  grid-row-start: 2;
-  font-size: 24px;
   height: 100%;
   padding: 20px;
   justify-content: flex-start;
