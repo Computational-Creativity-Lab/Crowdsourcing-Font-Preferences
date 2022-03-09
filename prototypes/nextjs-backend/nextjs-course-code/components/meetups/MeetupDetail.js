@@ -1,4 +1,3 @@
-import { Fragment } from "react/cjs/react.production.min";
 import classes from "./MeetupDetail.module.css";
 
 function MeetupDetail(props) {

@@ -3,10 +3,6 @@ import bodyParser from "body-parser";
 import util from "util";
 const getBody = util.promisify(bodyParser.urlencoded());
 
-// IP address
-// import NetInfo from "@react-native-community/netinfo";
-// import { useEffect } from "react";
-
 const DUMMY_MEETUPS = [
   {
     id: "m1",
@@ -27,13 +23,7 @@ const DUMMY_MEETUPS = [
 ];
 
 function HomePage(props) {
-  //   useEffect(() => {
-  //     NetInfo.fetch().then((state) => {
-  //       console.log("Connection type", state.type);
-  //       console.log("Is connected?", state.isConnected);
-  //     });
-  //   }, []);
-  console.log(props);
+  console.log("Homepage props:", props);
   return <MeetupList meetups={props.meetups} />;
 }
 
