@@ -1,26 +1,8 @@
+import { MongoClient } from "mongodb";
 import MeetupList from "../components/meetups/MeetupList";
 import bodyParser from "body-parser";
 import util from "util";
 const getBody = util.promisify(bodyParser.urlencoded());
-
-const DUMMY_MEETUPS = [
-  {
-    id: "m1",
-    title: "A First Meetup",
-    image:
-      "https://www.thefarmersdog.com/digest/wp-content/uploads/2021/12/corgi-top.jpg",
-    address: "some address 1",
-    description: "This is our first meetup",
-  },
-  {
-    id: "m2",
-    title: "A First Meetup",
-    image:
-      "https://d.newsweek.com/en/full/1880525/corgi-dog.webp?w=1600&h=900&q=88&f=0dad56c0e651fd2a2ea356c09a564bf1",
-    address: "some address 2",
-    description: "This is our first meetup",
-  },
-];
 
 function HomePage(props) {
   console.log("Homepage props:", props);
@@ -40,10 +22,35 @@ export async function getServerSideProps({ req, res }) {
   await getBody(req, res);
   console.log(req.method, req.body);
 
+  const userName = "miatang13";
+  const pwd = "testtesttest";
+  const client = await MongoClient.connect(
+    "mongodb+srv://" +
+      userName +
+      ":" +
+      pwd +
+      "@cluster0.u1gjq.mongodb.net/meetups?retryWrites=true&w=majority"
+  );
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+
+  const meetups = await meetupsCollection.find().toArray();
+
+  client.close();
+
   // will always run on server
   // can use credentials that u don't want to expose to clients
   return {
-    props: { meetups: DUMMY_MEETUPS, ip: ip },
+    props: {
+      meetups: meetups.map((meetup) => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        id: meetup._id.toString(),
+      })),
+      ip: ip,
+    },
   };
 }
 
