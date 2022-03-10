@@ -2,11 +2,21 @@ import { MongoClient } from "mongodb";
 import MeetupList from "../components/meetups/MeetupList";
 import bodyParser from "body-parser";
 import util from "util";
+import Head from "next/head";
+import { Fragment } from "react/cjs/react.production.min";
 const getBody = util.promisify(bodyParser.urlencoded());
 
 function HomePage(props) {
   console.log("Homepage props:", props);
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>Nextjs Meetups</title>{" "}
+        <meta name="description" content="Nextjs tutorial code with Mongodb" />
+      </Head>
+      <MeetupList meetups={props.meetups} />{" "}
+    </Fragment>
+  );
 }
 
 // guaranteed to run for every request
