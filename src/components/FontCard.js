@@ -13,7 +13,8 @@ export default function FontCard(props) {
           default: { duration: 0.1 },
         }}
       >
-        <p className={styles.fontName}>Roboto</p>
+        <p className={styles.fontName}>{props.fontStyle}</p>
+        {/* need to dynamically toggle this  */}
         <h3 className={styles.pengram}>
           Sphinx of black quartz, judge my vow.
         </h3>
