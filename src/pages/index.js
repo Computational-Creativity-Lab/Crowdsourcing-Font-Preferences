@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/layout/Navbar";
 import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
@@ -7,23 +7,50 @@ import FontsPromptRightCol from "../components/FontsPromptRightCol";
 import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 
+// backend
+import axios from "axios";
+
 // dummy data
 const keyword = "Playful";
 
 export default function Home() {
-  //count questions
+  // count questions
   const [qCount, setQCount] = useState(0);
 
+  // backend
+  //creating IP state
+  const [locationData, setLocationData] = useState({});
+
+  //creating function to load ip address from the API
+  async function getLocationData() {
+    const res = await axios.get("https://geolocation-db.com/json/");
+    console.log(res.data);
+    setLocationData(res.data);
+  }
+
+  useEffect(() => {
+    getLocationData();
+  }, []);
+
   async function addPreferenceHandler(payload) {
+    const location =
+      locationData.country_code === "US"
+        ? { country_name: locationData.country_name, state: locationData.state }
+        : { country_name: locationData.country_name };
     const response = await fetch("/api/new-preference", {
       method: "POST",
-      body: JSON.stringify({ font: payload.chosenStyle, keyword: keyword }),
+      body: JSON.stringify({
+        font: payload.chosenStyle,
+        keyword: keyword,
+        location: location,
+      }),
       headers: {
         "Content-Type": "application/json",
       },
     });
 
     const data = await response.json();
+    console.log(data);
   }
 
   async function handleClick(payload) {
