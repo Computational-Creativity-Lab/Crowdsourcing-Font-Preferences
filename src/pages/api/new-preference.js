@@ -4,7 +4,8 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const data = req.body;
 
-    const { client, db } = connectToMongoDB();
+    const client = await connectToMongoDB();
+    const db = client.db();
 
     const preferencesCollection = db.collection("preferences-test");
     const result = await preferencesCollection.insertOne(data);
