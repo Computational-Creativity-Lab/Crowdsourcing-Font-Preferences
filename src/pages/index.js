@@ -18,10 +18,10 @@ export default function Home() {
   const [qCount, setQCount] = useState(0);
 
   // backend
-  //creating IP state
+  // creating IP state
   const [locationData, setLocationData] = useState({});
 
-  //creating function to load ip address from the API
+  // load ip address using Axios
   async function getLocationData() {
     const res = await axios.get("https://geolocation-db.com/json/");
     console.log(res.data);
@@ -37,12 +37,15 @@ export default function Home() {
       locationData.country_code === "US"
         ? { country_name: locationData.country_name, state: locationData.state }
         : { country_name: locationData.country_name };
+    const time = Date().toLocaleString();
+    console.log("time: ", time);
     const response = await fetch("/api/new-preference", {
       method: "POST",
       body: JSON.stringify({
         font: payload.chosenStyle,
         keyword: keyword,
         location: location,
+        time: time,
       }),
       headers: {
         "Content-Type": "application/json",
