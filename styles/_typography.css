@@ -2,7 +2,7 @@ h1,
 .h1 {
   font-family: "SF Pro Display";
   font-weight: 400;
-  font-size: 120px;
+  font-size: 72px;
   line-height: 120%;
 }
 
@@ -10,7 +10,7 @@ h2,
 .h2 {
   font-family: "SF Pro Display";
   font-weight: 400;
-  font-size: 80px;
+  font-size: 48px;
   line-height: 120%;
 }
 
@@ -18,7 +18,7 @@ h3,
 .h3 {
   font-family: "SF Pro Display";
   font-weight: 400;
-  font-size: 52px;
+  font-size: 36px;
   line-height: 120%;
 }
 
@@ -72,3 +72,27 @@ p,
     font-size: 15px;
   }
 }
+
+/*  'Abril Fatface'
+ 'Alegreya'
+ 'Anonymous Pro'
+ 'Arvo'
+ 'EB Garamond'
+ 'Great Vibes
+ 'Hind', 
+ 'IBM Plex Sans', 
+ 'Josefin Sans', 
+ 'Josefin Slab', 
+ 'Lato', 
+ 'Libre Baskerville', 
+ 'Lobster', cursive
+ 'Montserrat', 
+ 'Open Sans', 
+ 'Playfair Display', 
+ 'PT Sans', 
+ 'PT Serif', 
+ 'Quattrocento', 
+ 'Roboto', 
+ 'Roboto Slab', 
+ 'Source Sans Pro', 
+ 'Space Mono', monospace */

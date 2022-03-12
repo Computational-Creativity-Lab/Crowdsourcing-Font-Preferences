@@ -46,7 +46,7 @@
 }
 
 .question {
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 }
 
 .adjective {
@@ -54,7 +54,7 @@
   border: solid black;
   border-radius: 80px;
   width: auto;
-  padding: 0px 64px 10px 64px;
+  padding: 0px 36px 10px 36px;
 }
 
 .bottomLeft {
@@ -82,7 +82,7 @@
   }
 
   .adjective {
-    padding: 0px 24px 0px 24px;
+    padding: 0px 12px 0px 12px;
   }
 
   .question {

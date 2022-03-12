@@ -13,9 +13,17 @@ export default function FontCard(props) {
           default: { duration: 0.1 },
         }}
       >
-        <p className={styles.fontName}>{props.fontStyle}</p>
+        <p
+          style={{ fontFamily: `${props.fontStyle}` }}
+          className={styles.fontName}
+        >
+          {props.fontStyle}
+        </p>
         {/* need to dynamically toggle this  */}
-        <h3 className={styles.pengram}>
+        <h3
+          className={styles.pengram}
+          style={{ fontFamily: `${props.fontStyle}` }}
+        >
           Sphinx of black quartz, judge my vow.
         </h3>
       </motion.div>
