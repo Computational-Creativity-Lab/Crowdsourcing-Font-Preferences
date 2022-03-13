@@ -61,8 +61,12 @@
   height: calc(100% + 4px);
   animation: glowing 20s linear infinite;
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out, filter 0.1s;
   border-radius: 32px;
+}
+
+.container:active:before {
+  filter: blur(5px);
 }
 
 .container:hover:before {
