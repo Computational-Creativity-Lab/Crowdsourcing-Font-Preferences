@@ -9,6 +9,7 @@ import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 
 // backend
 import axios from "axios";
+const WRITE_TO_DB = false;
 
 // dummy data
 const keyword = "Playful";
@@ -33,6 +34,8 @@ export default function Home() {
   }, []);
 
   async function addPreferenceHandler(payload) {
+    if (!WRITE_TO_DB) return;
+
     const location =
       locationData.country_code === "US"
         ? { country_name: locationData.country_name, state: locationData.state }
