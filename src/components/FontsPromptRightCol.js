@@ -37,20 +37,30 @@ let firstFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
 let secondFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
 
 const cardFlip = {
-  flip: { rotateY: "90deg", transition: { duration: 0.5 } },
-  stop: { rotateY: "0deg", transition: { duration: 0.5 } },
+  flip: {
+    scale: 1.03,
+    transition: {
+      // duration: 0.5,
+      type: "spring",
+      bounce: 0.5,
+    },
+  },
+  stop: {
+    scale: 1,
+  },
 };
 
 export default function FontsPromptRightCol(props) {
   //mount and unmount card
-  const [cardState, setCardState] = useState(true);
+  const [topCardState, setTopCardState] = useState(true);
+  const [botCardState, setBotCardState] = useState(true);
 
   // useEffect(() => {
   //   //reappear
-  //   if (!cardState) {
+  //   if (!topCardState) {
   //     setTimeout(() => {
-  //       setCardState(!cardState);
-  //       if (cardState) {
+  //       setTopCardState(!topCardState);
+  //       if (topCardState) {
   //         firstFontStyle =
   //           fontList[Math.floor(Math.random() * fontList.length)];
   //         secondFontStyle =
@@ -58,7 +68,7 @@ export default function FontsPromptRightCol(props) {
   //       }
   //     }, 1000);
   //   }
-  // }, [cardState]);
+  // }, [topCardState]);
 
   const handleClick = (option) => {
     const chosenFont = option === 1 ? currentTopStyle : currentBotStyle;
@@ -69,23 +79,32 @@ export default function FontsPromptRightCol(props) {
     });
 
     // Front end flip card
-    setCardState(!cardState);
-    setTimeout(() => {
-      setCardState(cardState);
-      firstFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
-      secondFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
-    }, 1000);
+
+    if (option === 1) {
+      setTopCardState(!topCardState);
+      setTimeout(() => {
+        setTopCardState(topCardState);
+      }, 80);
+    } else {
+      setBotCardState(!botCardState);
+      setTimeout(() => {
+        setBotCardState(botCardState);
+      }, 80);
+    }
+
+    firstFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
+    secondFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
   };
 
   return (
     <div className={styles.rightCol}>
-      {/* {cardState && ( */}
+      {/* {topCardState && ( */}
       <Fragment>
         <motion.div
           className={styles.topRight}
           onClick={() => handleClick(1)}
           variants={cardFlip}
-          animate={!cardState ? "flip" : "stop"}
+          animate={topCardState ? "stop" : "flip"}
         >
           <FontCard fontStyle={firstFontStyle} />
         </motion.div>
@@ -93,7 +112,7 @@ export default function FontsPromptRightCol(props) {
           className={styles.bottomRight}
           onClick={() => handleClick(2)}
           variants={cardFlip}
-          animate={!cardState ? "flip" : "stop"}
+          animate={botCardState ? "stop" : "flip"}
         >
           <FontCard fontStyle={secondFontStyle} />
         </motion.div>
