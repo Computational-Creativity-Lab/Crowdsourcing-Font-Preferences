@@ -7,12 +7,30 @@ import FontsPromptRightCol from "../components/FontsPromptRightCol";
 import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 
+const keywords = [
+  Authoritative,
+  Caring,
+  Casual,
+  Cheerful,
+  Coarse,
+  Conservative,
+  Conversational,
+  Dry,
+  Edgy,
+  Enthusiastic,
+  Formal,
+  Frank,
+  Friendly,
+  Fun,
+  Funny,
+];
+
 // backend
 import axios from "axios";
 const WRITE_TO_DB = false;
 
 // dummy data
-const keyword = "Playful";
+const keyword = keywords[qCount];
 
 export default function Home() {
   // count questions
