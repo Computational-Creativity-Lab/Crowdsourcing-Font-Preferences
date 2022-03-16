@@ -12,6 +12,10 @@
   transition: 0.2s;
 }
 
+.hide {
+  opacity: 0;
+}
+
 .container:hover {
   transform: scale(1.005);
   cursor: pointer;
@@ -33,6 +37,11 @@
   display: block;
   text-align: center;
   padding: 0px 20px;
+}
+
+.fontName,
+.pengram {
+  transition: opacity 0.5s;
 }
 
 /* –––––– */

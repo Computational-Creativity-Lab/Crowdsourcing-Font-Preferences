@@ -36,11 +36,11 @@ const fontList = [
 let firstFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
 let secondFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
 
+//elastic card animation
 const cardFlip = {
   flip: {
     scale: 1.03,
     transition: {
-      // duration: 0.5,
       type: "spring",
       bounce: 0.5,
     },
@@ -54,7 +54,7 @@ export default function FontsPromptRightCol(props) {
   //mount and unmount card
   const [topCardState, setTopCardState] = useState(true);
   const [botCardState, setBotCardState] = useState(true);
-
+  const [textFade, startTextFade] = useState(false);
   // useEffect(() => {
   //   //reappear
   //   if (!topCardState) {
@@ -69,11 +69,17 @@ export default function FontsPromptRightCol(props) {
   //     }, 1000);
   //   }
   // }, [topCardState]);
+  const fadeText = () => {
+    startTextFade(true);
+    console.log(textFade);
+    setTimeout(() => {
+      startTextFade(false);
+    }, 500);
+  };
 
   const handleClick = (option) => {
     const chosenFont = option === 1 ? currentTopStyle : currentBotStyle;
-    console.log(chosenFont);
-
+    // console.log(chosenFont);
     props.onclickHandler({
       chosenStyle: chosenFont,
     });
@@ -102,19 +108,25 @@ export default function FontsPromptRightCol(props) {
       <Fragment>
         <motion.div
           className={styles.topRight}
-          onClick={() => handleClick(1)}
+          onClick={() => {
+            handleClick(1);
+            fadeText();
+          }}
           variants={cardFlip}
           animate={topCardState ? "stop" : "flip"}
         >
-          <FontCard fontStyle={firstFontStyle} />
+          <FontCard fontStyle={firstFontStyle} textFadeState={textFade} />
         </motion.div>
         <motion.div
           className={styles.bottomRight}
-          onClick={() => handleClick(2)}
+          onClick={() => {
+            handleClick(2);
+            fadeText();
+          }}
           variants={cardFlip}
           animate={botCardState ? "stop" : "flip"}
         >
-          <FontCard fontStyle={secondFontStyle} />
+          <FontCard fontStyle={secondFontStyle} textFadeState={textFade} />
         </motion.div>
       </Fragment>
       {/* )} */}

@@ -29,10 +29,13 @@ export default function Home() {
     "Fun",
     "Funny",
   ];
+
   // count questions
-  // dummy data
   const [qCount, setQCount] = useState(0);
-  const keyword = keywords[qCount];
+  // const [tempAdjCount, setTempAdjCount] = useState(0);
+  const [keywordCount, setKeywordCount] = useState(0);
+  //change keyword every 4 words
+  const keyword = keywords[Math.floor(keywordCount / 4) + 1];
 
   // backend
   // creating IP state
@@ -41,7 +44,7 @@ export default function Home() {
   // load ip address using Axios
   async function getLocationData() {
     const res = await axios.get("https://geolocation-db.com/json/");
-    console.log(res.data);
+    // console.log(res.data);
     setLocationData(res.data);
   }
 
@@ -57,7 +60,7 @@ export default function Home() {
         ? { country_name: locationData.country_name, state: locationData.state }
         : { country_name: locationData.country_name };
     const time = Date().toLocaleString();
-    console.log("time: ", time);
+    // console.log("time: ", time);
     const response = await fetch("/api/new-preference", {
       method: "POST",
       body: JSON.stringify({
@@ -72,13 +75,14 @@ export default function Home() {
     });
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
   }
 
   async function handleClick(payload) {
-    console.log("clicked, data:", payload);
+    // console.log("clicked, data:", payload);
 
     setQCount(qCount + 1);
+    setKeywordCount(keywordCount + 1);
     addPreferenceHandler(payload);
   }
 
