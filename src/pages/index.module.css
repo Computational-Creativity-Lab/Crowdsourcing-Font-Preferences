@@ -4,12 +4,6 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.globalContainer {
-  display: grid;
-  height: 100vh;
-  grid-template-rows: auto 1fr;
-}
-
 .topLeft {
   grid-column-start: 1;
   grid-row-start: 1;
