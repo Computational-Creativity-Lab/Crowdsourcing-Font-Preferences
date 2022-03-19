@@ -1,8 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Alegreya&family=Anonymous+Pro&family=Arvo&family=EB+Garamond&family=Great+Vibes&family=Hind&family=IBM+Plex+Sans&family=Josefin+Sans&family=Josefin+Slab&family=Lato&family=Libre+Baskerville&family=Lobster&family=Montserrat&family=Open+Sans&family=PT+Sans&family=PT+Serif&family=Playfair+Display&family=Quattrocento&family=Roboto&family=Roboto+Slab&family=Source+Sans+Pro&family=Space+Mono&display=swap");
 
+@font-face {
+  font-family: "SF Pro";
+  src: local("sf-pro"), url("./sf-pro.ttf") format("ttf");
+}
+
 h1,
 .h1 {
-  font-family: "SF Pro Display";
   font-weight: 400;
   font-size: 72px;
   line-height: 120%;
@@ -10,7 +14,6 @@ h1,
 
 h2,
 .h2 {
-  font-family: "SF Pro Display";
   font-weight: 400;
   font-size: 48px;
   line-height: 120%;
@@ -18,7 +21,6 @@ h2,
 
 h3,
 .h3 {
-  font-family: "SF Pro Display";
   font-weight: 400;
   font-size: 36px;
   line-height: 120%;
@@ -26,7 +28,6 @@ h3,
 
 h4,
 .h4 {
-  font-family: "SF Pro Display";
   font-weight: 400;
   font-size: 22px;
   line-height: 120%;
@@ -34,7 +35,6 @@ h4,
 
 h5,
 .h5 {
-  font-family: "SF Pro Display";
   font-weight: 400;
   font-size: 18px;
   line-height: 120%;
@@ -42,7 +42,6 @@ h5,
 
 p,
 .p {
-  font-family: "SF Pro Display";
   font-weight: 400;
   font-size: 18px;
   line-height: 120%;

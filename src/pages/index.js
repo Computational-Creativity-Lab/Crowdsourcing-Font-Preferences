@@ -2,67 +2,13 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/layout/Navbar";
 import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
+import Router from "next/router";
 import GlobalContainer from "../components/layout/GlobalContainer";
-import FontsPromptRightCol from "../components/FontsPromptRightCol";
-import Container from "../components/layout/Container";
-import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
-
-// backend
-import axios from "axios";
-const WRITE_TO_DB = false;
 
 export default function Home() {
-  // backend
-  // creating IP state
-  const [locationData, setLocationData] = useState({});
-
-  // load ip address using Axios
-  async function getLocationData() {
-    const res = await axios.get("https://geolocation-db.com/json/");
-    // console.log(res.data);
-    setLocationData(res.data);
-  }
-
-  useEffect(() => {
-    getLocationData();
-  }, []);
-
-  async function addPreferenceHandler(payload) {
-    if (!WRITE_TO_DB) return;
-
-    const location =
-      locationData.country_code === "US"
-        ? { country_name: locationData.country_name, state: locationData.state }
-        : { country_name: locationData.country_name };
-    const time = Date().toLocaleString();
-    // console.log("time: ", time);
-    const response = await fetch("/api/new-preference", {
-      method: "POST",
-      body: JSON.stringify({
-        font: payload.chosenStyle,
-        keyword: keyword,
-        location: location,
-        time: time,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await response.json();
-    // console.log(data);
-  }
-
-  async function handleClick(payload) {
-    // console.log("clicked, data:", payload);
-
-    setQCount(qCount + 1);
-    setKeywordCount(keywordCount + 1);
-    addPreferenceHandler(payload);
-  }
-
   return (
-    <motion.main>
+    <motion.main onClick={() => Router.push("/survey")}>
+      <CustomCursor />
       <HeadComp />
       <GlobalContainer>
         <Navbar rightLink="Share" />
@@ -73,3 +19,36 @@ export default function Home() {
     </motion.main>
   );
 }
+
+// custom cursor
+function useMousePosition() {
+  const [mousePosition, setMousePosition] = useState({ x: null, y: null });
+
+  useEffect(() => {
+    const mouseMoveHandler = (event) => {
+      const { clientX, clientY } = event;
+      setMousePosition({ x: clientX, y: clientY });
+    };
+    document.addEventListener("mousemove", mouseMoveHandler);
+
+    return () => {
+      document.removeEventListener("mousemove", mouseMoveHandler);
+    };
+  }, []);
+
+  return mousePosition;
+}
+
+const CustomCursor = () => {
+  const { x, y } = useMousePosition();
+  return (
+    <p
+      className="absolute will-change-transform"
+      style={{
+        transform: `translate(${x - 60}px, ${y - 30}px)`,
+      }}
+    >
+      Click to start quiz
+    </p>
+  );
+};
