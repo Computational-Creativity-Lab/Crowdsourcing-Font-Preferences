@@ -66,7 +66,8 @@ export default function Home() {
       <HeadComp />
       <GlobalContainer>
         <Navbar rightLink="Share" />
-        <h1>Find your fonts</h1>
+        {/* <h1 className="text-3xl font-bold underline">Find your fonts</h1> */}
+        <h1 className="px-1 text-6xl">Choose your font.</h1>
       </GlobalContainer>
     </motion.main>
   );
