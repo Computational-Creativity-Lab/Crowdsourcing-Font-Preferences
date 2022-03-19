@@ -22,23 +22,18 @@ export default function FontCard(props) {
         transition={{
           default: { duration: 0.1 },
         }}
-        // onClick={textTransition}
       >
         <p
           style={{ fontFamily: `${props.fontStyle}` }}
-          className={`${styles.fontName} ${
-            props.textFadeState ? styles.hide : ""
-          }`}
+          className={styles.fontName}
         >
           {props.fontStyle}
         </p>
         <h3
-          className={`${styles.pengram} ${
-            props.textFadeState ? styles.hide : ""
-          }`}
+          className={styles.pengram}
           style={{ fontFamily: `${props.fontStyle}` }}
         >
-          Sphinx of black quartz, judge my vow.
+          {props.pengram}
         </h3>
       </motion.div>
     </AnimatePresence>

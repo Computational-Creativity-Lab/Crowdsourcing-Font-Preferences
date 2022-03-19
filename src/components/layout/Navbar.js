@@ -6,7 +6,7 @@ export default function FontCard(props) {
   return (
     <motion.div className={styles.container}>
       <p>Font Preference</p>
-      <p>Exit</p>
+      <p>{props.rightLink}</p>
     </motion.div>
   );
 }

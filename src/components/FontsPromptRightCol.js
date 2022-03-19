@@ -33,6 +33,18 @@ const fontList = [
   "Space Mono",
 ];
 
+const pengrams = [
+  "Waltz, bad nymph, for quick jigs vex.",
+  "Glib jocks quiz nymph to vex dwarf.",
+  "Sphinx of black quartz, judge my vow.",
+  "How vexingly quick daft zebras jump!",
+  "The five boxing wizards jump quickly.",
+  "Jackdaws love my big sphinx of quartz.",
+  "Pack my box with five dozen liquor jugs.",
+];
+
+let pengramIndex = 0;
+let currentPengram = pengrams[pengramIndex];
 let firstFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
 let secondFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
 
@@ -69,22 +81,35 @@ export default function FontsPromptRightCol(props) {
   //     }, 1000);
   //   }
   // }, [topCardState]);
+
+  //fade paragraph text
   const fadeText = () => {
     startTextFade(true);
-    console.log(textFade);
+
     setTimeout(() => {
+      //show card text again
       startTextFade(false);
+
+      //update font
     }, 500);
   };
 
   const handleClick = (option) => {
     const chosenFont = option === 1 ? currentTopStyle : currentBotStyle;
-    // console.log(chosenFont);
     props.onclickHandler({
       chosenStyle: chosenFont,
     });
 
-    // Front end flip card
+    // Change font
+    firstFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
+    secondFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
+
+    // Change pengram
+    if (pengramIndex == pengrams.length - 1) {
+      pengramIndex = 0;
+    }
+    pengramIndex++;
+    currentPengram = pengrams[pengramIndex];
 
     if (option === 1) {
       setTopCardState(!topCardState);
@@ -97,9 +122,6 @@ export default function FontsPromptRightCol(props) {
         setBotCardState(botCardState);
       }, 80);
     }
-
-    firstFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
-    secondFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
   };
 
   return (
@@ -115,7 +137,11 @@ export default function FontsPromptRightCol(props) {
           variants={cardFlip}
           animate={topCardState ? "stop" : "flip"}
         >
-          <FontCard fontStyle={firstFontStyle} textFadeState={textFade} />
+          <FontCard
+            fontStyle={firstFontStyle}
+            textFadeState={textFade}
+            pengram={currentPengram}
+          />
         </motion.div>
         <motion.div
           className={styles.bottomRight}
@@ -126,7 +152,11 @@ export default function FontsPromptRightCol(props) {
           variants={cardFlip}
           animate={botCardState ? "stop" : "flip"}
         >
-          <FontCard fontStyle={secondFontStyle} textFadeState={textFade} />
+          <FontCard
+            fontStyle={secondFontStyle}
+            textFadeState={textFade}
+            pengram={currentPengram}
+          />
         </motion.div>
       </Fragment>
       {/* )} */}

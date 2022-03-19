@@ -12,6 +12,31 @@ import axios from "axios";
 const WRITE_TO_DB = false;
 
 export default function Home() {
+  const keywords = [
+    "Authoritative",
+    "Caring",
+    "Casual",
+    "Cheerful",
+    "Coarse",
+    "Conservative",
+    "Conversational",
+    "Dry",
+    "Edgy",
+    "Enthusiastic",
+    "Formal",
+    "Frank",
+    "Friendly",
+    "Fun",
+    "Funny",
+  ];
+
+  // count questions
+  const [qCount, setQCount] = useState(0);
+  // const [tempAdjCount, setTempAdjCount] = useState(0);
+  const [keywordCount, setKeywordCount] = useState(0);
+  //change keyword every 4 words
+  const keyword = keywords[Math.floor(keywordCount / 4) + 1];
+
   // backend
   // creating IP state
   const [locationData, setLocationData] = useState({});
@@ -65,8 +90,11 @@ export default function Home() {
     <motion.main>
       <HeadComp />
       <GlobalContainer>
-        <Navbar rightLink="Share" />
-        <h1>Find your fonts</h1>
+        <Navbar rightLink="Exit" />
+        <Container>
+          <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
+          <FontsPromptRightCol onclickHandler={handleClick} />
+        </Container>
       </GlobalContainer>
     </motion.main>
   );
