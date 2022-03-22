@@ -1,6 +1,4 @@
 .container {
-  padding: 20px;
-  justify-items: start;
   height: 100%;
   background: #03091a;
   border-radius: 32px;
@@ -12,10 +10,6 @@
   transition: 0.2s;
 }
 
-.hide {
-  opacity: 0;
-}
-
 .container:hover {
   transform: scale(1.005);
   cursor: pointer;
@@ -23,25 +17,6 @@
 
 .container:active {
   transform: scale(0.99);
-}
-
-.fontName {
-  color: rgba(255, 255, 255, 0.5);
-  display: block;
-  position: absolute;
-  top: 20px;
-}
-
-.pengram {
-  color: white;
-  display: block;
-  text-align: center;
-  padding: 0px 20px;
-}
-
-.fontName,
-.pengram {
-  transition: opacity 0.5s;
 }
 
 /* –––––– */

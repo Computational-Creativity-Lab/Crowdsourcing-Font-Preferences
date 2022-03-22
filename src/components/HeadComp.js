@@ -8,10 +8,10 @@ export default function HeadComp() {
       <link rel="icon" href="/favicon.ico" />
       {/* <link rel="preconnect" href="https://fonts.googleapis.com">  */}
       {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  */}
-      <link
+      {/* <link
         href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Alegreya&family=Anonymous+Pro&family=Arvo&family=EB+Garamond&family=Great+Vibes&family=Hind&family=IBM+Plex+Sans&family=Josefin+Sans&family=Josefin+Slab&family=Lato&family=Libre+Baskerville&family=Lobster&family=Montserrat&family=Open+Sans&family=PT+Sans&family=PT+Serif&family=Playfair+Display&family=Quattrocento&family=Roboto&family=Roboto+Slab&family=Source+Sans+Pro&family=Space+Mono&display=swap"
         rel="stylesheet"
-      ></link>
+      ></link> */}
     </Head>
   );
 }
