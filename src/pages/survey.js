@@ -92,6 +92,7 @@ export default function Home() {
       <GlobalContainer>
         <Navbar rightLink="Exit" />
         <Container>
+          <BackgroundGradient keyword={keyword} />
           <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
           <FontsPromptRightCol onclickHandler={handleClick} />
         </Container>
