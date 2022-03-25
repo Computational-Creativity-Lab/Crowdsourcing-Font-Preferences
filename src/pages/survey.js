@@ -9,6 +9,7 @@ import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 
 // backend
 import axios from "axios";
+import BackgroundGradient from "../components/BackgroundGradient";
 const WRITE_TO_DB = false;
 
 export default function Home() {
