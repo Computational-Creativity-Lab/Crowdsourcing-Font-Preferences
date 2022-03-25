@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import Link from "next/Link";
+// import Link from "next/Link";
 
 export default function Navbar(props) {
   return (
@@ -9,7 +9,7 @@ export default function Navbar(props) {
       className="grid px-4 py-5 grid-cols-2 border-b sm:border-solid border-black "
     >
       {/* <motion.div className={styles.container}> */}
-      <Link href="/">
+      {/* <Link href="/">
         <p className=" cursor-pointer flex justify-self-start hover:opacity-50">
           {" "}
           Font Preference
@@ -19,7 +19,7 @@ export default function Navbar(props) {
         <p className="cursor-pointer flex justify-self-end hover:opacity-50">
           {props.rightLink}
         </p>
-      </Link>
+      </Link> */}
     </motion.div>
   );
 }
