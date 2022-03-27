@@ -6,10 +6,10 @@ import GlobalContainer from "../components/layout/GlobalContainer";
 import FontsPromptRightCol from "../components/FontsPromptRightCol";
 import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
+import BackgroundGradient from "../components/BackgroundGradient";
 
 // backend
 import axios from "axios";
-import BackgroundGradient from "../components/BackgroundGradient";
 const WRITE_TO_DB = false;
 
 export default function Home() {
@@ -93,10 +93,10 @@ export default function Home() {
       <GlobalContainer>
         <Navbar rightLink="Exit" />
         <Container>
-          <BackgroundGradient keyword={keyword} />
           <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
           <FontsPromptRightCol onclickHandler={handleClick} />
         </Container>
+          <BackgroundGradient keyword={keyword} />
       </GlobalContainer>
     </motion.main>
   );
