@@ -7,6 +7,17 @@ import FontCard from "./FontCard";
 const currentTopStyle = "Roboto";
 const currentBotStyle = "Alegreya";
 
+const pengrams = [
+  "Waltz, bad nymph, for quick jigs vex.",
+  "Glib jocks quiz nymph to vex dwarf.",
+  "Sphinx of black quartz, judge my vow.",
+  "How vexingly quick daft zebras jump!",
+  "The five boxing wizards jump quickly.",
+  "Jackdaws love my big sphinx of quartz.",
+  "Pack my box with five dozen liquor jugs.",
+];
+
+
 const fontList = [
   "Abril Fatface",
   "Alegreya",
@@ -33,20 +44,17 @@ const fontList = [
   "Space Mono",
 ];
 
-const pengrams = [
-  "Waltz, bad nymph, for quick jigs vex.",
-  "Glib jocks quiz nymph to vex dwarf.",
-  "Sphinx of black quartz, judge my vow.",
-  "How vexingly quick daft zebras jump!",
-  "The five boxing wizards jump quickly.",
-  "Jackdaws love my big sphinx of quartz.",
-  "Pack my box with five dozen liquor jugs.",
-];
+const remainingFonts = [];
+remainingFonts.push(...fontList);
+
 
 let pengramIndex = 0;
 let currentPengram = pengrams[pengramIndex];
-let firstFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
-let secondFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
+
+let firstFontIndex = Math.floor(Math.random() * fontList.length); 
+let secondFontIndex = Math.floor(Math.random() * fontList.length);
+let firstFontStyle = fontList[firstFontIndex];
+let secondFontStyle = fontList[secondFontIndex];
 
 //elastic card animation
 const cardFlip = {
@@ -62,28 +70,21 @@ const cardFlip = {
   },
 };
 
+
+
 export default function FontsPromptRightCol(props) {
+
+  if(props.addBackFonts){
+    console.log('add back fonts');
+  }
+  
   //mount and unmount card
   const [topCardState, setTopCardState] = useState(true);
   const [botCardState, setBotCardState] = useState(true);
   const [textFade, startTextFade] = useState(false);
-  // useEffect(() => {
-  //   //reappear
-  //   if (!topCardState) {
-  //     setTimeout(() => {
-  //       setTopCardState(!topCardState);
-  //       if (topCardState) {
-  //         firstFontStyle =
-  //           fontList[Math.floor(Math.random() * fontList.length)];
-  //         secondFontStyle =
-  //           fontList[Math.floor(Math.random() * fontList.length)];
-  //       }
-  //     }, 1000);
-  //   }
-  // }, [topCardState]);
 
-  //fade paragraph text
-  const fadeText = () => {
+   //fade paragraph text
+   const fadeText = () => {
     startTextFade(true);
 
     setTimeout(() => {
@@ -100,9 +101,24 @@ export default function FontsPromptRightCol(props) {
       chosenStyle: chosenFont,
     });
 
-    // Change font
-    firstFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
-    secondFontStyle = fontList[Math.floor(Math.random() * fontList.length)];
+  //Remove used font from existing font list
+    //if first index is before
+    if(firstFontIndex < secondFontIndex){
+      remainingFonts.splice(firstFontIndex, 1);
+      remainingFonts.splice(secondFontIndex - 1, 1);
+    }
+
+    else{
+      remainingFonts.splice(firstFontIndex, 1);
+      remainingFonts.splice(secondFontIndex, 1);
+    }
+
+    // Randomize font
+    firstFontIndex = Math.floor(Math.random() * fontList.length);
+    secondFontIndex = Math.floor(Math.random() * fontList.length);
+    firstFontStyle = fontList[firstFontIndex];
+    secondFontStyle = fontList[secondFontIndex];
+
 
     // Change pengram
     if (pengramIndex == pengrams.length - 1) {
@@ -123,6 +139,7 @@ export default function FontsPromptRightCol(props) {
       }, 80);
     }
   };
+
 
   return (
     <div className={styles.rightCol}>

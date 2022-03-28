@@ -12,6 +12,7 @@ export default function FontCard(props) {
   // };
 
   return (
+  
     <AnimatePresence>
       <motion.div
         className={"h-full bg-slate-900 flex rounded-3xl items-center relative justify-center select-none hover:scale-[1.005] hover:cursor-pointer active:scale-[.99] hover:shadow-[0_25px_35px_rgba(0,0,0,.2)] duration-200"}

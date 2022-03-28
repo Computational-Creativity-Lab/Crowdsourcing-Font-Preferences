@@ -9,7 +9,7 @@ export default function BackgroundGradient({ keyword }) {
   } else {
     bgColor = "red";
   }
-  console.log(bgColor);
+
   return (
     <div
       className={"absolute w-screen h-screen z-[-1]"}
