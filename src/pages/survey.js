@@ -8,35 +8,42 @@ import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import BackgroundGradient from "../components/BackgroundGradient";
 
+
 // backend
 import axios from "axios";
 const WRITE_TO_DB = false;
 
-export default function Home() {
-  const keywords = [
-    "Authoritative",
-    "Caring",
-    "Casual",
-    "Cheerful",
-    "Coarse",
-    "Conservative",
-    "Conversational",
-    "Dry",
-    "Edgy",
-    "Enthusiastic",
-    "Formal",
-    "Frank",
-    "Friendly",
-    "Fun",
-    "Funny",
-  ];
+const keywords = [
+  "Authoritative",
+  "Caring",
+  "Casual",
+  "Cheerful",
+  "Coarse",
+  "Conservative",
+  "Conversational",
+  "Dry",
+  "Edgy",
+  "Enthusiastic",
+  "Formal",
+  "Frank",
+  "Friendly",
+  "Fun",
+  "Funny",
+]; 
 
+let restoreFonts = false;
+
+export default function Home() {
   // count questions
   const [qCount, setQCount] = useState(0);
-  // const [tempAdjCount, setTempAdjCount] = useState(0);
-  const [keywordCount, setKeywordCount] = useState(0);
+
   //change keyword every 4 words
-  const keyword = keywords[Math.floor(keywordCount / 4) + 1];
+  let keyword = keywords[Math.floor(qCount / 4) + 1];
+
+  //add all fonts back in once keyword is done
+  if(qCount % 4 == 0 && qCount !== 0){
+    restoreFonts = true;
+  }
 
   // backend
   // creating IP state
@@ -45,7 +52,6 @@ export default function Home() {
   // load ip address using Axios
   async function getLocationData() {
     const res = await axios.get("https://geolocation-db.com/json/");
-    // console.log(res.data);
     setLocationData(res.data);
   }
 
@@ -61,7 +67,7 @@ export default function Home() {
         ? { country_name: locationData.country_name, state: locationData.state }
         : { country_name: locationData.country_name };
     const time = Date().toLocaleString();
-    // console.log("time: ", time);
+
     const response = await fetch("/api/new-preference", {
       method: "POST",
       body: JSON.stringify({
@@ -76,16 +82,14 @@ export default function Home() {
     });
 
     const data = await response.json();
-    // console.log(data);
+
   }
 
   async function handleClick(payload) {
-    // console.log("clicked, data:", payload);
-
     setQCount(qCount + 1);
-    setKeywordCount(keywordCount + 1);
     addPreferenceHandler(payload);
   }
+
 
   return (
     <motion.main>
@@ -94,7 +98,9 @@ export default function Home() {
         <Navbar rightLink="Exit" />
         <Container>
           <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
-          <FontsPromptRightCol onclickHandler={handleClick} />
+          <FontsPromptRightCol
+            onclickHandler={handleClick}
+            qCount={qCount}/>
         </Container>
           <BackgroundGradient keyword={keyword} />
       </GlobalContainer>
