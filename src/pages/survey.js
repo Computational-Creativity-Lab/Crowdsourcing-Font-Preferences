@@ -90,6 +90,7 @@ export default function Home() {
     addPreferenceHandler(payload);
   }
 
+
   return (
     <motion.main>
       <HeadComp />
@@ -97,7 +98,9 @@ export default function Home() {
         <Navbar rightLink="Exit" />
         <Container>
           <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
-          <FontsPromptRightCol onclickHandler={handleClick} addBackFonts = {restoreFonts} />
+          <FontsPromptRightCol
+            onclickHandler={handleClick}
+            qCount={qCount}/>
         </Container>
           <BackgroundGradient keyword={keyword} />
       </GlobalContainer>

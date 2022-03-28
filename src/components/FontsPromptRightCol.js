@@ -57,7 +57,7 @@ let firstFontStyle = fontList[firstFontIndex];
 let secondFontStyle = fontList[secondFontIndex];
 
 //elastic card animation
-const cardFlip = {
+const cardPop = {
   flip: {
     scale: 1.03,
     transition: {
@@ -72,11 +72,8 @@ const cardFlip = {
 
 
 
-export default function FontsPromptRightCol(props) {
 
-  if(props.addBackFonts){
-    console.log('add back fonts');
-  }
+export default function FontsPromptRightCol(props) {
   
   //mount and unmount card
   const [topCardState, setTopCardState] = useState(true);
@@ -101,21 +98,38 @@ export default function FontsPromptRightCol(props) {
       chosenStyle: chosenFont,
     });
 
-  //Remove used font from existing font list
-    //if first index is before
-    if(firstFontIndex < secondFontIndex){
-      remainingFonts.splice(firstFontIndex, 1);
-      remainingFonts.splice(secondFontIndex - 1, 1);
+
+
+    //Reset font list when a adj already had 4 responses
+    if(props.qCount % 4 == 0 && props.qCount !== 0){
+      remainingFonts.splice(0,remainingFonts.length);
+      remainingFonts.push(...fontList);
+      console.log(remainingFonts.length);
+    }
+    //Remove used font from existing font list
+    else{
+      if(firstFontIndex <= secondFontIndex){
+        console.log(remainingFonts[firstFontIndex]);
+        console.log(remainingFonts[secondFontIndex]);
+        remainingFonts.splice(secondFontIndex, 1);
+        remainingFonts.splice(firstFontIndex, 1);
+
+      }
+
+      else{
+        console.log(remainingFonts[firstFontIndex]);
+        console.log(remainingFonts[secondFontIndex]);
+        remainingFonts.splice(firstFontIndex, 1);
+        remainingFonts.splice(secondFontIndex, 1);
+      }
     }
 
-    else{
-      remainingFonts.splice(firstFontIndex, 1);
-      remainingFonts.splice(secondFontIndex, 1);
-    }
+    console.log(remainingFonts);
+    console.log(remainingFonts.length);
 
     // Randomize font
-    firstFontIndex = Math.floor(Math.random() * fontList.length);
-    secondFontIndex = Math.floor(Math.random() * fontList.length);
+    firstFontIndex = Math.floor(Math.random() * remainingFonts.length);
+    secondFontIndex = Math.floor(Math.random() * remainingFonts.length);
     firstFontStyle = fontList[firstFontIndex];
     secondFontStyle = fontList[secondFontIndex];
 
@@ -151,7 +165,7 @@ export default function FontsPromptRightCol(props) {
             handleClick(1);
             fadeText();
           }}
-          variants={cardFlip}
+          variants={cardPop}
           animate={topCardState ? "stop" : "flip"}
         >
           <FontCard
@@ -166,7 +180,7 @@ export default function FontsPromptRightCol(props) {
             handleClick(2);
             fadeText();
           }}
-          variants={cardFlip}
+          variants={cardPop}
           animate={botCardState ? "stop" : "flip"}
         >
           <FontCard
