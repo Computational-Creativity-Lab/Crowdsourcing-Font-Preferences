@@ -4,7 +4,7 @@
   font-family: "SF Pro";
   src: local("sf-pro"), url("./sf-pro.ttf") format("ttf");
 }
-
+/* 
 h1,
 .h1 {
   font-weight: 400;
@@ -72,7 +72,7 @@ p,
   .h5 {
     font-size: 15px;
   }
-}
+} */
 
 /*  'Abril Fatface'
  'Alegreya'

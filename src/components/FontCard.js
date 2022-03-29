@@ -25,7 +25,7 @@ export default function FontCard(props) {
       >
         <p className="absolute block top-5 text-slate-50">{props.fontStyle}</p>
         <h3
-          className="text-white block text-center px-5"
+          className="text-xl md:text-4xl text-white block text-center px-5 "
           style={{ fontFamily: `${props.fontStyle}` }}
         >
           {props.pengram}

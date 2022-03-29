@@ -27,7 +27,7 @@ export default function BackgroundGradient({ keyword }) {
 
   return (
     <div
-      className={"absolute w-screen h-screen z-[-1]"}
+      className={"top-0 absolute w-screen h-screen z-[-1]"}
       style={{backgroundColor: colorPairs[keyword]}}
     >
     </div>

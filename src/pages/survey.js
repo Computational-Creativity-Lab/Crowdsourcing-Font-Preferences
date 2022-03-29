@@ -6,6 +6,7 @@ import GlobalContainer from "../components/layout/GlobalContainer";
 import FontsPromptRightCol from "../components/FontsPromptRightCol";
 import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
+import Router from "next/router";
 import BackgroundGradient from "../components/BackgroundGradient";
 
 
@@ -45,8 +46,10 @@ export default function Home() {
     restoreFonts = true;
   }
 
-  // backend
-  // creating IP state
+  if(qCount + 1 > 20){
+    Router.push("/");
+  }
+  // backend, creating IP state
   const [locationData, setLocationData] = useState({});
 
   // load ip address using Axios
