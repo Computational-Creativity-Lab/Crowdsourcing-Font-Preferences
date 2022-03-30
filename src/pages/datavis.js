@@ -13,20 +13,24 @@ import DataRow from "../components/DataRow";
 export default function Datavis() {
 
   return (
-    <motion.main class='bg-slate-900 w-screen h-screen'>
+    <motion.main class='bg-slate-900'>
       <HeadComp></HeadComp>
       <Navbar isBlack = {false}></Navbar>
-
-      <div class="p-4">
-        <DataRow descriptor = "Caring"></DataRow>
-        <DataRow descriptor = "Caring"></DataRow>
-        <DataRow descriptor = "Caring"></DataRow>
-        <DataRow descriptor = "Caring"></DataRow>
-        <DataRow descriptor = "Caring"></DataRow>
-        <DataRow descriptor = "Caring"></DataRow>
-        <DataRow descriptor = "Caring"></DataRow>
-        <DataRow descriptor = "Caring"></DataRow>
-        <DataRow descriptor = "Caring"></DataRow>
+      <div class='p-4'>
+        <h1 class='text-xl text-white'>You're a</h1>
+        <h2 class='text-5xl text-white'>Traditionalist</h2>
+        <p class='text-white'>You follow the crowd on some fonts, but forge your own path on others. Overall, you matched with 50% of other responses. You have a preference for types and you tend to stay away from </p>
+        <div>
+          <DataRow descriptor = "Caring"></DataRow>
+          <DataRow descriptor = "Caring"></DataRow>
+          <DataRow descriptor = "Caring"></DataRow>
+          <DataRow descriptor = "Caring"></DataRow>
+          <DataRow descriptor = "Caring"></DataRow>
+          <DataRow descriptor = "Caring"></DataRow>
+          <DataRow descriptor = "Caring"></DataRow>
+          <DataRow descriptor = "Caring"></DataRow>
+          <DataRow descriptor = "Caring"></DataRow>
+        </div>
       </div>
     <BackgroundGradient></BackgroundGradient>
     </motion.main>

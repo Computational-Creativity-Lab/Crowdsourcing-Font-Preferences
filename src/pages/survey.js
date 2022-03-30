@@ -98,7 +98,7 @@ export default function Home() {
     <motion.main>
       <HeadComp />
       <GlobalContainer>
-        <Navbar rightLink="Exit" />
+        <Navbar rightLink="Exit" isBlack ={true}/>
         <Container>
           <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
           <FontsPromptRightCol
