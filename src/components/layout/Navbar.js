@@ -5,18 +5,15 @@ import Link from "next/link";
 export default function Navbar(props) {
   return (
     <motion.div
-      // style={{ borderBottom: "1px solid black" }}
-      className="grid px-4 py-5 grid-cols-2 border-b sm:border-solid border-black "
+      className={`grid px-4 py-5 grid-cols-2 border-b sm:border-solid ${props.isBlack ? 'border-black' : 'border-white'}`}
     >
-      {/* <motion.div className={styles.container}> */}
       <Link href="/">
-        <p className=" cursor-pointer flex justify-self-start hover:opacity-50">
-          {" "}
+        <p className={`cursor-pointer flex justify-self-start hover:opacity-50 ${props.isBlack ? 'text-black' : 'text-white'}`}>
           Font Preference
         </p>
       </Link>
       <Link href="/">
-        <p className="cursor-pointer flex justify-self-end hover:opacity-50">
+        <p className={`cursor-pointer flex justify-self-end hover:opacity-50 ${props.isBlack ? 'text-black' : 'text-white'}`}>
           {props.rightLink}
         </p>
       </Link>
