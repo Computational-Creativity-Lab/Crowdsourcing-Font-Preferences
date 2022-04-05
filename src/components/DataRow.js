@@ -9,7 +9,7 @@ export default function DataRow( props) {
         {/* descriptor */}
           <h1 class='text-white text-4xl h-fit border-solid border-white rounded-full px-4 py-2 mt-3'>{props.descriptor}</h1>
           {/* chart */}
-          <div class='flex flex-row inline-block pt-3 w-full'>
+          <div class='flex flex-row inline-block pt-3 w-[80vw]'>
             <div class='flex flex-col w-[40%] '>
               <p class='flex text-white justify-center pb-2'>Hello</p>
               <div class='inline-block bg-[#EA6161] p-2 rounded-full border-solid border-[#ffffff00] hover:border-white'></div>
