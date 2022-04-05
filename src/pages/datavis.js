@@ -21,7 +21,7 @@ export default function Datavis() {
         <h2 class='text-5xl text-white'>Traditionalist</h2>
         <p class='text-white'>You follow the crowd on some fonts, but forge your own path on others. Overall, you matched with 50% of other responses. You have a preference for types and you tend to stay away from </p>
         <div>
-          <DataRow descriptor = "Caring"></DataRow>
+          <DataRow descriptor = "Hi"></DataRow>
           <DataRow descriptor = "Caring"></DataRow>
           <DataRow descriptor = "Caring"></DataRow>
           <DataRow descriptor = "Caring"></DataRow>
