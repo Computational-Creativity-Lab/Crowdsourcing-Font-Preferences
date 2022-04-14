@@ -5,15 +5,27 @@ import Link from "next/link";
 export default function Navbar(props) {
   return (
     <motion.div
-      className={`grid px-4 py-5 grid-cols-2 border-b sm:border-solid ${props.isBlack ? 'border-black' : 'border-white'}`}
+      className={`grid px-4 py-5 grid-cols-2 border-b sm:border-solid ${
+        props.isBlack
+          ? "border-[rgba(0,0,0,.3)]"
+          : "border-[rgba(255,255,255,.3)]"
+      }`}
     >
       <Link href="/">
-        <p className={`cursor-pointer flex justify-self-start hover:opacity-50 ${props.isBlack ? 'text-black' : 'text-white'}`}>
+        <p
+          className={`cursor-pointer flex justify-self-start hover:opacity-50 ${
+            props.isBlack ? "text-black" : "text-white"
+          }`}
+        >
           Font Preference
         </p>
       </Link>
       <Link href="/">
-        <p className={`cursor-pointer flex justify-self-end hover:opacity-50 ${props.isBlack ? 'text-black' : 'text-white'}`}>
+        <p
+          className={`cursor-pointer flex justify-self-end hover:opacity-50 ${
+            props.isBlack ? "text-black" : "text-white"
+          }`}
+        >
           {props.rightLink}
         </p>
       </Link>
