@@ -11,7 +11,7 @@ export default function Home() {
       <CustomCursor />
       <HeadComp />
       <GlobalContainer>
-        <Navbar rightLink="Share" isBlack={true}/>
+        <Navbar rightLink="Share" isBlack={true} />
         <h1 className="px-4 py-4 text-7xl border-2 border-gray-900">
           Choose your font.
         </h1>

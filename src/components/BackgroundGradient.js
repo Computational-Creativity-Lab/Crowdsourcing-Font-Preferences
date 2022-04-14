@@ -13,23 +13,13 @@ const colorPairs = {
   Friendly: "blue",
   Fun: "red",
   Funny: "black",
-}
+};
 
 export default function BackgroundGradient({ keyword }) {
-  let bgColor = "green";
-  if (keyword == "Caring") {
-    bgColor = "blue";
-  } else if (keyword == "Casual") {
-    bgColor = "purple";
-  } else {
-    bgColor = "red";
-  }
-
   return (
     <div
       className={"top-0 absolute w-screen h-screen z-[-1]"}
-      style={{backgroundColor: colorPairs[keyword]}}
-    >
-    </div>
+      style={{ backgroundColor: colorPairs[keyword] }}
+    ></div>
   );
 }

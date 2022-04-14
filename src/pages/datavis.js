@@ -28,15 +28,13 @@ export default function Datavis() {
           <p>Top 5 Fonts</p>
         </div>
         <div>
-          <DataRow descriptor="Hi"></DataRow>
-          <DataRow descriptor="Caring"></DataRow>
-          <DataRow descriptor="Caring"></DataRow>
-          <DataRow descriptor="Caring"></DataRow>
-          <DataRow descriptor="Caring"></DataRow>
-          <DataRow descriptor="Caring"></DataRow>
-          <DataRow descriptor="Caring"></DataRow>
-          <DataRow descriptor="Caring"></DataRow>
-          <DataRow descriptor="Caring"></DataRow>
+          <DataRow descriptor="Authoritative"></DataRow>
+          <DataRow descriptor="Casual"></DataRow>
+          <DataRow descriptor="Formal"></DataRow>
+          <DataRow descriptor="Friendly"></DataRow>
+          <DataRow descriptor="Funny"></DataRow>
+          <DataRow descriptor="Playful"></DataRow>
+          <DataRow descriptor="Professional"></DataRow>
         </div>
       </div>
       <BackgroundGradient></BackgroundGradient>

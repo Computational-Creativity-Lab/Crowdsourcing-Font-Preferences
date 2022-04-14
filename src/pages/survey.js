@@ -9,7 +9,6 @@ import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
 import BackgroundGradient from "../components/BackgroundGradient";
 
-
 // backend
 import axios from "axios";
 const WRITE_TO_DB = false;
@@ -30,7 +29,7 @@ const keywords = [
   "Friendly",
   "Fun",
   "Funny",
-]; 
+];
 
 let restoreFonts = false;
 
@@ -42,12 +41,13 @@ export default function Home() {
   let keyword = keywords[Math.floor(qCount / 4) + 1];
 
   //add all fonts back in once keyword is done
-  if(qCount % 4 == 0 && qCount !== 0){
+  if (qCount % 4 == 0 && qCount !== 0) {
     restoreFonts = true;
   }
 
-  if(qCount + 1 > 20){
-    Router.push("/");
+  //go to data page
+  if (qCount + 1 > 20) {
+    Router.push("datavis");
   }
   // backend, creating IP state
   const [locationData, setLocationData] = useState({});
@@ -85,7 +85,6 @@ export default function Home() {
     });
 
     const data = await response.json();
-
   }
 
   async function handleClick(payload) {
@@ -93,19 +92,16 @@ export default function Home() {
     addPreferenceHandler(payload);
   }
 
-
   return (
     <motion.main>
       <HeadComp />
       <GlobalContainer>
-        <Navbar rightLink="Exit" isBlack ={true}/>
+        <Navbar rightLink="Exit" isBlack={true} />
         <Container>
           <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
-          <FontsPromptRightCol
-            onclickHandler={handleClick}
-            qCount={qCount}/>
+          <FontsPromptRightCol onclickHandler={handleClick} qCount={qCount} />
         </Container>
-          <BackgroundGradient keyword={keyword} />
+        <BackgroundGradient keyword={keyword} />
       </GlobalContainer>
     </motion.main>
   );

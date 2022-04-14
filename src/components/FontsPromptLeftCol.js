@@ -8,7 +8,7 @@ export default function FontsPromptLeftCol(props) {
         </h1>
       </div>
       <h3 className="text-2xl lg:text-4xl flex justify-self-start items-end h-full">
-        Q{props.qCount+1}/20
+        Q{props.qCount + 1}/20
       </h3>
     </div>
   );
