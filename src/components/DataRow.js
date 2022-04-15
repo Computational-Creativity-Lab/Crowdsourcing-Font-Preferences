@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-let percentages = [20, 30, 30, 10, 10];
 
 // let percentages = [10, 20, 30, 40, 50];
 
 export default function DataRow(props) {
+  let percentages = [20, 40, 20, 10, 10];
   let randomSelection = Math.floor(Math.random() * percentages.length);
   return (
     <div class="grid grid-cols-[300px_1fr] mb-4">
@@ -22,11 +22,10 @@ export default function DataRow(props) {
             <div
               class={`${
                 index == randomSelection
-                  ? `bg-white`
-                  : `bg-[rgba(230,230,255,.25)]`
-              } w-[${
-                percentages[index]
-              }%] flex flex-col  border-solid border-[#ffffff00] border hover:border-white px-4 py-4 rounded-full`}
+                  ? `bg-white hover:opacity-[.9]`
+                  : `bg-[rgba(230,230,255,.25)] hover:bg-[rgba(230,230,255,.3)]`
+              } flex flex-col border-solid border-[#ffffff00] border px-4 py-4 rounded-full ease-in-out transition-all hover:cursor-pointer`}
+              style={{ width: `${percentage}%` }}
             >
               <p class="text-black font-semibold">Roboto</p>
             </div>

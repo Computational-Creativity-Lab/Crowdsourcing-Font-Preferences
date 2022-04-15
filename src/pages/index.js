@@ -7,12 +7,12 @@ import GlobalContainer from "../components/layout/GlobalContainer";
 
 export default function Home() {
   return (
-    <motion.main onClick={() => Router.push("/survey")}>
+    <motion.main class="cursor-pointer" onClick={() => Router.push("/survey")}>
       <CustomCursor />
       <HeadComp />
       <GlobalContainer>
         <Navbar rightLink="Share" isBlack={true} />
-        <h1 className="px-4 py-4 text-7xl border-2 border-gray-900">
+        <h1 className="px-4 py-4 text-7xl border-2 border-gray-900 mt-16">
           Choose your font.
         </h1>
       </GlobalContainer>
@@ -43,7 +43,7 @@ const CustomCursor = () => {
   const { x, y } = useMousePosition();
   return (
     <p
-      className="absolute will-change-transform"
+      class="absolute will-change-transform"
       style={{
         transform: `translate(${x - 60}px, ${y - 30}px)`,
       }}

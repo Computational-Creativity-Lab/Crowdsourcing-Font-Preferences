@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Navbar(props) {
   return (
     <motion.div
-      className={`grid px-4 py-5 grid-cols-2 border-b sm:border-solid ${
+      className={`fixed w-full grid px-4 py-5 grid-cols-2 border-b sm:border-solid ${
         props.isBlack
           ? "border-[rgba(0,0,0,.3)]"
           : "border-[rgba(255,255,255,.3)]"
