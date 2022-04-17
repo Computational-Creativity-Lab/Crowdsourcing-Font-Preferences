@@ -3,7 +3,7 @@ import Navbar from "../components/layout/Navbar";
 import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
 import BackgroundGradient from "../components/BackgroundGradient";
-import DataRow from "../components/DataRow";
+import DataRow from "../components/datavis/DataRow";
 
 export default function Datavis() {
   return (

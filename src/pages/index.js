@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
 import Router from "next/router";
 import GlobalContainer from "../components/layout/GlobalContainer";
+import Container from "../components/layout/Container";
 
 export default function Home() {
   return (
@@ -12,9 +13,11 @@ export default function Home() {
       <HeadComp />
       <GlobalContainer>
         <Navbar rightLink="Share" isBlack={true} />
-        <h1 className="px-4 py-4 text-7xl border-2 border-gray-900 mt-16">
-          Choose your font.
-        </h1>
+        <Container>
+          <h1 className="px-4 py-4 text-7xl border-2 border-gray-900">
+            Choose your font.
+          </h1>
+        </Container>
       </GlobalContainer>
     </motion.main>
   );

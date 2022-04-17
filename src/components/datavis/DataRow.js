@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import DataBar from "./DataBar";
 
 // let percentages = [10, 20, 30, 40, 50];
 
@@ -19,16 +20,21 @@ export default function DataRow(props) {
           console.log(percentage);
 
           return (
-            <div
-              class={`${
-                index == randomSelection
-                  ? `bg-white hover:opacity-[.9]`
-                  : `bg-[rgba(230,230,255,.25)] hover:bg-[rgba(230,230,255,.3)]`
-              } flex flex-col border-solid border-[#ffffff00] border px-4 py-4 rounded-full ease-in-out transition-all hover:cursor-pointer`}
-              style={{ width: `${percentage}%` }}
-            >
-              <p class="text-black font-semibold">Roboto</p>
-            </div>
+            <DataBar
+              index={index}
+              percentage={percentage}
+              randomSelection={randomSelection}
+            ></DataBar>
+            // <div
+            //   class={`${
+            //     index == randomSelection
+            //       ? `bg-white hover:opacity-[.9]`
+            //       : `bg-[rgba(230,230,255,.25)] hover:bg-[rgba(230,230,255,.3)]`
+            //   } flex flex-col border-solid border-[#ffffff00] border px-4 py-4 rounded-full ease-in-out transition-all hover:cursor-pointer`}
+            //   style={{ width: `${percentage}%` }}
+            // >
+            //   <p class="text-black font-semibold">Roboto</p>
+            // </div>
           );
         })}
       </div>
