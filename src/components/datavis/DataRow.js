@@ -42,25 +42,14 @@ export default function DataRow(props) {
       {/* chart */}
       <div class="flex flex-row inline-block col-start-2 mb-4">
         {percentages.map((percentage, index) => {
-          console.log(percentage);
-
           return (
             <DataBar
+              key={index}
               index={index}
               percentage={percentage}
               randomSelection={randomSelection}
               fontList={fontList}
             ></DataBar>
-            // <div
-            //   class={`${
-            //     index == randomSelection
-            //       ? `bg-white hover:opacity-[.9]`
-            //       : `bg-[rgba(230,230,255,.25)] hover:bg-[rgba(230,230,255,.3)]`
-            //   } flex flex-col border-solid border-[#ffffff00] border px-4 py-4 rounded-full ease-in-out transition-all hover:cursor-pointer`}
-            //   style={{ width: `${percentage}%` }}
-            // >
-            //   <p class="text-black font-semibold">Roboto</p>
-            // </div>
           );
         })}
       </div>

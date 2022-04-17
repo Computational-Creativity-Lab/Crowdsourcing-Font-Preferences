@@ -107,13 +107,9 @@ export default function FontsPromptRightCol(props) {
     //Remove used font from existing font list
     else {
       if (firstFontIndex <= secondFontIndex) {
-        console.log(remainingFonts[firstFontIndex]);
-        console.log(remainingFonts[secondFontIndex]);
         remainingFonts.splice(secondFontIndex, 1);
         remainingFonts.splice(firstFontIndex, 1);
       } else {
-        console.log(remainingFonts[firstFontIndex]);
-        console.log(remainingFonts[secondFontIndex]);
         remainingFonts.splice(firstFontIndex, 1);
         remainingFonts.splice(secondFontIndex, 1);
       }
