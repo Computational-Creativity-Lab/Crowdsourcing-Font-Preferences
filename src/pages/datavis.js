@@ -7,7 +7,7 @@ import DataRow from "../components/datavis/DataRow";
 
 export default function Datavis() {
   return (
-    <motion.main class="bg-black min-h-[100vh]">
+    <motion.main class="bg-black min-h-[100vh] overflow-hidden">
       <HeadComp></HeadComp>
       <Navbar isBlack={false}></Navbar>
       <div class="p-4">

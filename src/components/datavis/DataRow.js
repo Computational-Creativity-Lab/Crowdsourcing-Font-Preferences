@@ -2,6 +2,31 @@ import React, { useState, useEffect } from "react";
 import DataBar from "./DataBar";
 
 // let percentages = [10, 20, 30, 40, 50];
+const fontList = [
+  "Abril Fatface",
+  "Alegreya",
+  "Anonymous Pro",
+  "Arvo",
+  "EB Garamond",
+  "Great Vibes",
+  "Hind",
+  "IBM Plex Sans",
+  "Josefin Sans",
+  "Josefin Slab",
+  "Lato",
+  "Libre Baskerville",
+  "Lobster",
+  "Montserrat",
+  "Open Sans",
+  "Playfair Display",
+  "PT Sans",
+  "PT Serif",
+  "Quattrocento",
+  "Roboto",
+  "Roboto Slab",
+  "Source Sans Pro",
+  "Space Mono",
+];
 
 export default function DataRow(props) {
   let percentages = [20, 40, 20, 10, 10];
@@ -24,6 +49,7 @@ export default function DataRow(props) {
               index={index}
               percentage={percentage}
               randomSelection={randomSelection}
+              fontList={fontList}
             ></DataBar>
             // <div
             //   class={`${
