@@ -9,13 +9,15 @@ export default function DataBar(props) {
 
   return (
     <div
-      onMouseEnter={() => setIsShown(true)}
+      onClick={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}
       class={`${
-        userChose ? `bg-white hover:opacity-[1]` : `bg-[rgba(230,230,255,.25)]`
+        userChose
+          ? `bg-white hover:opacity-[1] hover:cursor-pointer`
+          : `bg-[rgba(230,230,255,.25)] `
       } flex flex-col border-solid border-[#ffffff00]
       border px-4 py-4 rounded-full ease-in-out
-      transition-all hover:cursor-pointer`}
+      transition-all`}
       style={{ width: `${props.percentage}%` }}
     >
       <p class="text-black font-semibold">Roboto</p>
