@@ -31,6 +31,11 @@ const fontList = [
 export default function DataRow(props) {
   let percentages = [20, 40, 20, 10, 10];
   let randomSelection = Math.floor(Math.random() * percentages.length);
+
+  useEffect(() => {
+    // console.log(props.chosenWords);
+  });
+
   return (
     <div class="grid grid-cols-[300px_1fr] mb-4">
       {/* descriptor */}
@@ -44,6 +49,7 @@ export default function DataRow(props) {
         {percentages.map((percentage, index) => {
           return (
             <DataBar
+              currentDescriptor={props.descriptor}
               key={index}
               index={index}
               percentage={percentage}

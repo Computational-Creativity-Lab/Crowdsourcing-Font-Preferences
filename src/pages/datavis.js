@@ -6,6 +6,13 @@ import BackgroundGradient from "../components/BackgroundGradient";
 import DataRow from "../components/datavis/DataRow";
 
 export default function Datavis() {
+  let chosenWords;
+  useEffect(() => {
+    //store user's word selections
+    chosenWords = localStorage;
+    delete chosenWords["ally-supports-cache"];
+  });
+
   return (
     <motion.main class="bg-black min-h-[100vh] overflow-hidden">
       <HeadComp></HeadComp>
@@ -28,13 +35,14 @@ export default function Datavis() {
           <p>Top 5 Fonts</p>
         </div>
         <div>
-          <DataRow descriptor="Authoritative"></DataRow>
-          <DataRow descriptor="Casual"></DataRow>
-          <DataRow descriptor="Formal"></DataRow>
-          <DataRow descriptor="Friendly"></DataRow>
-          <DataRow descriptor="Funny"></DataRow>
-          <DataRow descriptor="Playful"></DataRow>
-          <DataRow descriptor="Professional"></DataRow>
+          <DataRow descriptor="Caring" chosenWords={chosenWords}></DataRow>
+          <DataRow descriptor="Casual" chosenWords={chosenWords}></DataRow>
+          <DataRow descriptor="Cheerful" chosenWords={chosenWords}></DataRow>
+          <DataRow descriptor="Coarse" chosenWords={chosenWords}></DataRow>
+          <DataRow
+            descriptor="Conservative"
+            chosenWords={chosenWords}
+          ></DataRow>
         </div>
       </div>
       <BackgroundGradient></BackgroundGradient>

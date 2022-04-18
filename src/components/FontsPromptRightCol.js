@@ -3,10 +3,6 @@ import styles from "../pages/index.module.css";
 import { motion } from "framer-motion";
 import FontCard from "./FontCard";
 
-// dummy data
-const currentTopStyle = "Roboto";
-const currentBotStyle = "Alegreya";
-
 const pengrams = [
   "Waltz, bad nymph, for quick jigs vex.",
   "Glib jocks quiz nymph to vex dwarf.",
@@ -54,6 +50,7 @@ let secondFontIndex = Math.floor(Math.random() * fontList.length);
 let firstFontStyle = fontList[firstFontIndex];
 let secondFontStyle = fontList[secondFontIndex];
 let chosenCard;
+let finalistCards = {};
 
 //elastic card animation
 const cardPop = {
@@ -88,14 +85,20 @@ export default function FontsPromptRightCol(props) {
   };
 
   const handleClick = (option) => {
-    const chosenFont = option === 1 ? currentTopStyle : currentBotStyle;
+    //determine which card was clicked
+    let chosenFont = option === 1 ? firstFontStyle : secondFontStyle;
     chosenCard = option === 1 ? 1 : 2;
+
     props.onclickHandler({
       chosenStyle: chosenFont,
     });
 
     //Reset font list when a adj already had 4 responses
     if ((props.qCount + 1) % 4 == 0 && props.qCount !== 1) {
+      //store responses
+      localStorage.setItem(props.keyword, chosenFont);
+      finalistCards[props.keyword] = chosenFont;
+
       remainingFonts.splice(0, remainingFonts.length);
       remainingFonts.push(...fontList);
       firstFontIndex = Math.floor(Math.random() * remainingFonts.length);

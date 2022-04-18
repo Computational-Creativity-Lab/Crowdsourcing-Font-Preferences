@@ -7,6 +7,9 @@ import GlobalContainer from "../components/layout/GlobalContainer";
 import Container from "../components/layout/Container";
 
 export default function Home() {
+  useEffect(() => {
+    localStorage.clear();
+  });
   return (
     <motion.main class="cursor-pointer" onClick={() => Router.push("/survey")}>
       <CustomCursor />
