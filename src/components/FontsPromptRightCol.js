@@ -47,36 +47,38 @@ let pengramIndex = 0;
 let chosenCard;
 let finalistCards = {};
 
-//elastic card animation
 const cardPop = {
   flip: {
-    scale: 1.03,
+    opacity: 0,
+    x: 500,
+    scale: 0.95,
     transition: {
-      type: "spring",
-      bounce: 0.5,
+      ease: [0.83, 0, 0.17, 1],
+      duration: 1,
     },
   },
   stop: {
+    x: 0,
+    opacity: 1,
     scale: 1,
+    transition: {
+      ease: [0.83, 0, 0.17, 1],
+      duration: 1,
+    },
   },
 };
 
-let firstFontIndex = Math.floor(Math.random() * fontList.length);
-let secondFontIndex = Math.floor(Math.random() * fontList.length);
-
 export default function FontsPromptRightCol(props) {
   //mount and unmount card
+  const [FFI, setFFI] = useState(Math.floor(Math.random() * fontList.length));
+  const [SFI, setSFI] = useState(Math.floor(Math.random() * fontList.length));
 
   const [currentPengram, setCurrentPengram] = useState(pengrams[pengramIndex]);
   const [topCardState, setTopCardState] = useState(true);
   const [botCardState, setBotCardState] = useState(true);
   const [textFade, startTextFade] = useState(false);
-  const [firstFontStyle, setFirstFontStyle] = useState(
-    fontList[firstFontIndex]
-  );
-  const [secondFontStyle, setSecondFontStyle] = useState(
-    fontList[secondFontIndex]
-  );
+  const [firstFontStyle, setFirstFontStyle] = useState(fontList[FFI]);
+  const [secondFontStyle, setSecondFontStyle] = useState(fontList[SFI]);
 
   useEffect(() => {
     console.log("why");
@@ -112,29 +114,29 @@ export default function FontsPromptRightCol(props) {
 
       remainingFonts.splice(0, remainingFonts.length);
       remainingFonts.push(...fontList);
-      firstFontIndex = Math.floor(Math.random() * remainingFonts.length);
-      setFirstFontStyle(fontList[firstFontIndex]);
+      setFFI(Math.floor(Math.random() * remainingFonts.length));
+      setFirstFontStyle(fontList[FFI]);
 
-      secondFontIndex = Math.floor(Math.random() * remainingFonts.length);
-      setSecondFontStyle(fontList[secondFontIndex]);
+      setSFI(Math.floor(Math.random() * remainingFonts.length));
+      setSecondFontStyle(fontList[SFI]);
     }
     //Remove used font from existing font list
     else {
-      if (firstFontIndex <= secondFontIndex) {
-        remainingFonts.splice(secondFontIndex, 1);
-        remainingFonts.splice(firstFontIndex, 1);
+      if (FFI <= SFI) {
+        remainingFonts.splice(SFI, 1);
+        remainingFonts.splice(FFI, 1);
       } else {
-        remainingFonts.splice(firstFontIndex, 1);
-        remainingFonts.splice(secondFontIndex, 1);
+        remainingFonts.splice(FFI, 1);
+        remainingFonts.splice(SFI, 1);
       }
 
       // Randomize font
       if (option == 1) {
-        secondFontIndex = Math.floor(Math.random() * remainingFonts.length);
-        setSecondFontStyle(fontList[secondFontIndex]);
+        setSFI(Math.floor(Math.random() * remainingFonts.length));
+        setSecondFontStyle(fontList[SFI]);
       } else {
-        firstFontIndex = Math.floor(Math.random() * remainingFonts.length);
-        setFirstFontStyle(fontList[firstFontIndex]);
+        setFFI(Math.floor(Math.random() * remainingFonts.length));
+        setFirstFontStyle(fontList[FFI]);
       }
     }
 
@@ -145,16 +147,16 @@ export default function FontsPromptRightCol(props) {
     // pengramIndex++;
     // setCurrentPengram(pengrams[pengramIndex]);
 
-    if (option === 1) {
+    if (option !== 1) {
       setTopCardState(!topCardState);
       setTimeout(() => {
         setTopCardState(topCardState);
-      }, 80);
+      }, 1000);
     } else {
       setBotCardState(!botCardState);
       setTimeout(() => {
         setBotCardState(botCardState);
-      }, 80);
+      }, 1000);
     }
   };
 
@@ -173,7 +175,6 @@ export default function FontsPromptRightCol(props) {
         >
           <FontCard
             fontStyle={firstFontStyle}
-            textFadeState={textFade}
             pengram={currentPengram}
             chosenCard={chosenCard}
             cardNum={1}

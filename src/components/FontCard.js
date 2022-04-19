@@ -1,13 +1,17 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 
-export default function FontCard(props) {
+export default function FontCard({ fontStyle, pengram, chosenCard, cardNum }) {
+  // const [localFS, setFontStyle] = useState(fontStyle || "Arial");
+  // useEffect(() => {
+  //   setFontStyle(fontStyle);
+  // }, [font]);
+
   return (
     <AnimatePresence>
       <motion.div
         className={`${
-          props.chosenCard == props.cardNum
-            ? "border border-solid border-white"
-            : ""
+          chosenCard == cardNum ? "border border-solid border-white" : ""
         } h-full bg-black flex rounded-3xl items-center relative justify-center select-none hover:scale-[1.005] hover:cursor-pointer active:scale-[.99] hover:shadow-[0_25px_35px_rgba(0,0,0,.2)] duration-200`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -16,12 +20,12 @@ export default function FontCard(props) {
           default: { duration: 0.1 },
         }}
       >
-        <p className="absolute block top-5 text-slate-50">{props.fontStyle}</p>
+        <p className="absolute block top-5 text-slate-50">{fontStyle}</p>
         <h3
           className="text-xl md:text-4xl text-white block text-center px-5 "
-          style={{ fontFamily: `${props.fontStyle}` }}
+          style={{ fontFamily: `${fontStyle}` }}
         >
-          {props.pengram}
+          {pengram}
         </h3>
       </motion.div>
     </AnimatePresence>
