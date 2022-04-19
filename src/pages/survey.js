@@ -8,9 +8,9 @@ import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import BackgroundGradient from "../components/BackgroundGradient";
 
-
 // backend
 import axios from "axios";
+import BackgroundShader from "../components/BackgroundShader";
 const WRITE_TO_DB = false;
 
 const keywords = [
@@ -29,7 +29,7 @@ const keywords = [
   "Friendly",
   "Fun",
   "Funny",
-]; 
+];
 
 let restoreFonts = false;
 
@@ -41,7 +41,7 @@ export default function Home() {
   let keyword = keywords[Math.floor(qCount / 4) + 1];
 
   //add all fonts back in once keyword is done
-  if(qCount % 4 == 0 && qCount !== 0){
+  if (qCount % 4 == 0 && qCount !== 0) {
     restoreFonts = true;
   }
 
@@ -82,14 +82,12 @@ export default function Home() {
     });
 
     const data = await response.json();
-
   }
 
   async function handleClick(payload) {
     setQCount(qCount + 1);
     addPreferenceHandler(payload);
   }
-
 
   return (
     <motion.main>
@@ -98,11 +96,9 @@ export default function Home() {
         <Navbar rightLink="Exit" />
         <Container>
           <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
-          <FontsPromptRightCol
-            onclickHandler={handleClick}
-            qCount={qCount}/>
+          <FontsPromptRightCol onclickHandler={handleClick} qCount={qCount} />
         </Container>
-          <BackgroundGradient keyword={keyword} />
+        <BackgroundShader keyword={keyword} />
       </GlobalContainer>
     </motion.main>
   );
