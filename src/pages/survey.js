@@ -43,6 +43,9 @@ export default function Home() {
   useEffect(() => {
     setAdj(keywords[Math.floor(qCount / 4) + 1]);
   });
+  useEffect(() => {
+    getLocationData();
+  }, []);
 
   //add all fonts back in once keyword is done
   if (qCount % 4 == 0 && qCount !== 0) {
@@ -61,10 +64,6 @@ export default function Home() {
     const res = await axios.get("https://geolocation-db.com/json/");
     setLocationData(res.data);
   }
-
-  useEffect(() => {
-    getLocationData();
-  }, []);
 
   async function addPreferenceHandler(payload) {
     if (!WRITE_TO_DB) return;

@@ -55,7 +55,7 @@ export default function DataRow(props) {
               key={index}
               index={index}
               percentage={percentage}
-              randomSelection={selection}
+              userSelected={selection}
               fontList={fontList}
             />
           );

@@ -43,12 +43,7 @@ const remainingFonts = [];
 remainingFonts.push(...fontList);
 
 let pengramIndex = 0;
-let currentPengram = pengrams[pengramIndex];
 
-let firstFontIndex = Math.floor(Math.random() * fontList.length);
-let secondFontIndex = Math.floor(Math.random() * fontList.length);
-let firstFontStyle = fontList[firstFontIndex];
-let secondFontStyle = fontList[secondFontIndex];
 let chosenCard;
 let finalistCards = {};
 
@@ -66,11 +61,26 @@ const cardPop = {
   },
 };
 
+let firstFontIndex = Math.floor(Math.random() * fontList.length);
+let secondFontIndex = Math.floor(Math.random() * fontList.length);
+
 export default function FontsPromptRightCol(props) {
   //mount and unmount card
+
+  const [currentPengram, setCurrentPengram] = useState(pengrams[pengramIndex]);
   const [topCardState, setTopCardState] = useState(true);
   const [botCardState, setBotCardState] = useState(true);
   const [textFade, startTextFade] = useState(false);
+  const [firstFontStyle, setFirstFontStyle] = useState(
+    fontList[firstFontIndex]
+  );
+  const [secondFontStyle, setSecondFontStyle] = useState(
+    fontList[secondFontIndex]
+  );
+
+  useEffect(() => {
+    console.log("why");
+  }, []);
 
   //fade paragraph text
   const fadeText = () => {
@@ -103,10 +113,10 @@ export default function FontsPromptRightCol(props) {
       remainingFonts.splice(0, remainingFonts.length);
       remainingFonts.push(...fontList);
       firstFontIndex = Math.floor(Math.random() * remainingFonts.length);
-      firstFontStyle = fontList[firstFontIndex];
+      setFirstFontStyle(fontList[firstFontIndex]);
 
       secondFontIndex = Math.floor(Math.random() * remainingFonts.length);
-      secondFontStyle = fontList[secondFontIndex];
+      setSecondFontStyle(fontList[secondFontIndex]);
     }
     //Remove used font from existing font list
     else {
@@ -121,10 +131,10 @@ export default function FontsPromptRightCol(props) {
       // Randomize font
       if (option == 1) {
         secondFontIndex = Math.floor(Math.random() * remainingFonts.length);
-        secondFontStyle = fontList[secondFontIndex];
+        setSecondFontStyle(fontList[secondFontIndex]);
       } else {
         firstFontIndex = Math.floor(Math.random() * remainingFonts.length);
-        firstFontStyle = fontList[firstFontIndex];
+        setFirstFontStyle(fontList[firstFontIndex]);
       }
     }
 
@@ -133,7 +143,7 @@ export default function FontsPromptRightCol(props) {
     //   pengramIndex = 0;
     // }
     // pengramIndex++;
-    // currentPengram = pengrams[pengramIndex];
+    // setCurrentPengram(pengrams[pengramIndex]);
 
     if (option === 1) {
       setTopCardState(!topCardState);

@@ -5,19 +5,19 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function DataBar(props) {
   const [isShown, setIsShown] = useState(false);
-  let userChose = props.index == props.randomSelection;
+  let userChose = props.index == props.userSelected;
 
-  // let userChose = props.index == props.randomSelection;
+  // let userChose = props.index == props.userSelected;
 
   return (
     <div
       onClick={() => {
-        console.log(props.index, props.randomSelection);
+        console.log(props.index, props.userSelected);
         setIsShown(true);
       }}
       onMouseLeave={() => setIsShown(false)}
       className={`${
-        props.index == props.randomSelection
+        props.index == props.userSelected
           ? `bg-white hover:opacity-[1] hover:cursor-pointer`
           : `bg-[rgba(230,230,255,.25)] `
       } flex flex-col border-solid border-[#ffffff00]
@@ -27,7 +27,7 @@ export default function DataBar(props) {
     >
       <p className="text-black font-semibold">Roboto</p>
       <AnimatePresence>
-        {isShown && (
+        {isShown && userChose && (
           <motion.div
             key="modal"
             initial={{ opacity: 0, top: 5, scale: 0.95 }}
