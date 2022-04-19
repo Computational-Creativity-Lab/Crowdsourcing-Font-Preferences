@@ -39,15 +39,15 @@ export default function DataRow(props) {
   }, []);
 
   return (
-    <div class="grid grid-cols-[300px_1fr] mb-4">
+    <div className="grid grid-cols-[300px_1fr] mb-4">
       {/* descriptor */}
-      <div class="col-start-1">
-        <h1 class="text-white text-2xl w-fit border border-solid border-white rounded-full px-4 py-2">
+      <div className="col-start-1">
+        <h1 className="text-white text-2xl w-fit border border-solid border-white rounded-full px-4 py-2">
           {props.descriptor}
         </h1>
       </div>
       {/* chart */}
-      <div class="flex flex-row inline-block col-start-2 mb-4">
+      <div className="flex flex-row inline-block col-start-2 mb-4">
         {percentages.map((percentage, index) => {
           return (
             <DataBar

@@ -14,7 +14,10 @@ export default function Home() {
     }
   });
   return (
-    <motion.main class="cursor-pointer" onClick={() => Router.push("/survey")}>
+    <motion.main
+      className="cursor-pointer"
+      onClick={() => Router.push("/survey")}
+    >
       <CustomCursor />
       <HeadComp />
       <GlobalContainer>
@@ -52,7 +55,7 @@ const CustomCursor = () => {
   const { x, y } = useMousePosition();
   return (
     <p
-      class="absolute will-change-transform"
+      className="absolute will-change-transform"
       style={{
         transform: `translate(${x - 60}px, ${y - 30}px)`,
       }}

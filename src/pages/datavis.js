@@ -27,23 +27,23 @@ export default function Datavis() {
   }, []);
 
   return (
-    <motion.main class="bg-black min-h-[100vh] overflow-hidden">
+    <motion.main className="bg-black min-h-[100vh] overflow-hidden">
       <HeadComp></HeadComp>
       <Navbar isBlack={false}></Navbar>
-      <div class="p-4">
-        <div class=" grid grid-cols-2 mt-16 mb-48">
+      <div className="p-4">
+        <div className=" grid grid-cols-2 mt-16 mb-48">
           <div>
-            <h1 class="text-5xl text-white">
-              You're a <span class="underline">Traditionalist</span>
+            <h1 className="text-5xl text-white">
+              You're a <span className="underline">Traditionalist</span>
             </h1>
           </div>
-          <p class="text-white text-lg mt-3 mr-[10%]">
+          <p className="text-white text-lg mt-3 mr-[10%]">
             You follow the crowd on some fonts, but forge your own path on
             others. Overall, you matched with 50% of other responses. You have a
             preference for types and you tend to stay away from{" "}
           </p>
         </div>
-        <div class="text-white grid grid-cols-[300px_1fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8">
+        <div className="text-white grid grid-cols-[300px_1fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8">
           <p>Keywords</p>
           <p>Top 5 Fonts</p>
         </div>

@@ -37,9 +37,12 @@ let restoreFonts = false;
 export default function Home() {
   // count questions
   const [qCount, setQCount] = useState(0);
+  const [adj, setAdj] = useState(keywords[0]);
 
   //change keyword every 4 words
-  let keyword = keywords[Math.floor(qCount / 4) + 1];
+  useEffect(() => {
+    setAdj(keywords[Math.floor(qCount / 4) + 1]);
+  });
 
   //add all fonts back in once keyword is done
   if (qCount % 4 == 0 && qCount !== 0) {
@@ -99,14 +102,14 @@ export default function Home() {
       <GlobalContainer>
         <Navbar rightLink="Exit" isBlack={true} />
         <Container>
-          <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
+          <FontsPromptLeftCol qCount={qCount} keyword={adj} />
           <FontsPromptRightCol
             onclickHandler={handleClick}
             qCount={qCount}
-            keyword={keyword}
+            keyword={adj}
           />
         </Container>
-        <BackgroundGradient keyword={keyword} />
+        <BackgroundGradient keyword={adj} />
       </GlobalContainer>
     </motion.main>
   );

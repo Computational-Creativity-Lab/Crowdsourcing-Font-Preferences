@@ -4,7 +4,7 @@ export default function FontCard(props) {
   return (
     <AnimatePresence>
       <motion.div
-        class={`${
+        className={`${
           props.chosenCard == props.cardNum
             ? "border border-solid border-white"
             : ""
@@ -16,9 +16,9 @@ export default function FontCard(props) {
           default: { duration: 0.1 },
         }}
       >
-        <p class="absolute block top-5 text-slate-50">{props.fontStyle}</p>
+        <p className="absolute block top-5 text-slate-50">{props.fontStyle}</p>
         <h3
-          class="text-xl md:text-4xl text-white block text-center px-5 "
+          className="text-xl md:text-4xl text-white block text-center px-5 "
           style={{ fontFamily: `${props.fontStyle}` }}
         >
           {props.pengram}
