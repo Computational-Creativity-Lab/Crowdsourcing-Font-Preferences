@@ -4,17 +4,23 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
 import Router from "next/router";
 import GlobalContainer from "../components/layout/GlobalContainer";
+import Container from "../components/layout/Container";
 
 export default function Home() {
+  useEffect(() => {
+    localStorage.clear();
+  });
   return (
-    <motion.main onClick={() => Router.push("/survey")}>
+    <motion.main class="cursor-pointer" onClick={() => Router.push("/survey")}>
       <CustomCursor />
       <HeadComp />
       <GlobalContainer>
-        <Navbar rightLink="Share" />
-        <h1 className="px-4 py-4 text-7xl border-2 border-gray-900">
-          Choose your font.
-        </h1>
+        <Navbar rightLink="Share" isBlack={true} />
+        <Container>
+          <h1 className="px-4 py-4 text-7xl border-2 border-gray-900">
+            Choose your font.
+          </h1>
+        </Container>
       </GlobalContainer>
     </motion.main>
   );
@@ -43,7 +49,7 @@ const CustomCursor = () => {
   const { x, y } = useMousePosition();
   return (
     <p
-      className="absolute will-change-transform"
+      class="absolute will-change-transform"
       style={{
         transform: `translate(${x - 60}px, ${y - 30}px)`,
       }}

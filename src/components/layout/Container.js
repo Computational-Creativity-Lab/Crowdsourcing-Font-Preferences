@@ -1,5 +1,3 @@
-import styles from "../../pages/index.module.css";
-
 export default function Container(props) {
-  return <div className={styles.container}>{props.children} </div>;
+  return <div class="grid h-full grid-cols-2 pt-14">{props.children} </div>;
 }

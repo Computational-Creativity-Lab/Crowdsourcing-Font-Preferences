@@ -6,6 +6,7 @@ import GlobalContainer from "../components/layout/GlobalContainer";
 import FontsPromptRightCol from "../components/FontsPromptRightCol";
 import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
+import Router from "next/router";
 import BackgroundGradient from "../components/BackgroundGradient";
 
 // backend
@@ -45,8 +46,11 @@ export default function Home() {
     restoreFonts = true;
   }
 
-  // backend
-  // creating IP state
+  //go to data page
+  if (qCount + 1 > 20) {
+    Router.push("datavis");
+  }
+  // backend, creating IP state
   const [locationData, setLocationData] = useState({});
 
   // load ip address using Axios
@@ -93,10 +97,15 @@ export default function Home() {
     <motion.main>
       <HeadComp />
       <GlobalContainer>
-        <Navbar rightLink="Exit" />
+        <Navbar rightLink="Exit" isBlack={true} />
         <Container>
           <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
-          <FontsPromptRightCol onclickHandler={handleClick} qCount={qCount} />
+
+          <FontsPromptRightCol
+            onclickHandler={handleClick}
+            qCount={qCount}
+            keyword={keyword}
+          />
         </Container>
         <BackgroundGradient keyword={keyword} />
       </GlobalContainer>

@@ -3,10 +3,6 @@ import styles from "../pages/index.module.css";
 import { motion } from "framer-motion";
 import FontCard from "./FontCard";
 
-// dummy data
-const currentTopStyle = "Roboto";
-const currentBotStyle = "Alegreya";
-
 const pengrams = [
   "Waltz, bad nymph, for quick jigs vex.",
   "Glib jocks quiz nymph to vex dwarf.",
@@ -16,7 +12,6 @@ const pengrams = [
   "Jackdaws love my big sphinx of quartz.",
   "Pack my box with five dozen liquor jugs.",
 ];
-
 
 const fontList = [
   "Abril Fatface",
@@ -47,14 +42,15 @@ const fontList = [
 const remainingFonts = [];
 remainingFonts.push(...fontList);
 
-
 let pengramIndex = 0;
 let currentPengram = pengrams[pengramIndex];
 
-let firstFontIndex = Math.floor(Math.random() * fontList.length); 
+let firstFontIndex = Math.floor(Math.random() * fontList.length);
 let secondFontIndex = Math.floor(Math.random() * fontList.length);
 let firstFontStyle = fontList[firstFontIndex];
 let secondFontStyle = fontList[secondFontIndex];
+let chosenCard;
+let finalistCards = {};
 
 //elastic card animation
 const cardPop = {
@@ -70,18 +66,14 @@ const cardPop = {
   },
 };
 
-
-
-
 export default function FontsPromptRightCol(props) {
-  
   //mount and unmount card
   const [topCardState, setTopCardState] = useState(true);
   const [botCardState, setBotCardState] = useState(true);
   const [textFade, startTextFade] = useState(false);
 
-   //fade paragraph text
-   const fadeText = () => {
+  //fade paragraph text
+  const fadeText = () => {
     startTextFade(true);
 
     setTimeout(() => {
@@ -93,53 +85,55 @@ export default function FontsPromptRightCol(props) {
   };
 
   const handleClick = (option) => {
-    const chosenFont = option === 1 ? currentTopStyle : currentBotStyle;
+    //determine which card was clicked
+    let chosenFont = option === 1 ? firstFontStyle : secondFontStyle;
+    chosenCard = option === 1 ? 1 : 2;
+
     props.onclickHandler({
       chosenStyle: chosenFont,
     });
 
-
-
     //Reset font list when a adj already had 4 responses
-    if(props.qCount % 4 == 0 && props.qCount !== 0){
-      remainingFonts.splice(0,remainingFonts.length);
+    if ((props.qCount + 1) % 4 == 0 && props.qCount !== 1) {
+      //store responses
+      localStorage.setItem(props.keyword, chosenFont);
+      finalistCards[props.keyword] = chosenFont;
+      console.log(finalistCards);
+
+      remainingFonts.splice(0, remainingFonts.length);
       remainingFonts.push(...fontList);
-      console.log(remainingFonts.length);
+      firstFontIndex = Math.floor(Math.random() * remainingFonts.length);
+      firstFontStyle = fontList[firstFontIndex];
+
+      secondFontIndex = Math.floor(Math.random() * remainingFonts.length);
+      secondFontStyle = fontList[secondFontIndex];
     }
     //Remove used font from existing font list
-    else{
-      if(firstFontIndex <= secondFontIndex){
-        console.log(remainingFonts[firstFontIndex]);
-        console.log(remainingFonts[secondFontIndex]);
+    else {
+      if (firstFontIndex <= secondFontIndex) {
         remainingFonts.splice(secondFontIndex, 1);
         remainingFonts.splice(firstFontIndex, 1);
-
+      } else {
+        remainingFonts.splice(firstFontIndex, 1);
+        remainingFonts.splice(secondFontIndex, 1);
       }
 
-      else{
-        console.log(remainingFonts[firstFontIndex]);
-        console.log(remainingFonts[secondFontIndex]);
-        remainingFonts.splice(firstFontIndex, 1);
-        remainingFonts.splice(secondFontIndex, 1);
+      // Randomize font
+      if (option == 1) {
+        secondFontIndex = Math.floor(Math.random() * remainingFonts.length);
+        secondFontStyle = fontList[secondFontIndex];
+      } else {
+        firstFontIndex = Math.floor(Math.random() * remainingFonts.length);
+        firstFontStyle = fontList[firstFontIndex];
       }
     }
-
-    console.log(remainingFonts);
-    console.log(remainingFonts.length);
-
-    // Randomize font
-    firstFontIndex = Math.floor(Math.random() * remainingFonts.length);
-    secondFontIndex = Math.floor(Math.random() * remainingFonts.length);
-    firstFontStyle = fontList[firstFontIndex];
-    secondFontStyle = fontList[secondFontIndex];
-
 
     // Change pengram
-    if (pengramIndex == pengrams.length - 1) {
-      pengramIndex = 0;
-    }
-    pengramIndex++;
-    currentPengram = pengrams[pengramIndex];
+    // if (pengramIndex == pengrams.length - 1) {
+    //   pengramIndex = 0;
+    // }
+    // pengramIndex++;
+    // currentPengram = pengrams[pengramIndex];
 
     if (option === 1) {
       setTopCardState(!topCardState);
@@ -153,7 +147,6 @@ export default function FontsPromptRightCol(props) {
       }, 80);
     }
   };
-
 
   return (
     <div className={styles.rightCol}>
@@ -172,6 +165,8 @@ export default function FontsPromptRightCol(props) {
             fontStyle={firstFontStyle}
             textFadeState={textFade}
             pengram={currentPengram}
+            chosenCard={chosenCard}
+            cardNum={1}
           />
         </motion.div>
         <motion.div
@@ -187,6 +182,8 @@ export default function FontsPromptRightCol(props) {
             fontStyle={secondFontStyle}
             textFadeState={textFade}
             pengram={currentPengram}
+            chosenCard={chosenCard}
+            cardNum={2}
           />
         </motion.div>
       </Fragment>
