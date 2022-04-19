@@ -98,7 +98,7 @@ export default function Home() {
           <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
           <FontsPromptRightCol onclickHandler={handleClick} qCount={qCount} />
         </Container>
-        <BackgroundShader keyword={keyword} />
+        <BackgroundGradient keyword={keyword} />
       </GlobalContainer>
     </motion.main>
   );
