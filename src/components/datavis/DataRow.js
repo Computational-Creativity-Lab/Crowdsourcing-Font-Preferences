@@ -30,11 +30,13 @@ const fontList = [
 
 export default function DataRow(props) {
   let percentages = [20, 40, 20, 10, 10];
-  let randomSelection = Math.floor(Math.random() * percentages.length);
+  let selection = fontList.findIndex((el) => el === props.chosen);
 
   useEffect(() => {
-    // console.log(props.chosenWords);
-  });
+    console.log(
+      "DataRow selection index: " + selection + ", name: " + props.chosen
+    );
+  }, []);
 
   return (
     <div class="grid grid-cols-[300px_1fr] mb-4">
@@ -53,9 +55,9 @@ export default function DataRow(props) {
               key={index}
               index={index}
               percentage={percentage}
-              randomSelection={randomSelection}
+              randomSelection={selection}
               fontList={fontList}
-            ></DataBar>
+            />
           );
         })}
       </div>

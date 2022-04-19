@@ -8,7 +8,10 @@ import Container from "../components/layout/Container";
 
 export default function Home() {
   useEffect(() => {
-    localStorage.clear();
+    // Make sure we are on client side
+    if (typeof window !== "undefined") {
+      localStorage.clear();
+    }
   });
   return (
     <motion.main class="cursor-pointer" onClick={() => Router.push("/survey")}>

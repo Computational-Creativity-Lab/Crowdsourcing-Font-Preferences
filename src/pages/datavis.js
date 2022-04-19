@@ -5,13 +5,26 @@ import HeadComp from "../components/HeadComp";
 import BackgroundGradient from "../components/BackgroundGradient";
 import DataRow from "../components/datavis/DataRow";
 
+const descriptors = ["Caring", "Casual", "Cheerful", "Coarse"];
+
 export default function Datavis() {
+  const [choices, setChoices] = useState([]);
+
   let chosenWords;
   useEffect(() => {
     //store user's word selections
-    chosenWords = localStorage;
-    delete chosenWords["ally-supports-cache"];
-  });
+    // Make sure we are on client side
+    if (typeof window !== "undefined") {
+      var tempChoices = [];
+      descriptors.forEach((keyword) => {
+        tempChoices.push(window.localStorage.getItem(keyword));
+      });
+      console.log("Choices:", tempChoices);
+      setChoices(tempChoices);
+      // chosenWords = localStorage;
+      // delete chosenWords["ally-supports-cache"];
+    }
+  }, []);
 
   return (
     <motion.main class="bg-black min-h-[100vh] overflow-hidden">
@@ -35,14 +48,17 @@ export default function Datavis() {
           <p>Top 5 Fonts</p>
         </div>
         <div>
-          <DataRow descriptor="Caring" chosenWords={chosenWords}></DataRow>
+          {choices.map((choice, i) => (
+            <DataRow descriptor={descriptors[i]} chosen={choice} />
+          ))}
+          {/* <DataRow descriptor="Caring" chosenWords={chosenWords}></DataRow>
           <DataRow descriptor="Casual" chosenWords={chosenWords}></DataRow>
           <DataRow descriptor="Cheerful" chosenWords={chosenWords}></DataRow>
           <DataRow descriptor="Coarse" chosenWords={chosenWords}></DataRow>
           <DataRow
             descriptor="Conservative"
             chosenWords={chosenWords}
-          ></DataRow>
+          ></DataRow> */}
         </div>
       </div>
       <BackgroundGradient></BackgroundGradient>

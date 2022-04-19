@@ -100,7 +100,6 @@ export default function Home() {
         <Navbar rightLink="Exit" isBlack={true} />
         <Container>
           <FontsPromptLeftCol qCount={qCount} keyword={keyword} />
-
           <FontsPromptRightCol
             onclickHandler={handleClick}
             qCount={qCount}
