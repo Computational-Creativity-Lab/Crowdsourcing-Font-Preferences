@@ -42,10 +42,10 @@ export default function Home() {
   // change keyword every 4 words
   useEffect(() => {
     setAdj(keywords[Math.floor(qCount / 4) + 1]);
-  }, qCount);
+  }, [qCount]);
+
   useEffect(() => {
     getLocationData();
-    // console.log("hello world");
   }, []);
 
   //add all fonts back in once keyword is done

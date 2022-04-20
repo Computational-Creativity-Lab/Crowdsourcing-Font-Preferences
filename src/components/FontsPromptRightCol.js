@@ -75,14 +75,25 @@ export default function FontsPromptRightCol(props) {
 
   const [currentPengram, setCurrentPengram] = useState(pengrams[pengramIndex]);
   const [topCardState, setTopCardState] = useState(true);
-  const [botCardState, setBotCardState] = useState(true);
-  const [textFade, startTextFade] = useState(false);
-  const [firstFontStyle, setFirstFontStyle] = useState(fontList[FFI]);
-  const [secondFontStyle, setSecondFontStyle] = useState(fontList[SFI]);
-
   useEffect(() => {
-    console.log("why");
-  }, []);
+    if (topCardState) {
+      let randomNum = Math.floor(Math.random() * remainingFonts.length);
+      setFFI(randomNum);
+      setFFS(fontList[FFI]);
+    }
+  }, [topCardState]);
+
+  const [botCardState, setBotCardState] = useState(true);
+  useEffect(() => {
+    if (botCardState) {
+      let randomNum = Math.floor(Math.random() * remainingFonts.length);
+      setSFI(randomNum);
+      setSFS(fontList[SFI]);
+    }
+  }, [botCardState]);
+  const [textFade, startTextFade] = useState(false);
+  const [FFS, setFFS] = useState(fontList[FFI]);
+  const [SFS, setSFS] = useState(fontList[SFI]);
 
   //fade paragraph text
   const fadeText = () => {
@@ -98,7 +109,7 @@ export default function FontsPromptRightCol(props) {
 
   const handleClick = (option) => {
     //determine which card was clicked
-    let chosenFont = option === 1 ? firstFontStyle : secondFontStyle;
+    let chosenFont = option === 1 ? FFS : SFS;
     chosenCard = option === 1 ? 1 : 2;
 
     props.onclickHandler({
@@ -114,12 +125,8 @@ export default function FontsPromptRightCol(props) {
 
       remainingFonts.splice(0, remainingFonts.length);
       remainingFonts.push(...fontList);
-      setFFI(Math.floor(Math.random() * remainingFonts.length));
-      setFirstFontStyle(fontList[FFI]);
-
-      setSFI(Math.floor(Math.random() * remainingFonts.length));
-      setSecondFontStyle(fontList[SFI]);
     }
+
     //Remove used font from existing font list
     else {
       if (FFI <= SFI) {
@@ -128,15 +135,6 @@ export default function FontsPromptRightCol(props) {
       } else {
         remainingFonts.splice(FFI, 1);
         remainingFonts.splice(SFI, 1);
-      }
-
-      // Randomize font
-      if (option == 1) {
-        setSFI(Math.floor(Math.random() * remainingFonts.length));
-        setSecondFontStyle(fontList[SFI]);
-      } else {
-        setFFI(Math.floor(Math.random() * remainingFonts.length));
-        setFirstFontStyle(fontList[FFI]);
       }
     }
 
@@ -147,12 +145,17 @@ export default function FontsPromptRightCol(props) {
     // pengramIndex++;
     // setCurrentPengram(pengrams[pengramIndex]);
 
-    if (option !== 1) {
+    //bottom card is clicked
+
+    if (option != 1) {
+      console.log("bottom card clicked");
       setTopCardState(!topCardState);
       setTimeout(() => {
         setTopCardState(topCardState);
       }, 1000);
     } else {
+      //top card is clicked
+      console.log("top card clicked");
       setBotCardState(!botCardState);
       setTimeout(() => {
         setBotCardState(botCardState);
@@ -174,7 +177,7 @@ export default function FontsPromptRightCol(props) {
           animate={topCardState ? "stop" : "flip"}
         >
           <FontCard
-            fontStyle={firstFontStyle}
+            fontStyle={FFS}
             pengram={currentPengram}
             chosenCard={chosenCard}
             cardNum={1}
@@ -190,7 +193,7 @@ export default function FontsPromptRightCol(props) {
           animate={botCardState ? "stop" : "flip"}
         >
           <FontCard
-            fontStyle={secondFontStyle}
+            fontStyle={SFS}
             textFadeState={textFade}
             pengram={currentPengram}
             chosenCard={chosenCard}
