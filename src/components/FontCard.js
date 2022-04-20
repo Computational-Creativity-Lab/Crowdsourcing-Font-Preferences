@@ -2,11 +2,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function FontCard({ fontStyle, pengram, chosenCard, cardNum }) {
-  // const [localFS, setFontStyle] = useState(fontStyle || "Arial");
-  // useEffect(() => {
-  //   setFontStyle(fontStyle);
-  // }, [font]);
-
   return (
     <AnimatePresence>
       <motion.div

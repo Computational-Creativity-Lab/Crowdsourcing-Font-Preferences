@@ -1,4 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
+import Router from "next/router";
 import styles from "../pages/index.module.css";
 import { motion } from "framer-motion";
 import FontCard from "./FontCard";
@@ -44,25 +45,24 @@ remainingFonts.push(...fontList);
 
 let pengramIndex = 0;
 
-let chosenCard;
 let finalistCards = {};
 
 const cardPop = {
   flip: {
     opacity: 0,
-    x: 500,
+    // x: 500,
     scale: 0.95,
     transition: {
-      ease: [0.83, 0, 0.17, 1],
+      ease: [0.22, 1, 0.36, 1],
       duration: 1,
     },
   },
   stop: {
-    x: 0,
+    // x: 0,
     opacity: 1,
     scale: 1,
     transition: {
-      ease: [0.83, 0, 0.17, 1],
+      ease: [0.22, 1, 0.36, 1],
       duration: 1,
     },
   },
@@ -72,8 +72,12 @@ export default function FontsPromptRightCol(props) {
   //mount and unmount card
   const [FFI, setFFI] = useState(Math.floor(Math.random() * fontList.length));
   const [SFI, setSFI] = useState(Math.floor(Math.random() * fontList.length));
-
+  const [chosenCard, setChosenCard] = useState();
   const [currentPengram, setCurrentPengram] = useState(pengrams[pengramIndex]);
+  const [textFade, startTextFade] = useState(false);
+  const [FFS, setFFS] = useState(fontList[FFI]);
+  const [SFS, setSFS] = useState(fontList[SFI]);
+
   const [topCardState, setTopCardState] = useState(true);
   useEffect(() => {
     if (topCardState) {
@@ -91,9 +95,13 @@ export default function FontsPromptRightCol(props) {
       setSFS(fontList[SFI]);
     }
   }, [botCardState]);
-  const [textFade, startTextFade] = useState(false);
-  const [FFS, setFFS] = useState(fontList[FFI]);
-  const [SFS, setSFS] = useState(fontList[SFI]);
+
+  //if user refreshes, route them to home page to start over
+  useEffect(() => {
+    if (localStorage.length != 0) {
+      Router.push("/");
+    }
+  }, []);
 
   //fade paragraph text
   const fadeText = () => {
@@ -110,7 +118,7 @@ export default function FontsPromptRightCol(props) {
   const handleClick = (option) => {
     //determine which card was clicked
     let chosenFont = option === 1 ? FFS : SFS;
-    chosenCard = option === 1 ? 1 : 2;
+    setChosenCard(option === 1 ? 1 : 2);
 
     props.onclickHandler({
       chosenStyle: chosenFont,
