@@ -48,10 +48,10 @@ let pengramIndex = 0;
 let finalistCards = {};
 
 const cardPop = {
-  flip: {
+  hide: {
     opacity: 0,
     // x: 500,
-    scale: 0.95,
+    scale: 0.98,
     transition: {
       ease: [0.22, 1, 0.36, 1],
       duration: 1,
@@ -180,7 +180,7 @@ export default function FontsPromptRightCol(props) {
           fadeText();
         }}
         variants={cardPop}
-        animate={topCardState ? "stop" : "flip"}
+        animate={topCardState ? "stop" : "hide"}
       >
         <FontCard
           fontStyle={FFS}
@@ -196,7 +196,7 @@ export default function FontsPromptRightCol(props) {
           fadeText();
         }}
         variants={cardPop}
-        animate={botCardState ? "stop" : "flip"}
+        animate={botCardState ? "stop" : "hide"}
       >
         <FontCard
           fontStyle={SFS}

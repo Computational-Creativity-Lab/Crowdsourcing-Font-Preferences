@@ -1,31 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// let percentages = [10, 20, 30, 40, 50];
-
 export default function DataBar(props) {
+  const ref = useRef();
+  const [barWidth, setBarWidth] = useState();
   const [isShown, setIsShown] = useState(false);
   let userChose = props.index == props.randomSelection;
 
-  // let userChose = props.index == props.randomSelection;
+  useEffect(() => {
+    setBarWidth(ref.current.clientWidth);
+  }, [barWidth]);
+
+  // Update 'width' and 'height' when the window resizes
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setBarWidth(ref.current.clientWidth);
+    });
+  }, []);
 
   return (
     <div
+      ref={ref}
       onClick={() => {
         console.log(props.index, props.randomSelection);
         setIsShown(true);
       }}
       onMouseLeave={() => setIsShown(false)}
-      class={`${
+      className={`${
         props.index == props.randomSelection
           ? `bg-white hover:opacity-[1] hover:cursor-pointer`
-          : `bg-[rgba(230,230,255,.25)] `
+          : `bg-[#2B2C32] `
       } flex flex-col border-solid border-[#ffffff00]
       border p-4 rounded-full ease-in-out
-      transition-all relative`}
+      transition-all relative overflow-hidden min-w-[48px]`}
       style={{ width: `${props.percentage}%` }}
     >
-      <p class="text-black font-semibold">Roboto</p>
+      <AnimatePresence>
+        {barWidth > 75 && (
+          <motion.p
+            className="text-black font-semibold"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 0.5,
+            }}
+          >
+            Roboto
+          </motion.p>
+        )}
+      </AnimatePresence>
+      <div className="absolute top-0 right-0 w-[40px] h-full bg-gradient-to-l from-[#2B2C32] to-[#002B2C32]"></div>
       <AnimatePresence>
         {isShown && (
           <motion.div
@@ -34,17 +59,17 @@ export default function DataBar(props) {
             animate={{ opacity: 1, top: 0, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
-            class="absolute !top-[-340px] !left-[-5px] origin-bottom z-10 mb-6 h-[344px] hover:cursor-default"
+            className="absolute !top-[-340px] !left-[-5px] origin-bottom z-10 mb-6 h-[344px] hover:cursor-default"
           >
-            <div class=" text-white bg-zinc-900 rounded-xl overflow-y-auto p-4 overflow-hidden drop-shadow-2xl w-[300px] h-[324px]">
-              <p class="text-xl mb-8">
+            <div className=" text-white bg-zinc-900 rounded-xl overflow-y-auto p-4 overflow-hidden drop-shadow-2xl w-[300px] h-[324px]">
+              <p className="text-xl mb-8">
                 You picked Roboto which is a unique choice!
               </p>
 
               {props.fontList.map((font, index) => {
                 return (
                   <div
-                    class={`${
+                    className={`${
                       index == props.index
                         ? "bg-white text-black"
                         : "text-white"
@@ -52,7 +77,7 @@ export default function DataBar(props) {
                   >
                     <p>{index + 1}</p>
                     <p>{font}</p>
-                    <p class="flex justify-self-end">60%</p>
+                    <p className="flex justify-self-end">60%</p>
                   </div>
                 );
               })}

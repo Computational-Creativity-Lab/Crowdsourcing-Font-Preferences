@@ -29,7 +29,7 @@ const fontList = [
 ];
 
 export default function DataRow(props) {
-  let percentages = [20, 40, 20, 10, 10];
+  let percentages = [60, 10, 20, 5, 5];
   let selection = fontList.findIndex((el) => el === props.chosen);
 
   useEffect(() => {
