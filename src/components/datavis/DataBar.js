@@ -26,6 +26,7 @@ export default function DataBar(props) {
         setIsShown(true);
       }}
       onMouseLeave={() => setIsShown(false)}
+      //MIA - I think you've already done this but the font selected by user should be highlighted here. eventually and ideally, we'll make it a gradient
       className={`${
         props.index == props.randomSelection
           ? `bg-white hover:opacity-[1] hover:cursor-pointer`
@@ -37,6 +38,7 @@ export default function DataBar(props) {
     >
       <AnimatePresence>
         {barWidth > 75 && (
+          //MIA - need to populate top 5 font names in here. Last bar should say "Other"
           <motion.p
             className="text-black font-semibold"
             initial={{ opacity: 0 }}
@@ -51,6 +53,8 @@ export default function DataBar(props) {
         )}
       </AnimatePresence>
       <div className="absolute top-0 right-0 w-[40px] h-full bg-gradient-to-l from-[#2B2C32] to-[#002B2C32]"></div>
+
+      {/* POPUP WINDOW when user clicks bar */}
       <AnimatePresence>
         {isShown && (
           <motion.div
@@ -76,6 +80,7 @@ export default function DataBar(props) {
                     } grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full`}
                   >
                     <p>{index + 1}</p>
+                    {/* MIA need to autopulate top fonts list and their respective % based on backend data*/}
                     <p>{font}</p>
                     <p className="flex justify-self-end">60%</p>
                   </div>
