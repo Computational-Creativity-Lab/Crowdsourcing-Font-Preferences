@@ -51,14 +51,6 @@ export default function Datavis() {
           {choices.map((choice, i) => (
             <DataRow descriptor={descriptors[i]} chosen={choice} />
           ))}
-          {/* <DataRow descriptor="Caring" chosenWords={chosenWords}></DataRow>
-          <DataRow descriptor="Casual" chosenWords={chosenWords}></DataRow>
-          <DataRow descriptor="Cheerful" chosenWords={chosenWords}></DataRow>
-          <DataRow descriptor="Coarse" chosenWords={chosenWords}></DataRow>
-          <DataRow
-            descriptor="Conservative"
-            chosenWords={chosenWords}
-          ></DataRow> */}
         </div>
       </div>
       <BackgroundGradient></BackgroundGradient>

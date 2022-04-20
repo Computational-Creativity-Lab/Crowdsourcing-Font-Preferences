@@ -21,12 +21,10 @@ export default function Home() {
       <CustomCursor />
       <HeadComp />
       <GlobalContainer>
-        <Navbar rightLink="Share" isBlack={true} />
-        <Container>
-          <h1 className="px-4 py-4 text-7xl border-2 border-gray-900">
-            Choose your font.
-          </h1>
-        </Container>
+        <Navbar isBlack={true} />
+        <h1 className="px-4 py-4 text-7xl border-2 border-gray-900 pt-20">
+          Choose your font.
+        </h1>
       </GlobalContainer>
     </motion.main>
   );
