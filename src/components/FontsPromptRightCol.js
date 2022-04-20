@@ -173,43 +173,39 @@ export default function FontsPromptRightCol(props) {
 
   return (
     <div className={styles.rightCol}>
-      {/* {topCardState && ( */}
-      <Fragment>
-        <motion.div
-          className={styles.topRight}
-          onClick={() => {
-            handleClick(1);
-            fadeText();
-          }}
-          variants={cardPop}
-          animate={topCardState ? "stop" : "flip"}
-        >
-          <FontCard
-            fontStyle={FFS}
-            pengram={currentPengram}
-            chosenCard={chosenCard}
-            cardNum={1}
-          />
-        </motion.div>
-        <motion.div
-          className={styles.bottomRight}
-          onClick={() => {
-            handleClick(2);
-            fadeText();
-          }}
-          variants={cardPop}
-          animate={botCardState ? "stop" : "flip"}
-        >
-          <FontCard
-            fontStyle={SFS}
-            textFadeState={textFade}
-            pengram={currentPengram}
-            chosenCard={chosenCard}
-            cardNum={2}
-          />
-        </motion.div>
-      </Fragment>
-      {/* )} */}
+      <motion.div
+        className={styles.topRight}
+        onClick={() => {
+          handleClick(1);
+          fadeText();
+        }}
+        variants={cardPop}
+        animate={topCardState ? "stop" : "flip"}
+      >
+        <FontCard
+          fontStyle={FFS}
+          pengram={currentPengram}
+          chosenCard={chosenCard}
+          cardNum={1}
+        />
+      </motion.div>
+      <motion.div
+        className={styles.bottomRight}
+        onClick={() => {
+          handleClick(2);
+          fadeText();
+        }}
+        variants={cardPop}
+        animate={botCardState ? "stop" : "flip"}
+      >
+        <FontCard
+          fontStyle={SFS}
+          textFadeState={textFade}
+          pengram={currentPengram}
+          chosenCard={chosenCard}
+          cardNum={2}
+        />
+      </motion.div>
     </div>
   );
 }

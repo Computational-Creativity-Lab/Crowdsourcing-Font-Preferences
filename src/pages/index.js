@@ -22,9 +22,16 @@ export default function Home() {
       <HeadComp />
       <GlobalContainer>
         <Navbar isBlack={true} />
-        <h1 className="px-4 py-4 text-7xl border-2 border-gray-900 pt-20">
-          Choose your font.
-        </h1>
+
+        <motion.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
+          className="px-4 py-4 text-7xl border-2 border-gray-900 pt-20"
+        >
+          Find your fonts.
+        </motion.h1>
       </GlobalContainer>
     </motion.main>
   );
