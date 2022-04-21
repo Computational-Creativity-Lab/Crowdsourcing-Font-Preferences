@@ -38,7 +38,7 @@ export default function DataBar(props) {
     >
       <AnimatePresence>
         {barWidth > 75 && (
-          //MIA - need to populate top 5 font names in here. Last bar should say "Other"
+          //MIA - need to populate the ranked font names in here (top 5). Last bar should say "Other"
           <motion.p
             className="text-black font-semibold"
             initial={{ opacity: 0 }}
