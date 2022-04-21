@@ -14,26 +14,32 @@ export default function Home() {
     }
   });
   return (
-    <motion.main
-      className="cursor-pointer"
-      onClick={() => Router.push("/survey")}
-    >
-      <CustomCursor />
-      <HeadComp />
-      <GlobalContainer>
-        <Navbar isBlack={true} />
+    <AnimatePresence>
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className="cursor-pointer"
+        onClick={() => Router.push("/survey")}
+      >
+        <CustomCursor />
+        <HeadComp />
+        <GlobalContainer>
+          <Navbar isBlack={true} />
 
-        <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
-          className="px-4 py-4 text-7xl border-2 border-gray-900 pt-20"
-        >
-          Find your fonts.
-        </motion.h1>
-      </GlobalContainer>
-    </motion.main>
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
+            className="px-4 py-4 text-7xl border-2 border-gray-900 pt-20"
+          >
+            Find your fonts.
+          </motion.h1>
+        </GlobalContainer>
+      </motion.main>
+    </AnimatePresence>
   );
 }
 

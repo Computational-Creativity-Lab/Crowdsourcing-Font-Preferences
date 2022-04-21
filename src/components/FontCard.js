@@ -14,7 +14,7 @@ export default function FontCard({ fontStyle, pengram, chosenCard, cardNum }) {
         transition={{
           ease: [0.16, 1, 0.3, 1],
           duration: 1,
-          delay: cardNum * 0.03,
+          delay: cardNum - 1 * 10,
         }}
         whileHover={{
           scale: 1.005,
