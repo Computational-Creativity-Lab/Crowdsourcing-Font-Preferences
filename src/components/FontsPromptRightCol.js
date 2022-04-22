@@ -97,6 +97,7 @@ export default function FontsPromptRightCol(props) {
 
     props.onclickHandler({
       chosenStyle: chosenFont,
+      keyword: props.keyword,
     });
 
     //Reset font list when a adj already had 4 responses

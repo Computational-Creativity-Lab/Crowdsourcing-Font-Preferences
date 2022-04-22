@@ -41,3 +41,6 @@ export const fontList = [
   "Source Sans Pro",
   "Space Mono",
 ];
+
+export const DB_COLLECTION_NAME = "preferences-test";
+export const NUM_QUESTIONS = 20;

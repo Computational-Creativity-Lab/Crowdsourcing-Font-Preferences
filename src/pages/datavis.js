@@ -5,7 +5,7 @@ import HeadComp from "../components/HeadComp";
 import BackgroundGradient from "../components/BackgroundGradient";
 import DataRow from "../components/datavis/DataRow";
 import connectToMongoDB from "../utils/backend/connectDb";
-import { fontList, keywords } from "../utils/settings";
+import { DB_COLLECTION_NAME, fontList, keywords } from "../utils/settings";
 
 const descriptors = keywords;
 
@@ -13,13 +13,9 @@ const DB_DEBUG = true;
 
 export default function Datavis(props) {
   const preferenceCollection = JSON.parse(props.dbCollection);
+  const [generalPreference, setGeneral] = useState({});
   /** DB Data */
   useEffect(() => {
-    if (DB_DEBUG) {
-      console.log("Collection", preferenceCollection);
-      console.log("Length", preferenceCollection.length);
-    }
-
     // Rank most popular fonts by going through all entries in the database
     let counters = {};
     descriptors.forEach((d) => {
@@ -32,7 +28,11 @@ export default function Datavis(props) {
       counters[pref.keyword][pref.font]++;
     });
 
-    console.log(counters);
+    if (DB_DEBUG) {
+      console.log("Collection", preferenceCollection);
+    }
+
+    setGeneral(counters);
   }, []);
 
   /** User Data */
@@ -76,7 +76,11 @@ export default function Datavis(props) {
         </div>
         <div>
           {Object.keys(choices).map((key) => (
-            <DataRow descriptor={key} chosen={choices[key]} />
+            <DataRow
+              descriptor={key}
+              chosen={choices[key]}
+              generalPreference={generalPreference[key]}
+            />
           ))}
         </div>
       </div>
@@ -86,19 +90,17 @@ export default function Datavis(props) {
 }
 
 export async function getStaticProps(context) {
-  // fetch data for a single meet up
-
   const client = await connectToMongoDB();
   const db = client.db();
 
   let preferencesCollection = await db
-    .collection("preferences-test")
+    .collection(DB_COLLECTION_NAME)
     .find()
     .toArray();
 
   client.close();
 
-  console.log("Disconnect from db ");
+  console.log("Disconnect from db");
 
   return {
     props: {

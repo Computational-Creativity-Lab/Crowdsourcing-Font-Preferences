@@ -1,41 +1,53 @@
 import React, { useState, useEffect } from "react";
+import { fontList } from "../../utils/settings";
 import DataBar from "./DataBar";
 
-// let percentages = [10, 20, 30, 40, 50];
-const fontList = [
-  "Abril Fatface",
-  "Alegreya",
-  "Anonymous Pro",
-  "Arvo",
-  "EB Garamond",
-  "Great Vibes",
-  "Hind",
-  "IBM Plex Sans",
-  "Josefin Sans",
-  "Josefin Slab",
-  "Lato",
-  "Libre Baskerville",
-  "Lobster",
-  "Montserrat",
-  "Open Sans",
-  "Playfair Display",
-  "PT Sans",
-  "PT Serif",
-  "Quattrocento",
-  "Roboto",
-  "Roboto Slab",
-  "Source Sans Pro",
-  "Space Mono",
-];
+const DEBUG_DB = true;
+const NUM_BARS = 5; // how many top choices we display
 
 export default function DataRow(props) {
-  let percentages = [60, 10, 20, 5, 5];
-  let selection = fontList.findIndex((el) => el === props.chosen);
+  const [sortedTypefaceNames, setSorted] = useState([]);
+  const [percentages, setPercentage] = useState([]);
+  const [userSelectIdx, setSelectIdx] = useState(-1);
 
   useEffect(() => {
     console.log(
-      "DataRow selection index: " + selection + ", name: " + props.chosen
+      "General preferences for descriptor: ",
+      props.descriptor,
+      props.generalPreference
     );
+    // sort general preferences into a list of high to low popularity
+    let scorePairs = [];
+    let countSum = 0;
+    Object.keys(props.generalPreference).forEach((k) => {
+      let pair = {
+        typeface: k,
+        count: props.generalPreference[k],
+      };
+      scorePairs.push(pair);
+      countSum += pair.count;
+    });
+
+    // sort into high to low
+    scorePairs.sort(function compareFn(a, b) {
+      return b.count - a.count;
+    });
+
+    // populate percentage array
+    let percentArr = [];
+    let namesArr = [];
+    for (let i = 0; i < NUM_BARS; i++) {
+      let curScore = (scorePairs[i].count / countSum) * 100;
+      percentArr.push(curScore);
+      namesArr.push(scorePairs[i].typeface);
+    }
+    setPercentage(percentArr);
+    setSorted(namesArr);
+
+    const userSelect = namesArr.findIndex((a) => {
+      return a === props.chosen;
+    });
+    setSelectIdx(userSelect);
   }, []);
 
   return (
@@ -53,10 +65,11 @@ export default function DataRow(props) {
             <DataBar
               currentDescriptor={props.descriptor}
               key={index}
+              fontName={sortedTypefaceNames[index]}
               index={index}
               percentage={percentage}
-              userSelected={selection}
-              fontList={fontList}
+              userSelected={userSelectIdx}
+              fontList={sortedTypefaceNames}
             />
           );
         })}

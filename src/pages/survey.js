@@ -8,7 +8,7 @@ import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
 import BackgroundGradient from "../components/BackgroundGradient";
-import { keywords } from "../utils/settings";
+import { keywords, NUM_QUESTIONS } from "../utils/settings";
 
 // backend
 import axios from "axios";
@@ -31,15 +31,6 @@ export default function Home() {
     getLocationData();
   }, []);
 
-  //add all fonts back in once keyword is done
-  if (qCount % 4 == 0 && qCount !== 0) {
-    restoreFonts = true;
-  }
-
-  //go to data page
-  if (qCount + 1 > 20) {
-    Router.push("datavis");
-  }
   // backend, creating IP state
   const [locationData, setLocationData] = useState({});
 
@@ -57,15 +48,17 @@ export default function Home() {
         ? { country_name: locationData.country_name, state: locationData.state }
         : { country_name: locationData.country_name };
     const time = Date().toLocaleString();
+    const data = {
+      font: payload.chosenStyle,
+      keyword: payload.keyword,
+      location: location,
+      time: time,
+    };
+    console.log("Adding data to db: ", data);
 
-    const response = await fetch("/api/new-preference", {
+    await fetch("/api/new-preference", {
       method: "POST",
-      body: JSON.stringify({
-        font: payload.chosenStyle,
-        keyword: adj,
-        location: location,
-        time: time,
-      }),
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
@@ -73,8 +66,18 @@ export default function Home() {
   }
 
   async function handleClick(payload) {
-    if (qCount % 4 == 0 && qCount !== 0) {
-      addPreferenceHandler(payload);
+    if ((qCount + 1) % 4 == 0 && qCount !== 0) {
+      await addPreferenceHandler(payload);
+    }
+
+    //go to data page
+    if (qCount + 1 > NUM_QUESTIONS) {
+      Router.push("datavis");
+    }
+
+    //add all fonts back in once keyword is done
+    if ((qCount + 1) % 4 == 0 && qCount !== 0) {
+      restoreFonts = true;
     }
 
     setQCount(qCount + 1);
