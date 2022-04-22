@@ -4,11 +4,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
 import BackgroundGradient from "../components/BackgroundGradient";
 import DataRow from "../components/datavis/DataRow";
+import connectToMongoDB from "../utils/backend/connectDb";
 
 const descriptors = ["Caring", "Casual", "Cheerful", "Coarse"];
 
-export default function Datavis() {
+export default function Datavis(props) {
   const [choices, setChoices] = useState([]);
+  const preferenceCollection = JSON.parse(props.dbCollection);
+  console.log("pcollection", preferenceCollection);
+  console.log("Length", Object.keys(preferenceCollection).length);
 
   let chosenWords;
   useEffect(() => {
@@ -21,8 +25,6 @@ export default function Datavis() {
       });
       console.log("Choices:", tempChoices);
       setChoices(tempChoices);
-      // chosenWords = localStorage;
-      // delete chosenWords["ally-supports-cache"];
     }
   }, []);
 
@@ -56,4 +58,26 @@ export default function Datavis() {
       <BackgroundGradient></BackgroundGradient>
     </motion.main>
   );
+}
+
+export async function getStaticProps(context) {
+  // fetch data for a single meet up
+
+  const client = await connectToMongoDB();
+  const db = client.db();
+
+  const preferencesCollection = await db
+    .collection("preferences-test")
+    .find()
+    .toArray();
+
+  client.close();
+
+  console.log("Disconnect from db: ");
+
+  return {
+    props: {
+      dbCollection: JSON.stringify(preferencesCollection),
+    },
+  };
 }
