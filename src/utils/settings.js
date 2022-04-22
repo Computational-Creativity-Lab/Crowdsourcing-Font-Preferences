@@ -1,4 +1,4 @@
-export const KEYWORDS = [
+export const KEYWORDS_ALL = [
   "Authoritative",
   "Caring",
   "Casual",
@@ -15,6 +15,10 @@ export const KEYWORDS = [
   "Fun",
   "Funny",
 ];
+
+// Used in production
+// These are the keywords we have gradient textures for
+export const KEYWORDS = ["Casual", "Formal", "Serious", "Friendly", "Playful"];
 
 export const FONTS = [
   "Abril Fatface",

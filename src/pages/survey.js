@@ -11,7 +11,6 @@ import { KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
 
 // backend
 import axios from "axios";
-import BackgroundShader from "../components/not-using/ShaderGradient";
 import FiberScene from "../components/fiberbg/Scene";
 const WRITE_TO_DB = true;
 
