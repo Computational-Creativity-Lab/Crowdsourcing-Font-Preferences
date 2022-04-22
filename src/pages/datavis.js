@@ -5,16 +5,39 @@ import HeadComp from "../components/HeadComp";
 import BackgroundGradient from "../components/BackgroundGradient";
 import DataRow from "../components/datavis/DataRow";
 import connectToMongoDB from "../utils/backend/connectDb";
+import { fontList, keywords } from "../utils/settings";
 
-const descriptors = ["Caring", "Casual", "Cheerful", "Coarse"];
+const descriptors = keywords;
+
+const DB_DEBUG = true;
 
 export default function Datavis(props) {
-  const [choices, setChoices] = useState([]);
   const preferenceCollection = JSON.parse(props.dbCollection);
-  console.log("pcollection", preferenceCollection);
-  console.log("Length", Object.keys(preferenceCollection).length);
+  /** DB Data */
+  useEffect(() => {
+    if (DB_DEBUG) {
+      console.log("pcollection", preferenceCollection);
+      console.log("Length", preferenceCollection.length);
+    }
 
-  let chosenWords;
+    // Rank most popular fonts by going through all entries in the database
+    // Populate counter
+    let counters = {};
+    descriptors.forEach((d) => {
+      counters[d] = {};
+      fontList.forEach((f) => {
+        counters[d][f] = 0;
+      });
+    });
+    preferenceCollection.forEach((pref) => {
+      counters[pref.keyword][pref.font]++;
+    });
+
+    console.log(counters);
+  }, []);
+
+  /** User Data */
+  const [choices, setChoices] = useState([]);
   useEffect(() => {
     //store user's word selections
     // Make sure we are on client side
@@ -66,14 +89,14 @@ export async function getStaticProps(context) {
   const client = await connectToMongoDB();
   const db = client.db();
 
-  const preferencesCollection = await db
+  let preferencesCollection = await db
     .collection("preferences-test")
     .find()
     .toArray();
 
   client.close();
 
-  console.log("Disconnect from db: ");
+  console.log("Disconnect from db ");
 
   return {
     props: {

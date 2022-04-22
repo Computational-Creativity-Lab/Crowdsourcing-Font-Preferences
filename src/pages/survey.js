@@ -8,29 +8,12 @@ import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
 import BackgroundGradient from "../components/BackgroundGradient";
+import { keywords } from "../utils/settings";
 
 // backend
 import axios from "axios";
 import BackgroundShader from "../components/BackgroundShader";
-const WRITE_TO_DB = false;
-
-const keywords = [
-  "Authoritative",
-  "Caring",
-  "Casual",
-  "Cheerful",
-  "Coarse",
-  "Conservative",
-  "Conversational",
-  "Dry",
-  "Edgy",
-  "Enthusiastic",
-  "Formal",
-  "Frank",
-  "Friendly",
-  "Fun",
-  "Funny",
-];
+const WRITE_TO_DB = true;
 
 let restoreFonts = false;
 
@@ -79,7 +62,7 @@ export default function Home() {
       method: "POST",
       body: JSON.stringify({
         font: payload.chosenStyle,
-        keyword: keyword,
+        keyword: adj,
         location: location,
         time: time,
       }),
@@ -92,8 +75,11 @@ export default function Home() {
   }
 
   async function handleClick(payload) {
+    if (qCount % 4 == 0 && qCount !== 0) {
+      addPreferenceHandler(payload);
+    }
+
     setQCount(qCount + 1);
-    addPreferenceHandler(payload);
   }
 
   return (

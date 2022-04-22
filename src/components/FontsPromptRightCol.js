@@ -3,6 +3,7 @@ import Router from "next/router";
 import styles from "../pages/index.module.css";
 import { motion } from "framer-motion";
 import FontCard from "./FontCard";
+import { fontList } from "../utils/settings";
 
 const pengrams = [
   "Waltz, bad nymph, for quick jigs vex.",
@@ -12,32 +13,6 @@ const pengrams = [
   "The five boxing wizards jump quickly.",
   "Jackdaws love my big sphinx of quartz.",
   "Pack my box with five dozen liquor jugs.",
-];
-
-const fontList = [
-  "Abril Fatface",
-  "Alegreya",
-  "Anonymous Pro",
-  "Arvo",
-  "EB Garamond",
-  "Great Vibes",
-  "Hind",
-  "IBM Plex Sans",
-  "Josefin Sans",
-  "Josefin Slab",
-  "Lato",
-  "Libre Baskerville",
-  "Lobster",
-  "Montserrat",
-  "Open Sans",
-  "Playfair Display",
-  "PT Sans",
-  "PT Serif",
-  "Quattrocento",
-  "Roboto",
-  "Roboto Slab",
-  "Source Sans Pro",
-  "Space Mono",
 ];
 
 const remainingFonts = [];
