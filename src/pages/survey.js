@@ -70,8 +70,6 @@ export default function Home() {
         "Content-Type": "application/json",
       },
     });
-
-    const data = await response.json();
   }
 
   async function handleClick(payload) {

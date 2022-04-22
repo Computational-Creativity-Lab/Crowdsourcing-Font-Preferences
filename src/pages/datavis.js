@@ -16,12 +16,11 @@ export default function Datavis(props) {
   /** DB Data */
   useEffect(() => {
     if (DB_DEBUG) {
-      console.log("pcollection", preferenceCollection);
+      console.log("Collection", preferenceCollection);
       console.log("Length", preferenceCollection.length);
     }
 
     // Rank most popular fonts by going through all entries in the database
-    // Populate counter
     let counters = {};
     descriptors.forEach((d) => {
       counters[d] = {};
@@ -37,14 +36,17 @@ export default function Datavis(props) {
   }, []);
 
   /** User Data */
-  const [choices, setChoices] = useState([]);
+  const [choices, setChoices] = useState({});
   useEffect(() => {
     //store user's word selections
     // Make sure we are on client side
     if (typeof window !== "undefined") {
       var tempChoices = [];
       descriptors.forEach((keyword) => {
-        tempChoices.push(window.localStorage.getItem(keyword));
+        let choice = window.localStorage.getItem(keyword);
+        if (choice) {
+          tempChoices[keyword] = choice;
+        }
       });
       console.log("Choices:", tempChoices);
       setChoices(tempChoices);
@@ -73,8 +75,8 @@ export default function Datavis(props) {
           <p>Top 5 Fonts</p>
         </div>
         <div>
-          {choices.map((choice, i) => (
-            <DataRow descriptor={descriptors[i]} chosen={choice} />
+          {Object.keys(choices).map((key) => (
+            <DataRow descriptor={key} chosen={choices[key]} />
           ))}
         </div>
       </div>
