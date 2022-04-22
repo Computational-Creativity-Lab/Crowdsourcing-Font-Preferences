@@ -8,55 +8,29 @@ import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
 import BackgroundGradient from "../components/BackgroundGradient";
+import { KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
 
 // backend
 import axios from "axios";
 import BackgroundShader from "../components/BackgroundShader";
-const WRITE_TO_DB = false;
-
-const keywords = [
-  "Authoritative",
-  "Caring",
-  "Casual",
-  "Cheerful",
-  "Coarse",
-  "Conservative",
-  "Conversational",
-  "Dry",
-  "Edgy",
-  "Enthusiastic",
-  "Formal",
-  "Frank",
-  "Friendly",
-  "Fun",
-  "Funny",
-];
+const WRITE_TO_DB = true;
 
 let restoreFonts = false;
 
 export default function Home() {
   // count questions
-  const [qCount, setQCount] = useState(0);
-  const [adj, setAdj] = useState(keywords[0]);
+  const [qIdx, seQIdx] = useState(0);
+  const [adj, setAdj] = useState(KEYWORDS[qIdx]);
 
   // change keyword every 4 words
   useEffect(() => {
-    setAdj(keywords[Math.floor(qCount / 4) + 1]);
-  }, [qCount]);
+    setAdj(KEYWORDS[Math.floor(qIdx / 4)]);
+  }, [qIdx]);
 
   useEffect(() => {
     getLocationData();
   }, []);
 
-  //add all fonts back in once keyword is done
-  if (qCount % 4 == 0 && qCount !== 0) {
-    restoreFonts = true;
-  }
-
-  //go to data page
-  if (qCount + 1 > 20) {
-    Router.push("datavis");
-  }
   // backend, creating IP state
   const [locationData, setLocationData] = useState({});
 
@@ -74,26 +48,42 @@ export default function Home() {
         ? { country_name: locationData.country_name, state: locationData.state }
         : { country_name: locationData.country_name };
     const time = Date().toLocaleString();
+    const data = {
+      font: payload.chosenStyle,
+      keyword: payload.keyword,
+      location: location,
+      time: time,
+    };
+    console.log("Adding data to db: ", data);
 
-    const response = await fetch("/api/new-preference", {
+    await fetch("/api/new-preference", {
       method: "POST",
-      body: JSON.stringify({
-        font: payload.chosenStyle,
-        keyword: keyword,
-        location: location,
-        time: time,
-      }),
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    const data = await response.json();
   }
 
+  const MAX_Q_IDX = NUM_QUESTIONS - 1;
+
   async function handleClick(payload) {
-    setQCount(qCount + 1);
-    addPreferenceHandler(payload);
+    if ((qIdx + 1) % 4 == 0 && qIdx !== 0) {
+      await addPreferenceHandler(payload);
+    }
+
+    // go to data page
+    if (qIdx + 1 > MAX_Q_IDX) {
+      Router.push("datavis");
+      return;
+    }
+
+    //add all fonts back in once keyword is done
+    if ((qIdx + 1) % 4 == 0 && qIdx !== 0) {
+      restoreFonts = true;
+    }
+
+    seQIdx(qIdx + 1);
   }
 
   return (
@@ -102,10 +92,10 @@ export default function Home() {
       <GlobalContainer>
         <Navbar rightLink="Exit" isBlack={true} />
         <Container>
-          <FontsPromptLeftCol qCount={qCount} keyword={adj} />
+          <FontsPromptLeftCol qCount={qIdx} keyword={adj} />
           <FontsPromptRightCol
             onclickHandler={handleClick}
-            qCount={qCount}
+            qCount={qIdx}
             keyword={adj}
           />
         </Container>

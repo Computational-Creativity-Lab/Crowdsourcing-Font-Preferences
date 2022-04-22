@@ -1,8 +1,9 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import Router from "next/router";
 import styles from "../pages/index.module.css";
 import { motion } from "framer-motion";
 import FontCard from "./FontCard";
+import { FONTS } from "../utils/settings";
 
 const pengrams = [
   "Waltz, bad nymph, for quick jigs vex.",
@@ -14,34 +15,8 @@ const pengrams = [
   "Pack my box with five dozen liquor jugs.",
 ];
 
-const fontList = [
-  "Abril Fatface",
-  "Alegreya",
-  "Anonymous Pro",
-  "Arvo",
-  "EB Garamond",
-  "Great Vibes",
-  "Hind",
-  "IBM Plex Sans",
-  "Josefin Sans",
-  "Josefin Slab",
-  "Lato",
-  "Libre Baskerville",
-  "Lobster",
-  "Montserrat",
-  "Open Sans",
-  "Playfair Display",
-  "PT Sans",
-  "PT Serif",
-  "Quattrocento",
-  "Roboto",
-  "Roboto Slab",
-  "Source Sans Pro",
-  "Space Mono",
-];
-
 const remainingFonts = [];
-remainingFonts.push(...fontList);
+remainingFonts.push(...FONTS);
 
 let pengramIndex = 0;
 
@@ -70,20 +45,20 @@ const cardPop = {
 
 export default function FontsPromptRightCol(props) {
   //mount and unmount card
-  const [FFI, setFFI] = useState(Math.floor(Math.random() * fontList.length));
-  const [SFI, setSFI] = useState(Math.floor(Math.random() * fontList.length));
+  const [FFI, setFFI] = useState(Math.floor(Math.random() * FONTS.length));
+  const [SFI, setSFI] = useState(Math.floor(Math.random() * FONTS.length));
   const [chosenCard, setChosenCard] = useState();
   const [currentPengram, setCurrentPengram] = useState(pengrams[pengramIndex]);
   const [textFade, startTextFade] = useState(false);
-  const [FFS, setFFS] = useState(fontList[FFI]);
-  const [SFS, setSFS] = useState(fontList[SFI]);
+  const [FFS, setFFS] = useState(FONTS[FFI]);
+  const [SFS, setSFS] = useState(FONTS[SFI]);
 
   const [topCardState, setTopCardState] = useState(true);
   useEffect(() => {
     if (topCardState) {
       let randomNum = Math.floor(Math.random() * remainingFonts.length);
       setFFI(randomNum);
-      setFFS(fontList[FFI]);
+      setFFS(FONTS[FFI]);
     }
   }, [topCardState]);
 
@@ -92,7 +67,7 @@ export default function FontsPromptRightCol(props) {
     if (botCardState) {
       let randomNum = Math.floor(Math.random() * remainingFonts.length);
       setSFI(randomNum);
-      setSFS(fontList[SFI]);
+      setSFS(FONTS[SFI]);
     }
   }, [botCardState]);
 
@@ -122,6 +97,7 @@ export default function FontsPromptRightCol(props) {
 
     props.onclickHandler({
       chosenStyle: chosenFont,
+      keyword: props.keyword,
     });
 
     //Reset font list when a adj already had 4 responses
@@ -132,7 +108,7 @@ export default function FontsPromptRightCol(props) {
       console.log(finalistCards);
 
       remainingFonts.splice(0, remainingFonts.length);
-      remainingFonts.push(...fontList);
+      remainingFonts.push(...FONTS);
     }
 
     //Remove used font from existing font list

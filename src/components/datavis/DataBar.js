@@ -5,7 +5,6 @@ export default function DataBar(props) {
   const ref = useRef();
   const [barWidth, setBarWidth] = useState();
   const [isShown, setIsShown] = useState(false);
-  let userChose = props.index == props.randomSelection;
 
   useEffect(() => {
     setBarWidth(ref.current.clientWidth);
@@ -22,13 +21,14 @@ export default function DataBar(props) {
     <div
       ref={ref}
       onClick={() => {
-        console.log(props.index, props.randomSelection);
+        console.log(props.index, props.userSelected);
+        // userSelected is -1 if their choice is not part of the top 5 choices
         setIsShown(true);
       }}
       onMouseLeave={() => setIsShown(false)}
       //MIA - I think you've already done this but the font selected by user should be highlighted here. eventually and ideally, we'll make it a gradient
       className={`${
-        props.index == props.randomSelection
+        props.index == props.userSelected
           ? `bg-white hover:opacity-[1] hover:cursor-pointer`
           : `bg-[#2B2C32] `
       } flex flex-col border-solid border-[#ffffff00]
@@ -48,7 +48,7 @@ export default function DataBar(props) {
               duration: 0.5,
             }}
           >
-            Roboto
+            {props.fontName}
           </motion.p>
         )}
       </AnimatePresence>
