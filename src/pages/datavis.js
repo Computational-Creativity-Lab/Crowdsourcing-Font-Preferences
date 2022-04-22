@@ -5,9 +5,9 @@ import HeadComp from "../components/HeadComp";
 import BackgroundGradient from "../components/BackgroundGradient";
 import DataRow from "../components/datavis/DataRow";
 import connectToMongoDB from "../utils/backend/connectDb";
-import { DB_COLLECTION_NAME, fontList, keywords } from "../utils/settings";
+import { DB_COLLECTION_NAME, KEYWORDS, FONTS } from "../utils/settings";
 
-const descriptors = keywords;
+const descriptors = KEYWORDS;
 
 const DB_DEBUG = true;
 
@@ -20,7 +20,7 @@ export default function Datavis(props) {
     let counters = {};
     descriptors.forEach((d) => {
       counters[d] = {};
-      fontList.forEach((f) => {
+      FONTS.forEach((f) => {
         counters[d][f] = 0;
       });
     });

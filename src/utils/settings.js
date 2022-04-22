@@ -1,4 +1,4 @@
-export const keywords = [
+export const KEYWORDS = [
   "Authoritative",
   "Caring",
   "Casual",
@@ -16,7 +16,7 @@ export const keywords = [
   "Funny",
 ];
 
-export const fontList = [
+export const FONTS = [
   "Abril Fatface",
   "Alegreya",
   "Anonymous Pro",

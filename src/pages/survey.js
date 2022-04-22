@@ -8,7 +8,7 @@ import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
 import BackgroundGradient from "../components/BackgroundGradient";
-import { keywords, NUM_QUESTIONS } from "../utils/settings";
+import { KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
 
 // backend
 import axios from "axios";
@@ -20,11 +20,11 @@ let restoreFonts = false;
 export default function Home() {
   // count questions
   const [qIdx, seQIdx] = useState(0);
-  const [adj, setAdj] = useState(keywords[0]);
+  const [adj, setAdj] = useState(KEYWORDS[qIdx]);
 
   // change keyword every 4 words
   useEffect(() => {
-    setAdj(keywords[Math.floor(qIdx / 4)]);
+    setAdj(KEYWORDS[Math.floor(qIdx / 4)]);
   }, [qIdx]);
 
   useEffect(() => {
@@ -65,13 +65,15 @@ export default function Home() {
     });
   }
 
+  const MAX_Q_IDX = NUM_QUESTIONS - 1;
+
   async function handleClick(payload) {
     if ((qIdx + 1) % 4 == 0 && qIdx !== 0) {
       await addPreferenceHandler(payload);
     }
 
     // go to data page
-    if (qIdx + 1 > NUM_QUESTIONS) {
+    if (qIdx + 1 > MAX_Q_IDX) {
       Router.push("datavis");
       return;
     }

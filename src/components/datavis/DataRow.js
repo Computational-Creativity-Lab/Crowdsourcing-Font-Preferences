@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { fontList } from "../../utils/settings";
 import DataBar from "./DataBar";
 
-const DEBUG_DB = true;
 const NUM_BARS = 5; // how many top choices we display
 
 export default function DataRow(props) {
@@ -37,12 +35,14 @@ export default function DataRow(props) {
     let percentArr = [];
     let namesArr = [];
     for (let i = 0; i < NUM_BARS; i++) {
-      let curScore = (scorePairs[i].count / countSum) * 100;
+      let curScore = Math.round((scorePairs[i].count / countSum) * 100);
       percentArr.push(curScore);
       namesArr.push(scorePairs[i].typeface);
     }
     setPercentage(percentArr);
     setSorted(namesArr);
+    console.log("Percentages for", props.descriptor, " : ", percentArr);
+    console.log("Sorted typefaces: ", namesArr);
 
     const userSelect = namesArr.findIndex((a) => {
       return a === props.chosen;
