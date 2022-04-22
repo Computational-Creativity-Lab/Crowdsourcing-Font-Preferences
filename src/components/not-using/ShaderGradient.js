@@ -6,14 +6,16 @@ import dynamic from "next/dynamic";
 // WARNING ! errors might get obfuscated by using dynamic import.
 // If something goes wrong go back to a static import to show the error.
 // https://github.com/pmndrs/react-three-next/issues/49
-const Shader = dynamic(() => import("./Shader"), {
+const Shader = dynamic(() => import("./ShaderElements"), {
   ssr: false,
 });
 
 export default function BackgroundShader() {
   return (
-    <Canvas>
-      <Shader />
-    </Canvas>
+    <div className={"top-0 absolute w-screen h-screen z-[-1]"}>
+      <Canvas>
+        <Shader />
+      </Canvas>
+    </div>
   );
 }

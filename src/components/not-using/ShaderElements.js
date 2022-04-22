@@ -1,11 +1,10 @@
 import * as THREE from "three";
-import { useFrame, extend } from "@react-three/fiber";
+import { useFrame, extend, useLoader } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { shaderMaterial } from "@react-three/drei";
 
-import vertex from "./glsl/shader.vert.js";
-import fragment from "./glsl/shader.frag.js";
-
+import vertex from "../fiberbg/glsl/shader.vert.js.js";
+import fragment from "../fiberbg/glsl/shader.frag.js";
 const ColorShiftMaterial = shaderMaterial(
   {
     time: 0,
@@ -36,18 +35,30 @@ const Shader = (props) => {
     }
   });
 
+  function Image() {
+    let img;
+    const texture = useLoader(THREE.TextureLoader, img);
+    return (
+      <mesh>
+        <planeBufferGeometry attach="geometry" args={[4, 4]} />
+        <meshBasicMaterial attach="material" map={texture} toneMapped={false} />
+      </mesh>
+    );
+  }
+
   return (
-    <mesh
-      ref={meshRef}
-      scale={hovered ? 1.1 : 1}
-      onPointerOver={(e) => setHover(true)}
-      onPointerOut={(e) => setHover(false)}
-      {...props}
-    >
-      <boxBufferGeometry args={[1, 1, 1]} />
-      {/* @ts-ignore */}
-      <colorShiftMaterial key={ColorShiftMaterial.key} time={3} />
-    </mesh>
+    // <mesh
+    //   ref={meshRef}
+    //   scale={hovered ? 1.1 : 1}
+    //   onPointerOver={(e) => setHover(true)}
+    //   onPointerOut={(e) => setHover(false)}
+    //   {...props}
+    // >
+    //   <boxBufferGeometry args={[1, 1, 1]} />
+    //   {/* @ts-ignore */}
+    //   <colorShiftMaterial key={ColorShiftMaterial.key} time={3} />
+    // </mesh>
+    <Image />
   );
 };
 
