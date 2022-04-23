@@ -1,7 +1,36 @@
-import { Suspense, useMemo, useRef } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { useTexture } from "@react-three/drei";
+// Full example: https://codesandbox.io/s/react-three-fiber-custom-geometry-with-fragment-shader-material-vxswf?file=/src/index.js
+
+import React, { useRef, useMemo } from "react";
+import ReactDOM from "react-dom";
+import { Canvas, useFrame } from "react-three-fiber";
+import "./styles.css";
 import * as THREE from "three";
+
+const cubeVertices = [
+  [-1, -1, 1],
+  [1, -1, 1],
+  [-1, 1, 1],
+  [1, 1, 1],
+  [-1, -1, -1],
+  [1, -1, -1],
+  [-1, 1, -1],
+  [1, 1, -1],
+];
+
+const cubeFaces = [
+  [0, 3, 2],
+  [0, 1, 3],
+  [1, 7, 3],
+  [1, 5, 7],
+  [5, 6, 7],
+  [5, 4, 6],
+  [4, 2, 6],
+  [4, 0, 2],
+  [2, 7, 6],
+  [2, 3, 7],
+  [4, 1, 0],
+  [4, 5, 1],
+];
 
 const fragmentShader = `
   varying vec3 Normal;
@@ -43,8 +72,7 @@ const vertexShader = `
   }
 `;
 
-function Scene(props) {
-  console.log(props);
+function Thing() {
   const ref = useRef();
   useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01));
 
@@ -64,34 +92,28 @@ function Scene(props) {
     []
   );
 
-  const colorMap = useTexture("/textures/" + props.keyword + ".png");
-  if (window) {
-    return (
-      <mesh ref={ref}>
-        <planeBufferGeometry
-          attach="geometry"
-          args={[window.innerWidth / 100, window.innerHeight / 100]}
-        />
-        {/* <meshBasicMaterial
-          attach="material"
-          map={colorMap}
-          toneMapped={false}
-        /> */}
-        <shaderMaterial attach="material" {...data} />
-      </mesh>
-    );
-  }
-  return <></>;
-}
+  const vertices = useMemo(
+    () => cubeVertices.map((v) => new THREE.Vector3(...v)),
+    []
+  );
+  const faces = useMemo(() => cubeFaces.map((f) => new THREE.Face3(...f)), []);
 
-export default function FiberScene(props) {
   return (
-    <div className={"top-0 absolute w-screen h-screen z-[-1]"}>
-      <Canvas>
-        <Suspense fallback={null}>
-          <Scene keyword={props.keyword} />
-        </Suspense>
-      </Canvas>
-    </div>
+    <mesh ref={ref}>
+      <geometry
+        attach="geometry"
+        vertices={vertices}
+        faces={faces}
+        onUpdate={(self) => self.computeFaceNormals()}
+      />
+      <shaderMaterial attach="material" {...data} />
+    </mesh>
   );
 }
+
+ReactDOM.render(
+  <Canvas>
+    <Thing />
+  </Canvas>,
+  document.getElementById("root")
+);
