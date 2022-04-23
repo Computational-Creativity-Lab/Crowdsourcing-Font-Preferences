@@ -24,7 +24,6 @@ export default function Datavis(props) {
       });
     });
     preferenceCollection.forEach((pref) => {
-      console.log(pref);
       counters[pref.keyword][pref.font]++;
     });
 
