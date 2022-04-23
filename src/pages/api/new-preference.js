@@ -1,4 +1,5 @@
 import connectToMongoDB from "../../utils/backend/connectDb";
+import { DB_COLLECTION_NAME } from "../../utils/settings";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -7,7 +8,7 @@ export default async function handler(req, res) {
     const client = await connectToMongoDB();
     const db = client.db();
 
-    const preferencesCollection = db.collection("preferences-test");
+    const preferencesCollection = db.collection(DB_COLLECTION_NAME);
     const result = await preferencesCollection.insertOne(data);
     console.log("Result id: ", result);
 
