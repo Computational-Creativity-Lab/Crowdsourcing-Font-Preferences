@@ -7,12 +7,11 @@ import FontsPromptRightCol from "../components/FontsPromptRightCol";
 import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
-import BackgroundGradient from "../components/BackgroundGradient";
 import { KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
 
 // backend
 import axios from "axios";
-import BackgroundShader from "../components/BackgroundShader";
+import FiberScene from "../components/fiberbg/Scene";
 const WRITE_TO_DB = true;
 
 let restoreFonts = false;
@@ -99,7 +98,7 @@ export default function Home() {
             keyword={adj}
           />
         </Container>
-        <BackgroundGradient keyword={adj} />
+        <FiberScene keyword={adj} />
       </GlobalContainer>
     </motion.main>
   );
