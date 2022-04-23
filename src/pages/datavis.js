@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/layout/Navbar";
 import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
-import BackgroundGradient from "../components/BackgroundGradient";
 import DataRow from "../components/datavis/DataRow";
 import connectToMongoDB from "../utils/backend/connectDb";
-import { DB_COLLECTION_NAME, KEYWORDS, FONTS } from "../utils/settings";
+import { DB_COLLECTION_NAME, FONTS, KEYWORDS_ALL } from "../utils/settings";
 
-const descriptors = KEYWORDS;
+const descriptors = KEYWORDS_ALL;
 
 const DB_DEBUG = true;
 
@@ -25,6 +24,7 @@ export default function Datavis(props) {
       });
     });
     preferenceCollection.forEach((pref) => {
+      console.log(pref);
       counters[pref.keyword][pref.font]++;
     });
 
@@ -84,7 +84,6 @@ export default function Datavis(props) {
           ))}
         </div>
       </div>
-      <BackgroundGradient></BackgroundGradient>
     </motion.main>
   );
 }
