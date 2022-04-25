@@ -5,6 +5,8 @@ export default function DataBar(props) {
   const ref = useRef();
   const [barWidth, setBarWidth] = useState();
   const [isShown, setIsShown] = useState(false);
+  const [activeBar, setActiveBar] = useState(false);
+  const [activeOther, setActiveOther] = useState(false);
 
   useEffect(() => {
     setBarWidth(ref.current.clientWidth);
@@ -15,32 +17,45 @@ export default function DataBar(props) {
     window.addEventListener("resize", () => {
       setBarWidth(ref.current.clientWidth);
     });
+
+    if (props.index == props.userSelected) {
+      setActiveBar(true);
+    }
+
+    if (
+      // props.userSelected != undefined &&
+      props.userSelected == -1 &&
+      props.index == 5
+    ) {
+      setActiveOther(true);
+    }
+    // console.log(props.allPercentages);
   }, []);
 
   return (
     <div
       ref={ref}
       onClick={() => {
-        console.log(props.index, props.userSelected);
+        // console.log(props.index, props.userSelected);
         // userSelected is -1 if their choice is not part of the top 5 choices
         setIsShown(true);
       }}
       onMouseLeave={() => setIsShown(false)}
       //MIA - I think you've already done this but the font selected by user should be highlighted here. eventually and ideally, we'll make it a gradient
       className={`${
-        props.index == props.userSelected
+        activeBar || activeOther
           ? `bg-white hover:opacity-[1] hover:cursor-pointer`
           : `bg-[#2B2C32] `
       } flex flex-col border-solid border-[#ffffff00]
       border p-4 rounded-full ease-in-out
-      transition-all relative overflow-hidden min-w-[48px]`}
+      transition-all relative min-w-[48px]`}
       style={{ width: `${props.percentage}%` }}
     >
       <AnimatePresence>
-        {barWidth > 75 && (
+        {barWidth > 1 && (
           //MIA - need to populate the ranked font names in here (top 5). Last bar should say "Other"
           <motion.p
-            className="text-black font-semibold"
+            className="text-black font-semibold whitespace-nowrap"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -52,7 +67,14 @@ export default function DataBar(props) {
           </motion.p>
         )}
       </AnimatePresence>
-      <div className="absolute top-0 right-0 w-[40px] h-full bg-gradient-to-l from-[#2B2C32] to-[#002B2C32]"></div>
+      {/* //gradient */}
+      <div
+        className={`${
+          activeBar || activeOther
+            ? "from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0)]"
+            : "from-[#2B2C32] to-[#002B2C32]"
+        } absolute top-0 right-0 w-[40px] h-full bg-gradient-to-l rounded-r-full`}
+      ></div>
 
       {/* POPUP WINDOW when user clicks bar */}
       <AnimatePresence>
@@ -73,19 +95,31 @@ export default function DataBar(props) {
               {props.fontList.map((font, index) => {
                 return (
                   <div
-                    className={`${
+                    className={`grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full ${
                       index == props.index
                         ? "bg-white text-black"
                         : "text-white"
-                    } grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full`}
+                    }`}
                   >
                     <p>{index + 1}</p>
                     {/* MIA need to autopulate top fonts list and their respective % based on backend data*/}
                     <p>{font}</p>
-                    <p className="flex justify-self-end">60%</p>
+                    <p className="flex justify-self-end">
+                      {props.allPercentages[index]}%
+                    </p>
                   </div>
                 );
               })}
+              <div
+                className={`grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full ${
+                  activeOther ? "bg-white text-black" : "text-white"
+                }`}
+              >
+                <p>6</p>
+                {/* MIA need to autopulate top fonts list and their respective % based on backend data*/}
+                <p>Other</p>
+                <p className="flex justify-self-end">{props.otherPercent}%</p>
+              </div>
             </div>
           </motion.div>
         )}

@@ -7,13 +7,14 @@ export default function DataRow(props) {
   const [sortedTypefaceNames, setSorted] = useState([]);
   const [percentages, setPercentage] = useState([]);
   const [userSelectIdx, setSelectIdx] = useState(-1);
+  const [totalPercent, setTotalPercent] = useState(0);
 
   useEffect(() => {
-    console.log(
-      "General preferences for descriptor: ",
-      props.descriptor,
-      props.generalPreference
-    );
+    // console.log(
+    //   "General preferences for descriptor: ",
+    //   props.descriptor,
+    //   props.generalPreference
+    // );
     // sort general preferences into a list of high to low popularity
     let scorePairs = [];
     let countSum = 0;
@@ -33,22 +34,29 @@ export default function DataRow(props) {
 
     // populate percentage array
     let percentArr = [];
+    let totalPercentLocal = 0;
     let namesArr = [];
     for (let i = 0; i < NUM_BARS; i++) {
       let curScore = Math.round((scorePairs[i].count / countSum) * 100);
       percentArr.push(curScore);
+      totalPercentLocal += curScore;
       namesArr.push(scorePairs[i].typeface);
     }
+    setTotalPercent(totalPercentLocal);
     setPercentage(percentArr);
     setSorted(namesArr);
-    console.log("Percentages for", props.descriptor, " : ", percentArr);
-    console.log("Sorted typefaces: ", namesArr);
-
+    // console.log("Percentages for", props.descriptor, " : ", percentArr);
+    // console.log("Sorted typefaces: ", namesArr);
     const userSelect = namesArr.findIndex((a) => {
       return a === props.chosen;
     });
+
     setSelectIdx(userSelect);
   }, []);
+
+  useEffect(() => {
+    console.log("ran");
+  }, [sortedTypefaceNames]);
 
   return (
     <div className="grid grid-cols-[300px_1fr] mb-4">
@@ -65,14 +73,27 @@ export default function DataRow(props) {
             <DataBar
               currentDescriptor={props.descriptor}
               key={index}
-              fontName={sortedTypefaceNames[index]}
               index={index}
+              fontName={sortedTypefaceNames[index]}
               percentage={percentage}
+              otherPercent={100 - totalPercent}
+              allPercentages={percentages}
               userSelected={userSelectIdx}
               fontList={sortedTypefaceNames}
             />
           );
         })}
+        <DataBar
+          currentDescriptor={props.descriptor}
+          fontName="Other"
+          key={5}
+          index={5}
+          percentage={100 - totalPercent}
+          otherPercent={100 - totalPercent}
+          allPercentages={percentages}
+          userSelected={userSelectIdx}
+          fontList={sortedTypefaceNames}
+        />
       </div>
     </div>
   );

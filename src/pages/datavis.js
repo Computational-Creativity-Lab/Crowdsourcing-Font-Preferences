@@ -74,13 +74,16 @@ export default function Datavis(props) {
           <p>Top 5 Fonts</p>
         </div>
         <div>
-          {Object.keys(choices).map((key) => (
-            <DataRow
-              descriptor={key}
-              chosen={choices[key]}
-              generalPreference={generalPreference[key]}
-            />
-          ))}
+          {Object.keys(choices).map((key) => {
+            // console.log("printed");
+            return (
+              <DataRow
+                descriptor={key}
+                chosen={choices[key]}
+                generalPreference={generalPreference[key]}
+              />
+            );
+          })}
         </div>
       </div>
     </motion.main>
