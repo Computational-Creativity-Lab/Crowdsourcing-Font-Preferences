@@ -46,28 +46,22 @@ export default function DataBar(props) {
       className={`${
         activeBar || activeOther
           ? `bg-white hover:opacity-[1] hover:cursor-pointer`
-          : `bg-[#2B2C32] `
+          : `bg-[#2B2C32] hover:cursor-default`
       } flex flex-col border-solid border-[#ffffff00]
-      border p-4 rounded-full ease-in-out
-      transition-all relative min-w-[48px]`}
+      border p-4 rounded-full relative min-w-[48px]`}
       style={{ width: `${props.percentage}%` }}
     >
-      <AnimatePresence>
-        {barWidth > 1 && (
-          //MIA - need to populate the ranked font names in here (top 5). Last bar should say "Other"
-          <motion.p
-            className="text-black font-semibold whitespace-nowrap"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{
-              duration: 0.5,
-            }}
-          >
-            {props.fontName}
-          </motion.p>
-        )}
-      </AnimatePresence>
+      <motion.p
+        className="text-black font-semibold whitespace-nowrap min-w-[0px]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{
+          duration: 0.5,
+        }}
+      >
+        {props.fontName}
+      </motion.p>
       {/* //gradient */}
       <div
         className={`${
@@ -76,10 +70,9 @@ export default function DataBar(props) {
             : "from-[#2B2C32] to-[#002B2C32]"
         } absolute top-0 right-0 w-[40px] h-full bg-gradient-to-l rounded-r-full`}
       ></div>
-
       {/* POPUP WINDOW when user clicks bar */}
       <AnimatePresence>
-        {isShown && (
+        {isShown && (activeBar || activeOther) && (
           <motion.div
             initial={{ opacity: 0, top: 5, scale: 0.95 }}
             animate={{ opacity: 1, top: 0, scale: 1 }}
@@ -95,6 +88,7 @@ export default function DataBar(props) {
               {props.fontList.map((font, index) => {
                 return (
                   <div
+                    key={index}
                     className={`grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full ${
                       index == props.index
                         ? "bg-white text-black"

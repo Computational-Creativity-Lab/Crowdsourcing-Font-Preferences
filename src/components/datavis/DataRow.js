@@ -53,14 +53,6 @@ export default function DataRow(props) {
     setSelectIdx(userSelect);
   }, []);
 
-  useEffect(() => {
-    console.log(sortedTypefaceNames);
-  }, [sortedTypefaceNames]);
-
-  useEffect(() => {
-    // console.log(percentages);
-  }, [percentages]);
-
   return (
     <div className="grid grid-cols-[300px_1fr] mb-4">
       {/* descriptor */}

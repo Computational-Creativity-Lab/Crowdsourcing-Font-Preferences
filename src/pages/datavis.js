@@ -54,40 +54,46 @@ export default function Datavis(props) {
   }, []);
 
   return (
-    <motion.main className="bg-black min-h-[100vh] overflow-hidden">
+    <>
       <HeadComp></HeadComp>
       <Navbar isBlack={false}></Navbar>
-      <div className="p-4">
-        <div className=" grid grid-cols-2 mt-16 mb-48">
-          <div>
-            <h1 className="text-5xl text-white">
-              You're a <span className="underline">Traditionalist</span>
-            </h1>
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="bg-black min-h-[100vh] overflow-hidden"
+      >
+        <div className="p-4">
+          <div className=" grid grid-cols-2 mt-16 mb-48">
+            <div>
+              <h1 className="text-5xl text-white">
+                You're a <span className="underline">Traditionalist</span>
+              </h1>
+            </div>
+            <p className="text-white text-lg mt-3 mr-[10%]">
+              You follow the crowd on some fonts, but forge your own path on
+              others. Overall, you matched with 50% of other responses. You have
+              a preference for types and you tend to stay away from{" "}
+            </p>
           </div>
-          <p className="text-white text-lg mt-3 mr-[10%]">
-            You follow the crowd on some fonts, but forge your own path on
-            others. Overall, you matched with 50% of other responses. You have a
-            preference for types and you tend to stay away from{" "}
-          </p>
+          <div className="text-white grid grid-cols-[300px_1fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8">
+            <p>Keywords</p>
+            <p>Top 5 Fonts</p>
+          </div>
+          <div>
+            {Object.keys(choices).map((key) => {
+              return (
+                <DataRow
+                  descriptor={key}
+                  key={key}
+                  chosen={choices[key]}
+                  generalPreference={generalPreference[key]}
+                />
+              );
+            })}
+          </div>
         </div>
-        <div className="text-white grid grid-cols-[300px_1fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8">
-          <p>Keywords</p>
-          <p>Top 5 Fonts</p>
-        </div>
-        <div>
-          {Object.keys(choices).map((key) => {
-            return (
-              <DataRow
-                descriptor={key}
-                key={key}
-                chosen={choices[key]}
-                generalPreference={generalPreference[key]}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </motion.main>
+      </motion.main>
+    </>
   );
 }
 
