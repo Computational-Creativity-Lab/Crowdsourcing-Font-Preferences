@@ -10,11 +10,6 @@ export default function DataRow(props) {
   const [totalPercent, setTotalPercent] = useState(0);
 
   useEffect(() => {
-    // console.log(
-    //   "General preferences for descriptor: ",
-    //   props.descriptor,
-    //   props.generalPreference
-    // );
     // sort general preferences into a list of high to low popularity
     let scorePairs = [];
     let countSum = 0;
@@ -42,6 +37,10 @@ export default function DataRow(props) {
       totalPercentLocal += curScore;
       namesArr.push(scorePairs[i].typeface);
     }
+
+    namesArr.push("Other");
+
+    percentArr.push(100 - totalPercentLocal);
     setTotalPercent(totalPercentLocal);
     setPercentage(percentArr);
     setSorted(namesArr);
@@ -55,8 +54,12 @@ export default function DataRow(props) {
   }, []);
 
   useEffect(() => {
-    console.log("ran");
+    console.log(sortedTypefaceNames);
   }, [sortedTypefaceNames]);
+
+  useEffect(() => {
+    // console.log(percentages);
+  }, [percentages]);
 
   return (
     <div className="grid grid-cols-[300px_1fr] mb-4">
@@ -83,17 +86,6 @@ export default function DataRow(props) {
             />
           );
         })}
-        <DataBar
-          currentDescriptor={props.descriptor}
-          fontName="Other"
-          key={5}
-          index={5}
-          percentage={100 - totalPercent}
-          otherPercent={100 - totalPercent}
-          allPercentages={percentages}
-          userSelected={userSelectIdx}
-          fontList={sortedTypefaceNames}
-        />
       </div>
     </div>
   );

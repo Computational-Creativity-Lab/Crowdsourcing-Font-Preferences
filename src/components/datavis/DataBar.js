@@ -30,6 +30,7 @@ export default function DataBar(props) {
       setActiveOther(true);
     }
     // console.log(props.allPercentages);
+    // console.log(props.currentDescriptor, props.index, props.userSelected);
   }, []);
 
   return (
@@ -80,7 +81,6 @@ export default function DataBar(props) {
       <AnimatePresence>
         {isShown && (
           <motion.div
-            key="modal"
             initial={{ opacity: 0, top: 5, scale: 0.95 }}
             animate={{ opacity: 1, top: 0, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -110,16 +110,6 @@ export default function DataBar(props) {
                   </div>
                 );
               })}
-              <div
-                className={`grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full ${
-                  activeOther ? "bg-white text-black" : "text-white"
-                }`}
-              >
-                <p>6</p>
-                {/* MIA need to autopulate top fonts list and their respective % based on backend data*/}
-                <p>Other</p>
-                <p className="flex justify-self-end">{props.otherPercent}%</p>
-              </div>
             </div>
           </motion.div>
         )}

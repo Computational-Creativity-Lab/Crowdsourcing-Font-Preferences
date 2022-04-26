@@ -13,6 +13,7 @@ const DB_DEBUG = true;
 export default function Datavis(props) {
   const preferenceCollection = JSON.parse(props.dbCollection);
   const [generalPreference, setGeneral] = useState({});
+
   /** DB Data */
   useEffect(() => {
     // Rank most popular fonts by going through all entries in the database
@@ -47,7 +48,7 @@ export default function Datavis(props) {
           tempChoices[keyword] = choice;
         }
       });
-      console.log("Choices:", tempChoices);
+      // console.log("Choices:", tempChoices);
       setChoices(tempChoices);
     }
   }, []);
@@ -75,10 +76,10 @@ export default function Datavis(props) {
         </div>
         <div>
           {Object.keys(choices).map((key) => {
-            // console.log("printed");
             return (
               <DataRow
                 descriptor={key}
+                key={key}
                 chosen={choices[key]}
                 generalPreference={generalPreference[key]}
               />
