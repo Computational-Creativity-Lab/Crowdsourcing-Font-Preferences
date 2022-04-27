@@ -107,9 +107,11 @@ export default function Home() {
       <HeadComp />
       <GlobalContainer>
         <Navbar rightLink="Exit" isBlack={true} />
-        {localStorage.length == 0 && joyride && (
-          <JoyRide joyrideState={joyrideState} />
-        )}
+        <AnimatePresence>
+          {localStorage.length == 0 && joyride && (
+            <JoyRide joyrideState={joyrideState} />
+          )}
+        </AnimatePresence>
         <div className="grid h-full grid-cols-2 pt-14">
           <FontsPromptLeftCol qCount={qIdx} keyword={adj} kwRound={kwRound} />
           <FontsPromptRightCol

@@ -4,7 +4,11 @@ import React, { useState } from "react";
 export default function JoyRide(props) {
   return (
     <AnimatePresence>
-      <div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
         <div className="absolute rounded-xl drop-shadow-2xl w-[800px] h-[500px] bg-zinc-900 z-20 p-8 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
           <p className="text-4xl text-zinc-100 mb-10">
             For each{" "}
@@ -29,8 +33,13 @@ export default function JoyRide(props) {
             <div className="w-full h-[200px] bg-red-400"></div>
           </div>
         </div>
-      </div>
-      <div className="absolute bg-[rgba(0,0,0,.2)] backdrop-blur-sm w-full h-full z-10"></div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="absolute bg-[rgba(0,0,0,.2)] backdrop-blur-sm w-full h-full z-10"
+      ></motion.div>
       )
     </AnimatePresence>
   );
