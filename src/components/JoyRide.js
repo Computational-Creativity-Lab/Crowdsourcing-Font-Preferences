@@ -18,7 +18,7 @@ export default function JoyRide(props) {
             select a font
           </p>
           <div className="text-white grid grid-cols-2 h-auto">
-            <div>
+            <div className="flex flex-row">
               <p className="text-base">
                 You’ll have four chances to decide on the best match for that
                 keyword
@@ -38,9 +38,8 @@ export default function JoyRide(props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="absolute bg-[rgba(0,0,0,.2)] backdrop-blur-sm w-full h-full z-10"
+        className="absolute bg-[rgba(0,0,0,.2)] w-full h-full z-10"
       ></motion.div>
-      )
     </AnimatePresence>
   );
 }
