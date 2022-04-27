@@ -1,4 +1,5 @@
 export default function FontsPromptLeftCol(props) {
+  console.log(props.kwRound);
   return (
     <div className="grid grid-template-rows-2 px-4 py-4">
       <div>
@@ -7,9 +8,32 @@ export default function FontsPromptLeftCol(props) {
           {props.keyword}
         </h1>
       </div>
-      <h3 className="text-2xl lg:text-4xl flex justify-self-start items-end h-full">
-        Q{props.qCount + 1}/20
-      </h3>
+      <div className="justify-items-center justify-end flex flex-col">
+        <h3 className="text-2xl lg:text-4xl pb-4 ">Q{props.qCount + 1}/5</h3>
+        <div className="flex flex-row gap-4">
+          <div
+            className={`${
+              props.kwRound >= 0
+                ? "bg-slate-900"
+                : "border border-solid border-black"
+            } w-4 h-4 rounded-full`}
+          ></div>
+          <div
+            className={`${
+              props.kwRound >= 1
+                ? "bg-slate-900"
+                : "border border-solid border-black"
+            } w-4 h-4 rounded-full`}
+          ></div>
+          <div
+            className={`${
+              props.kwRound >= 2
+                ? "bg-slate-900"
+                : "border border-solid border-black"
+            } w-4 h-4 rounded-full`}
+          ></div>
+        </div>
+      </div>
     </div>
   );
 }

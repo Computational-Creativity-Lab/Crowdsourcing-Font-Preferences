@@ -12,18 +12,20 @@ import { KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
 // backend
 import axios from "axios";
 import FiberScene from "../components/fiberbg/Scene";
+import { useFBO } from "@react-three/drei";
 const WRITE_TO_DB = true;
 
 let restoreFonts = false;
 
 export default function Home() {
   // count questions
-  const [qIdx, seQIdx] = useState(0);
+  const [qIdx, setQIdx] = useState(0);
   const [adj, setAdj] = useState(KEYWORDS[qIdx]);
+  const [kwRound, setKwRound] = useState(0);
 
   // change keyword every 4 words
   useEffect(() => {
-    setAdj(KEYWORDS[Math.floor(qIdx / 4)]);
+    setAdj(KEYWORDS[qIdx]);
   }, [qIdx]);
 
   useEffect(() => {
@@ -38,6 +40,14 @@ export default function Home() {
     const res = await axios.get("https://geolocation-db.com/json/");
     setLocationData(res.data);
   }
+
+  useEffect(() => {
+    console.log(kwRound);
+    if (kwRound == 3) {
+      setKwRound(0);
+      setQIdx(qIdx + 1);
+    }
+  }, [kwRound]);
 
   async function addPreferenceHandler(payload) {
     if (!WRITE_TO_DB) return;
@@ -82,7 +92,8 @@ export default function Home() {
       restoreFonts = true;
     }
 
-    seQIdx(qIdx + 1);
+    // setQIdx(qIdx + 1);
+    setKwRound(kwRound + 1);
   }
 
   return (
@@ -91,7 +102,7 @@ export default function Home() {
       <GlobalContainer>
         <Navbar rightLink="Exit" isBlack={true} />
         <Container>
-          <FontsPromptLeftCol qCount={qIdx} keyword={adj} />
+          <FontsPromptLeftCol qCount={qIdx} keyword={adj} kwRound={kwRound} />
           <FontsPromptRightCol
             onclickHandler={handleClick}
             qCount={qIdx}
