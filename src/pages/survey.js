@@ -8,6 +8,7 @@ import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
 import { KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
+import JoyRide from "../components/Joyride";
 
 // backend
 import axios from "axios";
@@ -22,6 +23,7 @@ export default function Home() {
   const [qIdx, setQIdx] = useState(0);
   const [adj, setAdj] = useState(KEYWORDS[qIdx]);
   const [kwRound, setKwRound] = useState(0);
+  const [joyride, setJoyride] = useState(true);
 
   // change keyword every 4 words
   useEffect(() => {
@@ -96,19 +98,26 @@ export default function Home() {
     setKwRound(kwRound + 1);
   }
 
+  const joyrideState = () => {
+    setJoyride(false);
+  };
+
   return (
     <motion.main>
       <HeadComp />
       <GlobalContainer>
         <Navbar rightLink="Exit" isBlack={true} />
-        <Container>
+        {localStorage.length == 0 && joyride && (
+          <JoyRide joyrideState={joyrideState} />
+        )}
+        <div className="grid h-full grid-cols-2 pt-14">
           <FontsPromptLeftCol qCount={qIdx} keyword={adj} kwRound={kwRound} />
           <FontsPromptRightCol
             onclickHandler={handleClick}
             qCount={qIdx}
             keyword={adj}
           />
-        </Container>
+        </div>
         <FiberScene keyword={adj} />
       </GlobalContainer>
     </motion.main>

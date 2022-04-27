@@ -53,21 +53,21 @@ export default function Navbar(props) {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
-                  className="absolute right-2 top-12 text-base bg-white w-[300px] bg-zinc-900 rounded-xl p-4 drop-shadow-2xl origin-top-right"
+                  className="absolute right-2 top-12 text-base w-[300px] bg-zinc-900 rounded-xl p-4 drop-shadow-2xl origin-top-right"
                 >
                   <p className="text-white">
                     Are you sure you want to exit this page? Your work will not
                     be saved.
                   </p>
-                  <div class="grid grid-cols-2 gap-2 mt-4">
+                  <div className="grid grid-cols-2 gap-2 mt-4">
                     <button
                       onClick={() => setExitModal(false)}
-                      class="p-2 bg-[rgba(255,255,255,.05)] rounded-full text-white"
+                      className="p-2 bg-[rgba(255,255,255,.05)] rounded-full text-white"
                     >
                       Go back
                     </button>
                     <Link href="/">
-                      <button class="p-2 bg-[rgba(255,0,0,.1)] rounded-full text-[rgba(255,20,20)]">
+                      <button className="p-2 bg-[rgba(255,0,0,.1)] rounded-full text-[rgba(255,20,20)]">
                         Exit
                       </button>
                     </Link>
