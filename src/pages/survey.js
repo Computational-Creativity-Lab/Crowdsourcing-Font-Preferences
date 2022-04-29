@@ -43,11 +43,16 @@ export default function Home() {
     setLocationData(res.data);
   }
 
+  //when each keyword round is over
   useEffect(() => {
-    console.log(kwRound);
+    // console.log(kwRound);
     if (kwRound == 3) {
       setKwRound(0);
+      restoreFonts = true;
       setQIdx(qIdx + 1);
+      console.log(localStorage);
+
+      //store font
     }
   }, [kwRound]);
 
@@ -65,7 +70,7 @@ export default function Home() {
       location: location,
       time: time,
     };
-    console.log("Adding data to db: ", data);
+    // console.log("Adding data to db: ", data);
 
     await fetch("/api/new-preference", {
       method: "POST",
@@ -89,11 +94,6 @@ export default function Home() {
       return;
     }
 
-    //add all fonts back in once keyword is done
-    if ((qIdx + 1) % 4 == 0 && qIdx !== 0) {
-      restoreFonts = true;
-    }
-
     // setQIdx(qIdx + 1);
     setKwRound(kwRound + 1);
   }
@@ -107,11 +107,11 @@ export default function Home() {
       <HeadComp />
       <GlobalContainer>
         <Navbar rightLink="Exit" isBlack={true} />
-        <AnimatePresence>
-          {localStorage.length == 0 && joyride && (
-            <JoyRide joyrideState={joyrideState} />
-          )}
-        </AnimatePresence>
+
+        {/* {localStorage.length == 0 && joyride && (
+          <JoyRide joyrideState={joyrideState} />
+        )} */}
+
         <div className="grid h-full grid-cols-2 pt-14">
           <FontsPromptLeftCol qCount={qIdx} keyword={adj} kwRound={kwRound} />
           <FontsPromptRightCol

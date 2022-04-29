@@ -105,8 +105,9 @@ export default function FontsPromptRightCol(props) {
       //store responses
       localStorage.setItem(props.keyword, chosenFont);
       finalistCards[props.keyword] = chosenFont;
-      console.log(finalistCards);
+      console.log("finalist cards" + finalistCards);
 
+      //refresh Ramining fots
       remainingFonts.splice(0, remainingFonts.length);
       remainingFonts.push(...FONTS);
     }

@@ -7,12 +7,30 @@ import connectToMongoDB from "../utils/backend/connectDb";
 import { DB_COLLECTION_NAME, FONTS, KEYWORDS_ALL } from "../utils/settings";
 
 const descriptors = KEYWORDS_ALL;
-
 const DB_DEBUG = true;
 
 export default function Datavis(props) {
   const preferenceCollection = JSON.parse(props.dbCollection);
   const [generalPreference, setGeneral] = useState({});
+  const countryOptions = [
+    { label: "All countries", value: "all countries" },
+    { label: "USA", value: "USA" },
+    { label: "China", value: "China" },
+    { label: "France", value: "France" },
+  ];
+  const langOptions = [
+    { label: "All ls", value: "All language" },
+    { label: "English", value: "English" },
+    { label: "Chinese", value: "Chinese" },
+    { label: "French", value: "French" },
+    { label: "German", value: "German" },
+  ];
+
+  const [value, setValue] = React.useState("fruit");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
   /** DB Data */
   useEffect(() => {
@@ -69,11 +87,43 @@ export default function Datavis(props) {
                 You're a <span className="underline">Traditionalist</span>
               </h1>
             </div>
-            <p className="text-white text-lg mt-3 mr-[10%]">
-              You follow the crowd on some fonts, but forge your own path on
-              others. Overall, you matched with 50% of other responses. You have
-              a preference for types and you tend to stay away from{" "}
-            </p>
+            <div className="text-white text-lg">
+              <p className=" mt-3 mr-[10%]">
+                You follow the crowd on some fonts, but forge your own path on
+                others. Overall, you matched with 50% of other responses. You
+                have a preference for types and you tend to stay away from{" "}
+              </p>
+
+              <div className="mt-8">
+                <div>
+                  <label>
+                    <p className="mb-2">You are viewing data of</p>
+
+                    <select
+                      className="bg-inherit border-b border-solid border-b-white mr-8 "
+                      value={value}
+                      onChange={handleChange}
+                    >
+                      {countryOptions.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                      ))}
+                    </select>
+
+                    <select
+                      className="bg-inherit border-b border-solid border-b-white"
+                      value={value}
+                      onChange={handleChange}
+                    >
+                      {langOptions.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                      ))}
+                    </select>
+                  </label>
+
+                  {/* <p>We eat {value}!</p> */}
+                </div>
+              </div>
+            </div>
           </div>
           <div className="text-white grid grid-cols-[300px_1fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8">
             <p>Keywords</p>

@@ -50,4 +50,4 @@ export const FONTS = [
 ];
 
 export const DB_COLLECTION_NAME = "preferences-test";
-export const NUM_QUESTIONS = 20;
+export const NUM_QUESTIONS = 5;

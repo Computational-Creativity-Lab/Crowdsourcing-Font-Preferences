@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 export default function JoyRide(props) {
   return (
-    <AnimatePresence>
+    <>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -27,7 +27,7 @@ export default function JoyRide(props) {
                 onClick={props.joyrideState}
                 className="p-2 bg-[rgba(255,255,255,.05)] rounded-full text-white"
               >
-                Got it
+                Got it!
               </button>
             </div>
             <div className="w-full h-[200px] bg-red-400"></div>
@@ -38,8 +38,8 @@ export default function JoyRide(props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="absolute bg-[rgba(0,0,0,.2)] w-full h-full z-10"
+        className="absolute bg-[rgba(0,0,0,.1)] w-full h-full z-10"
       ></motion.div>
-    </AnimatePresence>
+    </>
   );
 }

@@ -35,7 +35,7 @@ export default function Home() {
             transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
             className="px-4 py-4 text-7xl border-2 border-gray-900 pt-20"
           >
-            Find your fonts.
+            Find your fonts!
           </motion.h1>
         </GlobalContainer>
       </motion.main>
