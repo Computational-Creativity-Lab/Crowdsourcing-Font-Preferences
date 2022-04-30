@@ -22,22 +22,15 @@ export default function DataBar(props) {
       setActiveBar(true);
     }
 
-    if (
-      // props.userSelected != undefined &&
-      props.userSelected == -1 &&
-      props.index == 5
-    ) {
+    if (props.userSelected == -1 && props.index == 5) {
       setActiveOther(true);
     }
-    // console.log(props.allPercentages);
-    // console.log(props.currentDescriptor, props.index, props.userSelected);
   }, []);
 
   return (
     <div
       ref={ref}
       onClick={() => {
-        // console.log(props.index, props.userSelected);
         // userSelected is -1 if their choice is not part of the top 5 choices
         setIsShown(true);
       }}

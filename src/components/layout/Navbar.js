@@ -34,7 +34,7 @@ export default function Navbar(props) {
               props.isBlack ? "text-black" : "text-white"
             }`}
           >
-            Font Preference
+            {`What's Your Type?`}
           </p>
 
           <div className="flex justify-self-end">

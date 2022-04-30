@@ -12,7 +12,7 @@ export default function JoyRide(props) {
         <div className="absolute rounded-xl drop-shadow-2xl w-[800px] h-[500px] bg-zinc-900 z-20 p-8 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
           <p className="text-4xl text-zinc-100 mb-10">
             For each{" "}
-            <span class="py-2 px-4 border border-solid border-zinc-100 rounded-full">
+            <span className="py-2 px-4 border border-solid border-zinc-100 rounded-full">
               keyword
             </span>{" "}
             select a font

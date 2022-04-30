@@ -19,9 +19,7 @@ const remainingFonts = [];
 remainingFonts.push(...FONTS);
 
 let pengramIndex = 0;
-
 let finalistCards = {};
-
 const cardPop = {
   hide: {
     opacity: 0,
@@ -54,6 +52,7 @@ export default function FontsPromptRightCol(props) {
   const [SFS, setSFS] = useState(FONTS[SFI]);
 
   const [topCardState, setTopCardState] = useState(true);
+
   useEffect(() => {
     if (topCardState) {
       let randomNum = Math.floor(Math.random() * remainingFonts.length);
@@ -94,6 +93,7 @@ export default function FontsPromptRightCol(props) {
     //determine which card was clicked
     let chosenFont = option === 1 ? FFS : SFS;
     setChosenCard(option === 1 ? 1 : 2);
+    props.updateChosenFont(chosenFont);
 
     props.onclickHandler({
       chosenStyle: chosenFont,
@@ -101,11 +101,10 @@ export default function FontsPromptRightCol(props) {
     });
 
     //Reset font list when a adj already had 4 responses
-    if ((props.qCount + 1) % 4 == 0 && props.qCount !== 1) {
+
+    if (props.kwRound == 3) {
       //store responses
-      localStorage.setItem(props.keyword, chosenFont);
       finalistCards[props.keyword] = chosenFont;
-      console.log("finalist cards" + finalistCards);
 
       //refresh Ramining fots
       remainingFonts.splice(0, remainingFonts.length);
@@ -123,6 +122,8 @@ export default function FontsPromptRightCol(props) {
       }
     }
 
+    console.log(remainingFonts.length);
+
     // Change pengram
     // if (pengramIndex == pengrams.length - 1) {
     //   pengramIndex = 0;
@@ -130,17 +131,13 @@ export default function FontsPromptRightCol(props) {
     // pengramIndex++;
     // setCurrentPengram(pengrams[pengramIndex]);
 
-    //bottom card is clicked
-
     if (option != 1) {
-      console.log("bottom card clicked");
       setTopCardState(!topCardState);
       setTimeout(() => {
         setTopCardState(topCardState);
       }, 1000);
     } else {
       //top card is clicked
-      console.log("top card clicked");
       setBotCardState(!botCardState);
       setTimeout(() => {
         setBotCardState(botCardState);

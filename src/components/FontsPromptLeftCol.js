@@ -1,5 +1,4 @@
 export default function FontsPromptLeftCol(props) {
-  console.log(props.kwRound);
   return (
     <div className="grid grid-template-rows-2 px-4 py-4">
       <div>

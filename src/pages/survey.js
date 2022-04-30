@@ -24,6 +24,7 @@ export default function Home() {
   const [adj, setAdj] = useState(KEYWORDS[qIdx]);
   const [kwRound, setKwRound] = useState(0);
   const [joyride, setJoyride] = useState(true);
+  const [chosenFont, setChosenFont] = useState();
 
   // change keyword every 4 words
   useEffect(() => {
@@ -50,9 +51,10 @@ export default function Home() {
       setKwRound(0);
       restoreFonts = true;
       setQIdx(qIdx + 1);
-      console.log(localStorage);
 
       //store font
+      localStorage.setItem(adj, chosenFont);
+      console.log(localStorage);
     }
   }, [kwRound]);
 
@@ -102,6 +104,10 @@ export default function Home() {
     setJoyride(false);
   };
 
+  const updateChosenFont = (font) => {
+    setChosenFont(font);
+  };
+
   return (
     <motion.main>
       <HeadComp />
@@ -118,6 +124,8 @@ export default function Home() {
             onclickHandler={handleClick}
             qCount={qIdx}
             keyword={adj}
+            kwRound={kwRound}
+            updateChosenFont={updateChosenFont}
           />
         </div>
         <FiberScene keyword={adj} />

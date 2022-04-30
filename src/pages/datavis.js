@@ -19,7 +19,7 @@ export default function Datavis(props) {
     { label: "France", value: "France" },
   ];
   const langOptions = [
-    { label: "All ls", value: "All language" },
+    { label: "All languages", value: "All language" },
     { label: "English", value: "English" },
     { label: "Chinese", value: "Chinese" },
     { label: "French", value: "French" },
@@ -84,7 +84,8 @@ export default function Datavis(props) {
           <div className=" grid grid-cols-2 mt-16 mb-48">
             <div>
               <h1 className="text-5xl text-white">
-                You're a <span className="underline">Traditionalist</span>
+                {``}
+                You&apos;re a <span className="underline">Traditionalist</span>
               </h1>
             </div>
             <div className="text-white text-lg">
@@ -105,7 +106,9 @@ export default function Datavis(props) {
                       onChange={handleChange}
                     >
                       {countryOptions.map((option) => (
-                        <option value={option.value}>{option.label}</option>
+                        <option value={option.value} key={option.value}>
+                          {option.label}
+                        </option>
                       ))}
                     </select>
 
@@ -115,7 +118,9 @@ export default function Datavis(props) {
                       onChange={handleChange}
                     >
                       {langOptions.map((option) => (
-                        <option value={option.value}>{option.label}</option>
+                        <option value={option.value} key={option.value}>
+                          {option.label}
+                        </option>
                       ))}
                     </select>
                   </label>
@@ -131,6 +136,7 @@ export default function Datavis(props) {
           </div>
           <div>
             {Object.keys(choices).map((key) => {
+              console.log(choices);
               return (
                 <DataRow
                   descriptor={key}
