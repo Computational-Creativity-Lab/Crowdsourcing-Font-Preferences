@@ -74,7 +74,7 @@ export default function Datavis(props) {
   return (
     <>
       <HeadComp></HeadComp>
-      <Navbar isBlack={false}></Navbar>
+      <Navbar rightLink="Exit" isBlack={false} />
       <motion.main
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

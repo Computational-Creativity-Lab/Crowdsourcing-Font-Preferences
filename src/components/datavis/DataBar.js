@@ -35,10 +35,9 @@ export default function DataBar(props) {
         setIsShown(true);
       }}
       onMouseLeave={() => setIsShown(false)}
-      //MIA - I think you've already done this but the font selected by user should be highlighted here. eventually and ideally, we'll make it a gradient
       className={`${
         activeBar || activeOther
-          ? `bg-white hover:opacity-[1] hover:cursor-pointer`
+          ? `bg-[url('/textures/${props.currentDescriptor}.png')] bg-cover hover:opacity-[1] hover:cursor-pointer`
           : `bg-[#2B2C32] hover:cursor-default`
       } flex flex-col border-solid border-[#ffffff00]
       border p-4 rounded-full relative min-w-[48px]`}
@@ -55,14 +54,7 @@ export default function DataBar(props) {
       >
         {props.fontName}
       </motion.p>
-      {/* //gradient */}
-      <div
-        className={`${
-          activeBar || activeOther
-            ? "from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0)]"
-            : "from-[#2B2C32] to-[#002B2C32]"
-        } absolute top-0 right-0 w-[40px] h-full bg-gradient-to-l rounded-r-full`}
-      ></div>
+
       {/* POPUP WINDOW when user clicks bar */}
       <AnimatePresence>
         {isShown && (activeBar || activeOther) && (
