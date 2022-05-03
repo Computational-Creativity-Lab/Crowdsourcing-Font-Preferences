@@ -7,7 +7,7 @@ import FontsPromptRightCol from "../components/FontsPromptRightCol";
 import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
-import { KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
+import { FONTS, KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
 import JoyRide from "../components/Joyride";
 
 // backend
@@ -16,19 +16,46 @@ import FiberScene from "../components/fiberbg/Scene";
 import { useFBO } from "@react-three/drei";
 const WRITE_TO_DB = true;
 
-let restoreFonts = false;
-
-export default function Home() {
+export default function Survey() {
   // count questions
   const [qIdx, setQIdx] = useState(0);
   const [adj, setAdj] = useState(KEYWORDS[qIdx]);
   const [kwRound, setKwRound] = useState(0);
   const [joyride, setJoyride] = useState(true);
   const [chosenFont, setChosenFont] = useState();
+  const [remainingFonts, setRemainingFonts] = useState(new Set(FONTS));
+  const [FFS, setFFS] = useState("");
+  const [SFS, setSFS] = useState("");
+  const [topCardState, setTopCardState] = useState(true);
+  const [botCardState, setBotCardState] = useState(true);
+
+  function getRandomItem() {
+    let items = Array.from(remainingFonts);
+    let item = items[Math.floor(Math.random() * items.length)];
+    let tmp = new Set(remainingFonts);
+    tmp.delete(item);
+
+    setRemainingFonts(tmp);
+    return item;
+  }
+
+  //reset full
+  function getTwoRandomItems() {
+    let items = Array.from(new Set(FONTS));
+    let item1 = items[Math.floor(Math.random() * items.length)];
+    let tmp = new Set(items);
+    tmp.delete(item1);
+    items = Array.from(tmp);
+    let item2 = items[Math.floor(Math.random() * items.length)];
+    tmp.delete(item2);
+    setRemainingFonts(tmp);
+    return [item1, item2];
+  }
 
   // change keyword every 4 words
   useEffect(() => {
     setAdj(KEYWORDS[qIdx]);
+    console.log(qIdx);
   }, [qIdx]);
 
   useEffect(() => {
@@ -46,15 +73,23 @@ export default function Home() {
 
   //when each keyword round is over
   useEffect(() => {
-    // console.log(kwRound);
     if (kwRound == 3) {
       setKwRound(0);
-      restoreFonts = true;
       setQIdx(qIdx + 1);
+      const [font1, font2] = getTwoRandomItems();
+      setFFS(font1);
+      setSFS(font2);
+
+      //animation
+      setTopCardState(false);
+      setBotCardState(false);
+      setTimeout(() => {
+        setTopCardState(true);
+        setBotCardState(true);
+      }, 1000);
 
       //store font
       localStorage.setItem(adj, chosenFont);
-      console.log(localStorage);
     }
   }, [kwRound]);
 
@@ -86,6 +121,7 @@ export default function Home() {
   const MAX_Q_IDX = NUM_QUESTIONS - 1;
 
   async function handleClick(payload) {
+    // NEEDS REVISION
     if ((qIdx + 1) % 4 == 0 && qIdx !== 0) {
       await addPreferenceHandler(payload);
     }
@@ -126,6 +162,17 @@ export default function Home() {
             keyword={adj}
             kwRound={kwRound}
             updateChosenFont={updateChosenFont}
+            getRandomItem={getRandomItem}
+            remainingFonts={remainingFonts}
+            getTwoRandomItems={getTwoRandomItems}
+            FFS={FFS}
+            SFS={SFS}
+            setFFS={setFFS}
+            setSFS={setSFS}
+            topCardState={topCardState}
+            setTopCardState={setTopCardState}
+            botCardState={botCardState}
+            setBotCardState={setBotCardState}
           />
         </div>
         <FiberScene keyword={adj} />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Router from "next/router";
 import styles from "../pages/index.module.css";
 import { motion } from "framer-motion";
@@ -15,11 +15,7 @@ const pengrams = [
   "Pack my box with five dozen liquor jugs.",
 ];
 
-const remainingFonts = [];
-remainingFonts.push(...FONTS);
-
 let pengramIndex = 0;
-let finalistCards = {};
 const cardPop = {
   hide: {
     opacity: 0,
@@ -43,31 +39,50 @@ const cardPop = {
 
 export default function FontsPromptRightCol(props) {
   //mount and unmount card
-  const [FFI, setFFI] = useState(Math.floor(Math.random() * FONTS.length));
-  const [SFI, setSFI] = useState(Math.floor(Math.random() * FONTS.length));
+
+  const {
+    FFS,
+    SFS,
+    topCardState,
+    setTopCardState,
+    botCardState,
+    setBotCardState,
+  } = props;
+
+  //const [FFI, setFFI] = useState(Math.floor(Math.random() * FONTS.length));
+  //const [SFI, setSFI] = useState(Math.floor(Math.random() * FONTS.length));
   const [chosenCard, setChosenCard] = useState();
   const [currentPengram, setCurrentPengram] = useState(pengrams[pengramIndex]);
   const [textFade, startTextFade] = useState(false);
-  const [FFS, setFFS] = useState(FONTS[FFI]);
-  const [SFS, setSFS] = useState(FONTS[SFI]);
 
-  const [topCardState, setTopCardState] = useState(true);
+  // const [topCardState, setTopCardState] = useState(true);
+  // const [botCardState, setBotCardState] = useState(true);
+  const topIsMounted = useRef(false);
+  const botIsMounted = useRef(false);
 
   useEffect(() => {
-    if (topCardState) {
-      let randomNum = Math.floor(Math.random() * remainingFonts.length);
-      setFFI(randomNum);
-      setFFS(FONTS[FFI]);
+    //don't do this first time
+    if (topIsMounted.current) {
+      if (topCardState) {
+        props.setFFS(props.getRandomItem());
+        // console.log("randomizing top");
+      }
+    } else {
+      topIsMounted.current = true;
     }
+    console.log(topCardState);
   }, [topCardState]);
 
-  const [botCardState, setBotCardState] = useState(true);
   useEffect(() => {
-    if (botCardState) {
-      let randomNum = Math.floor(Math.random() * remainingFonts.length);
-      setSFI(randomNum);
-      setSFS(FONTS[SFI]);
+    if (botIsMounted.current) {
+      if (botCardState) {
+        props.setSFS(props.getRandomItem());
+        // console.log("randomizing bot");
+      }
+    } else {
+      botIsMounted.current = true;
     }
+    console.log(botCardState);
   }, [botCardState]);
 
   //if user refreshes, route them to home page to start over
@@ -75,6 +90,9 @@ export default function FontsPromptRightCol(props) {
     if (localStorage.length != 0) {
       Router.push("/");
     }
+    const [font1, font2] = props.getTwoRandomItems();
+    props.setFFS(font1);
+    props.setSFS(font2);
   }, []);
 
   //fade paragraph text
@@ -100,30 +118,6 @@ export default function FontsPromptRightCol(props) {
       keyword: props.keyword,
     });
 
-    //Reset font list when a adj already had 4 responses
-
-    if (props.kwRound == 3) {
-      //store responses
-      finalistCards[props.keyword] = chosenFont;
-
-      //refresh Ramining fots
-      remainingFonts.splice(0, remainingFonts.length);
-      remainingFonts.push(...FONTS);
-    }
-
-    //Remove used font from existing font list
-    else {
-      if (FFI <= SFI) {
-        remainingFonts.splice(SFI, 1);
-        remainingFonts.splice(FFI, 1);
-      } else {
-        remainingFonts.splice(FFI, 1);
-        remainingFonts.splice(SFI, 1);
-      }
-    }
-
-    console.log(remainingFonts.length);
-
     // Change pengram
     // if (pengramIndex == pengrams.length - 1) {
     //   pengramIndex = 0;
@@ -131,17 +125,20 @@ export default function FontsPromptRightCol(props) {
     // pengramIndex++;
     // setCurrentPengram(pengrams[pengramIndex]);
 
-    if (option != 1) {
-      setTopCardState(!topCardState);
-      setTimeout(() => {
-        setTopCardState(topCardState);
-      }, 1000);
-    } else {
-      //top card is clicked
-      setBotCardState(!botCardState);
-      setTimeout(() => {
-        setBotCardState(botCardState);
-      }, 1000);
+    if (props.kwRound < 2) {
+      console.log();
+      if (option != 1) {
+        setTopCardState(false);
+        setTimeout(() => {
+          setTopCardState(true);
+        }, 1000);
+      } else {
+        //top card is clicked
+        setBotCardState(false);
+        setTimeout(() => {
+          setBotCardState(true);
+        }, 1000);
+      }
     }
   };
 
