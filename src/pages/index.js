@@ -7,6 +7,7 @@ import GlobalContainer from "../components/layout/GlobalContainer";
 import Container from "../components/layout/Container";
 
 export default function Home() {
+  const [intro, showIntro] = useState(false);
   useEffect(() => {
     // Make sure we are on client side
     if (typeof window !== "undefined") {
@@ -20,10 +21,13 @@ export default function Home() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className="cursor-pointer bg-zinc-900"
-        onClick={() => Router.push("/survey")}
+        className={`${!intro ? "cursor-pointer" : ""} bg-zinc-900`}
+        onClick={() => {
+          showIntro(true);
+          // Router.push("/survey")
+        }}
       >
-        {/* <CustomCursor /> */}
+        <AnimatePresence>{!intro && <CustomCursor />}</AnimatePresence>
         <HeadComp />
         <GlobalContainer>
           <Navbar isBlack={false} />
@@ -36,34 +40,44 @@ export default function Home() {
           >
             Find your fonts!
           </motion.h1>
-          <motion.div
-            className="absolute bottom-4 right-4"
-            transition={{
-              ease: [0.16, 1, 0.3, 1],
-              duration: 1,
-            }}
-            whileHover={{
-              scale: 1.02,
-            }}
-            whileTap={{
-              scale: 0.99,
-            }}
-          >
-            <motion.svg
-              xmlns="http://www.w3.org/2000/svg"
-              className=" h-32 w-64 justify-center h-full grid text-center block items-center p-10 bg-zinc-100 text-zinc-900 rounded-3xl"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </motion.svg>
-          </motion.div>
+
+          <AnimatePresence>
+            {intro && (
+              <motion.div
+                className="absolute bottom-4 right-4 cursor-pointer"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  ease: [0.16, 1, 0.3, 1],
+                  duration: 1,
+                }}
+                whileHover={{
+                  scale: 1.02,
+                }}
+                whileTap={{
+                  scale: 0.99,
+                }}
+              >
+                <motion.svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className=" h-24 w-48 justify-center h-full grid text-center block items-center p-4 bg-zinc-100 text-zinc-900 rounded-3xl"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  onClick={() => {
+                    Router.push("/survey");
+                  }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </motion.svg>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* <div className="grid grid-rows-2 p-4">
               <div></div>
@@ -118,13 +132,17 @@ function useMousePosition() {
 const CustomCursor = () => {
   const { x, y } = useMousePosition();
   return (
-    <p
-      className="absolute will-change-transform"
+    <motion.p
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className="absolute will-change-transform text-white"
       style={{
         transform: `translate(${x - 60}px, ${y - 30}px)`,
       }}
     >
-      Click to start quiz
-    </p>
+      Click to begin
+    </motion.p>
   );
 };
