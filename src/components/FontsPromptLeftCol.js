@@ -34,6 +34,13 @@ export default function FontsPromptLeftCol(props) {
                 : "border border-solid border-black"
             } w-4 h-4 rounded-full`}
           ></div>
+          <div
+            className={`${
+              props.kwRound >= 3
+                ? "bg-slate-900"
+                : "border border-solid border-black"
+            } w-4 h-4 rounded-full`}
+          ></div>
         </div>
       </div>
     </div>

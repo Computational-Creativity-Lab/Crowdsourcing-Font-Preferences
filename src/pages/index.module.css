@@ -10,22 +10,10 @@
   height: 100%;
 }
 
-.rightCol {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  height: 100%;
-}
-
 .leftCol {
   display: grid;
   grid-template-rows: 1fr auto;
   height: 100%;
-}
-
-.topRight {
-  grid-row-start: 1;
-  height: 100%;
-  padding: 20px 20px 10px 20px;
 }
 
 .bottomRight {

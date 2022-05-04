@@ -73,7 +73,7 @@ export default function Survey() {
 
   //when each keyword round is over
   useEffect(() => {
-    if (kwRound == 3) {
+    if (kwRound == 4) {
       setKwRound(0);
       setQIdx(qIdx + 1);
       const [font1, font2] = getTwoRandomItems();
@@ -154,7 +154,7 @@ export default function Survey() {
           <JoyRide joyrideState={joyrideState} />
         )} */}
 
-        <div className="grid h-full grid-cols-2 pt-14">
+        <div className="grid h-full grid-cols-1 grid-rows-[1fr_2fr] md:grid-rows-1 md:grid-cols-2 pt-14">
           <FontsPromptLeftCol qCount={qIdx} keyword={adj} kwRound={kwRound} />
           <FontsPromptRightCol
             onclickHandler={handleClick}

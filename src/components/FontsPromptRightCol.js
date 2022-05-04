@@ -49,14 +49,10 @@ export default function FontsPromptRightCol(props) {
     setBotCardState,
   } = props;
 
-  //const [FFI, setFFI] = useState(Math.floor(Math.random() * FONTS.length));
-  //const [SFI, setSFI] = useState(Math.floor(Math.random() * FONTS.length));
   const [chosenCard, setChosenCard] = useState();
   const [currentPengram, setCurrentPengram] = useState(pengrams[pengramIndex]);
   const [textFade, startTextFade] = useState(false);
 
-  // const [topCardState, setTopCardState] = useState(true);
-  // const [botCardState, setBotCardState] = useState(true);
   const topIsMounted = useRef(false);
   const botIsMounted = useRef(false);
 
@@ -102,8 +98,6 @@ export default function FontsPromptRightCol(props) {
     setTimeout(() => {
       //show card text again
       startTextFade(false);
-
-      //update font
     }, 500);
   };
 
@@ -125,27 +119,28 @@ export default function FontsPromptRightCol(props) {
     // pengramIndex++;
     // setCurrentPengram(pengrams[pengramIndex]);
 
-    if (props.kwRound < 2) {
+    if (props.kwRound < 3) {
       console.log();
       if (option != 1) {
         setTopCardState(false);
         setTimeout(() => {
           setTopCardState(true);
-        }, 1000);
+        }, 500);
       } else {
         //top card is clicked
         setBotCardState(false);
         setTimeout(() => {
           setBotCardState(true);
-        }, 1000);
+        }, 500);
       }
     }
   };
 
   return (
-    <div className={styles.rightCol}>
+    <div className="grid grid-rows-2 h-full">
+      {/* <div className={styles.rightCol}> */}
       <motion.div
-        className={styles.topRight}
+        className="row-span-1 px-4 pb-2 pt-4"
         onClick={() => {
           handleClick(1);
           fadeText();
@@ -161,7 +156,7 @@ export default function FontsPromptRightCol(props) {
         />
       </motion.div>
       <motion.div
-        className={styles.bottomRight}
+        className="row-span-2 px-4 pb-4 pt-2"
         onClick={() => {
           handleClick(2);
           fadeText();
