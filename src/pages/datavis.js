@@ -81,21 +81,21 @@ export default function Datavis(props) {
         className="bg-black min-h-[100vh] overflow-hidden"
       >
         <div className="p-4">
-          <div className=" grid grid-cols-2 mt-16 mb-48">
+          <div className="grid md:grid-cols-2 mt-16 mb-24 md:mb-48">
             <div>
-              <h1 className="text-5xl text-white">
+              <h1 className="text-5xl text-white mb-8">
                 {``}
                 You&apos;re a <span className="underline">Traditionalist</span>
               </h1>
             </div>
             <div className="text-white text-lg">
-              <p className=" mt-3 mr-[10%]">
+              <p className=" mt-3 md:mr-[10%]">
                 You follow the crowd on some fonts, but forge your own path on
                 others. Overall, you matched with 50% of other responses. You
                 have a preference for types and you tend to stay away from{" "}
               </p>
 
-              <div className="mt-8">
+              <div className="mt-12">
                 <div>
                   <label>
                     <p className="mb-2">You are viewing data of</p>
@@ -124,13 +124,11 @@ export default function Datavis(props) {
                       ))}
                     </select>
                   </label>
-
-                  {/* <p>We eat {value}!</p> */}
                 </div>
               </div>
             </div>
           </div>
-          <div className="text-white grid grid-cols-[300px_1fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8">
+          <div className="text-white grid md:grid-cols-[300px_1fr] grid-cols-[3fr_5fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8">
             <p>Keywords</p>
             <p>Top 5 Fonts</p>
           </div>

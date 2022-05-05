@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DataBar from "./DataBar";
+import MobileDataBar from "./MobileDataBar";
 
 const NUM_BARS = 5; // how many top choices we display
 
@@ -44,17 +45,17 @@ export default function DataRow(props) {
     setTotalPercent(totalPercentLocal);
     setPercentage(percentArr);
     setSorted(namesArr);
-    // console.log("Percentages for", props.descriptor, " : ", percentArr);
-    // console.log("Sorted typefaces: ", namesArr);
+
     const userSelect = namesArr.findIndex((a) => {
       return a === props.chosen;
     });
 
     setSelectIdx(userSelect);
+    console.log(localStorage);
   }, []);
 
   return (
-    <div className="grid grid-cols-[300px_1fr] mb-4">
+    <div className="grid md:grid-cols-[300px_1fr] grid-cols-[3fr_5fr] mb-4">
       {/* descriptor */}
       <div className="col-start-1">
         <h1 className="text-white text-2xl w-fit border border-solid border-white rounded-full px-4 py-2">
@@ -62,7 +63,7 @@ export default function DataRow(props) {
         </h1>
       </div>
       {/* chart */}
-      <div className="flex flex-row inline-block col-start-2 mb-4">
+      <div className="hidden md:flex flex-row col-start-2 mb-4">
         {percentages.map((percentage, index) => {
           return (
             <DataBar
@@ -79,6 +80,12 @@ export default function DataRow(props) {
           );
         })}
       </div>
+      <MobileDataBar
+        descriptor={props.descriptor}
+        userSelectIdx={userSelectIdx}
+        totalPercent={totalPercent}
+        percentages={percentages}
+      ></MobileDataBar>
     </div>
   );
 }
