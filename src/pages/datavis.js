@@ -71,6 +71,10 @@ export default function Datavis(props) {
     }
   }, []);
 
+  const mobileBarClick = () => {
+    console.log("clicked!");
+  };
+
   return (
     <>
       <HeadComp></HeadComp>
@@ -141,6 +145,7 @@ export default function Datavis(props) {
                   key={key}
                   chosen={choices[key]}
                   generalPreference={generalPreference[key]}
+                  mobileBarClick={mobileBarClick}
                 />
               );
             })}
