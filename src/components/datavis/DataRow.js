@@ -5,10 +5,12 @@ import MobileDataBar from "./MobileDataBar";
 const NUM_BARS = 5; // how many top choices we display
 
 export default function DataRow(props) {
-  const [sortedTypefaceNames, setSorted] = useState([]);
-  const [percentages, setPercentage] = useState([]);
+  // const [sortedTypefaceNames, setSorted] = useState([]);
+  // const [percentages, setPercentage] = useState([]);
   const [userSelectIdx, setSelectIdx] = useState(-1);
   const [totalPercent, setTotalPercent] = useState(0);
+
+  const { sortedTypefaceNames, setSorted, percentages, setPercentage } = props;
 
   useEffect(() => {
     // sort general preferences into a list of high to low popularity
