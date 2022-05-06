@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
+import Router from "next/router";
 
 export default function JoyRide(props) {
   return (
@@ -24,7 +25,10 @@ export default function JoyRide(props) {
                 keyword
               </p>
               <button
-                onClick={props.joyrideState}
+                onClick={() => {
+                  Router.push("/survey");
+                  console.log("go to survey");
+                }}
                 className="p-2 bg-[rgba(255,255,255,.05)] rounded-full text-white"
               >
                 Got it!
@@ -38,7 +42,7 @@ export default function JoyRide(props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="absolute bg-[rgba(0,0,0,.1)] w-full h-full z-10"
+        className="absolute bg-[rgba(0,0,0,.5)] w-full h-full z-10"
       ></motion.div>
     </>
   );

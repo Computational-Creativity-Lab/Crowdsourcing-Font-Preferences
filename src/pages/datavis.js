@@ -55,6 +55,7 @@ export default function Datavis(props) {
     }
 
     setGeneral(counters);
+    console.log(sortedTypefaceNames);
   }, []);
 
   /** User Data */

@@ -5,6 +5,7 @@ import HeadComp from "../components/HeadComp";
 import Router from "next/router";
 import GlobalContainer from "../components/layout/GlobalContainer";
 import Container from "../components/layout/Container";
+import JoyRide from "../components/Joyride";
 
 export default function Home() {
   const [intro, showIntro] = useState(false);
@@ -24,9 +25,52 @@ export default function Home() {
         className={`${!intro ? "cursor-pointer" : ""} bg-zinc-900`}
         onClick={() => {
           showIntro(true);
-          // Router.push("/survey")
         }}
       >
+        {intro && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute top-0 w-full h-full  bg-[rgba(0,0,0,.5)]"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
+            >
+              <div className="absolute rounded-xl drop-shadow-2xl max-w-[800px] w-[90%] bg-zinc-900 z-20 p-8 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
+                <p className="leading-8 text-3xl text-zinc-100 mb-10">
+                  Select the font that best matches each{" "}
+                  <span className="pb-1 px-4 border border-solid border-zinc-100 rounded-full">
+                    Keyword
+                  </span>
+                </p>
+                <div className="text-white grid grid-cols-2 h-auto">
+                  <div className="flex flex-col">
+                    <p className="text-base">
+                      Whatever font you choose will remain. The unselected one
+                      will change. You’ll have four chances to decide on the
+                      best match for that keyword. After four rounds, the font
+                      that remains will be your selection and you’ll move on to
+                      a new keyword.
+                    </p>
+                  </div>
+                  <div className="w-full h-[200px] bg-red-400"></div>
+                </div>
+                <button
+                  onClick={() => {
+                    Router.push("/survey");
+                    console.log("go to survey");
+                  }}
+                  className="w-full px-2 py-8 bg-[rgba(255,255,255,.05)] rounded-full text-white mt-8"
+                >
+                  Got it!
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
         <AnimatePresence>{!intro && <CustomCursor />}</AnimatePresence>
         <HeadComp />
         <GlobalContainer>
@@ -40,70 +84,6 @@ export default function Home() {
           >
             Find your fonts!
           </motion.h1>
-
-          <AnimatePresence>
-            {intro && (
-              <motion.div
-                className="absolute bottom-4 right-4 cursor-pointer"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  ease: [0.16, 1, 0.3, 1],
-                  duration: 1,
-                }}
-                whileHover={{
-                  scale: 1.02,
-                }}
-                whileTap={{
-                  scale: 0.99,
-                }}
-              >
-                <motion.svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className=" h-24 w-48 justify-center h-full grid text-center block items-center p-4 bg-zinc-100 text-zinc-900 rounded-3xl"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  onClick={() => {
-                    Router.push("/survey");
-                  }}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </motion.svg>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* <div className="grid grid-rows-2 p-4">
-              <div></div>
-              <div className="row-start-2 bg-zinc-900  text-white rounded-3xl">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 justify-center h-full grid text-center block items-center"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-                <p
-                  className="justify-center h-full grid text-center block items-center"
-                  self-center
-                >
-                  Click to start
-                </p>
-              </div>
-            </div> */}
         </GlobalContainer>
       </motion.main>
     </AnimatePresence>
