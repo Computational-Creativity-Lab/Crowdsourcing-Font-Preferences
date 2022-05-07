@@ -3,6 +3,12 @@ import DataBar from "./DataBar";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function MobileDataCard(props) {
+  let isOther = true;
+
+  useEffect(() => {
+    console.log(props.globalSelectedIdx);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 1, translateY: "200%" }}
@@ -23,14 +29,20 @@ export default function MobileDataCard(props) {
         people.`}
       </p>
 
-      {props.sortedTypefaceNames.map((font, index) => {
+      {props.globalTypeNames.map((font, index) => {
         return (
           <div
             key={index}
             className={`grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full 
+            ${
+              props.globalSelectedIdx == index
+                ? "bg-white text-black"
+                : props.globalSelectedIdx == -1 && index == 5
+                ? "bg-white text-black"
+                : "text-white"
+            }
 
             `}
-            // ${ index == props.index ? "bg-white text-black" : "text-white"}
           >
             <p>{index + 1}</p>
             <p
@@ -40,7 +52,9 @@ export default function MobileDataCard(props) {
             >
               {font}
             </p>
-            <p className="flex justify-self-end">{props.percentages[index]}%</p>
+            <p className="flex justify-self-end">
+              {props.globalPercentages[index]}%
+            </p>
           </div>
         );
       })}

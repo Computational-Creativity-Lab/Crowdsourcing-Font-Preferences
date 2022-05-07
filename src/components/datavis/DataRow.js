@@ -87,6 +87,7 @@ export default function DataRow(props) {
         totalPercent={totalPercent}
         percentages={percentages}
         mobileBarClick={props.mobileBarClick}
+        sortedTypefaceNames={sortedTypefaceNames}
       ></MobileDataBar>
     </div>
   );

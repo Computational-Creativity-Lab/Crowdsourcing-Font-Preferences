@@ -1,7 +1,14 @@
 export default function MobileDataBar(props) {
   return (
     <div
-      onClick={() => props.mobileBarClick(props.descriptor)}
+      onClick={() =>
+        props.mobileBarClick(
+          props.descriptor,
+          props.sortedTypefaceNames,
+          props.percentages,
+          props.userSelectIdx
+        )
+      }
       className="md:hidden relative flex items-center w-full bg-[#2B2C32] rounded-full overflow-hidden"
     >
       <p className="ml-4 text-white min-w-[48px] z-10">

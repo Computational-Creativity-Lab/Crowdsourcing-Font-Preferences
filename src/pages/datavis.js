@@ -18,6 +18,10 @@ export default function Datavis(props) {
   // const [percentages, setPercentage] = useState([]);
   const [currDescriptor, setCurrDescriptor] = useState("");
 
+  const [globalTypeNames, setGlobalTypeNames] = useState();
+  const [globalPercentages, setGlobalPercentages] = useState();
+  const [globalSelectedIdx, setGlobalSelectedIdx] = useState(-1);
+
   const countryOptions = [
     { label: "All countries", value: "all countries" },
     { label: "USA", value: "USA" },
@@ -76,9 +80,17 @@ export default function Datavis(props) {
     }
   }, []);
 
-  const mobileBarClick = (descriptor) => {
+  const mobileBarClick = (
+    descriptor,
+    sortedTypefaceNames,
+    percentages,
+    selectedIndex
+  ) => {
     console.log("clicked!");
     setCurrDescriptor(descriptor);
+    setGlobalTypeNames(sortedTypefaceNames);
+    setGlobalPercentages(percentages);
+    setGlobalSelectedIdx(selectedIndex);
     setFontModal(true);
   };
 
@@ -165,8 +177,9 @@ export default function Datavis(props) {
           {fontModal && (
             <MobileDataCard
               descriptor={currDescriptor}
-              // sortedTypefaceNames={sortedTypefaceNames}
-              // percentages={percentages}
+              globalTypeNames={globalTypeNames}
+              globalPercentages={globalPercentages}
+              globalSelectedIdx={globalSelectedIdx}
               setFontModal={setFontModal}
             ></MobileDataCard>
           )}
