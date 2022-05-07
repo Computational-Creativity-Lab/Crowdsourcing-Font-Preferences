@@ -1,6 +1,3 @@
-import React, { useState, useEffect } from "react";
-import DataBar from "./DataBar";
-
 export default function MobileDataBar(props) {
   return (
     <div

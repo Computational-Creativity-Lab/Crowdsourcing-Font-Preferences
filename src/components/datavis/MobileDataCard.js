@@ -19,8 +19,8 @@ export default function MobileDataCard(props) {
         {props.descriptor}
       </h1>
       <p onClick={() => props.setFontModal(false)} className="mt-4 text-lg">
-        You have picked Roboto for ‘Authorative’. It matches to other 60% of
-        people.{" "}
+        {`You have picked Roboto for ${props.descriptor}. It matches to other 60% of
+        people.`}
       </p>
 
       {props.sortedTypefaceNames.map((font, index) => {

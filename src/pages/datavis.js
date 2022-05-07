@@ -14,8 +14,8 @@ export default function Datavis(props) {
   const preferenceCollection = JSON.parse(props.dbCollection);
   const [generalPreference, setGeneral] = useState({});
   const [fontModal, setFontModal] = useState(false);
-  const [sortedTypefaceNames, setSorted] = useState([]);
-  const [percentages, setPercentage] = useState([]);
+  // const [sortedTypefaceNames, setSorted] = useState([]);
+  // const [percentages, setPercentage] = useState([]);
   const [currDescriptor, setCurrDescriptor] = useState("");
 
   const countryOptions = [
@@ -72,7 +72,6 @@ export default function Datavis(props) {
           tempChoices[keyword] = choice;
         }
       });
-      // console.log("Choices:", tempChoices);
       setChoices(tempChoices);
     }
   }, []);
@@ -148,15 +147,15 @@ export default function Datavis(props) {
             {Object.keys(choices).map((key) => {
               return (
                 <DataRow
-                  sortedTypefaceNames={sortedTypefaceNames}
-                  setSorted={setSorted}
+                  // sortedTypefaceNames={sortedTypefaceNames}
+                  // setSorted={setSorted}
                   descriptor={key}
                   key={key}
                   chosen={choices[key]}
                   generalPreference={generalPreference[key]}
                   mobileBarClick={mobileBarClick}
-                  percentages={percentages}
-                  setPercentage={setPercentage}
+                  // percentages={percentages}
+                  // setPercentage={setPercentage}
                 />
               );
             })}
@@ -166,8 +165,8 @@ export default function Datavis(props) {
           {fontModal && (
             <MobileDataCard
               descriptor={currDescriptor}
-              sortedTypefaceNames={sortedTypefaceNames}
-              percentages={percentages}
+              // sortedTypefaceNames={sortedTypefaceNames}
+              // percentages={percentages}
               setFontModal={setFontModal}
             ></MobileDataCard>
           )}

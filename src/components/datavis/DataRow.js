@@ -5,12 +5,11 @@ import MobileDataBar from "./MobileDataBar";
 const NUM_BARS = 5; // how many top choices we display
 
 export default function DataRow(props) {
-  // const [sortedTypefaceNames, setSorted] = useState([]);
-  // const [percentages, setPercentage] = useState([]);
   const [userSelectIdx, setSelectIdx] = useState(-1);
   const [totalPercent, setTotalPercent] = useState(0);
-
-  const { sortedTypefaceNames, setSorted, percentages, setPercentage } = props;
+  const [percentages, setPercentage] = useState([]);
+  const [sortedTypefaceNames, setSorted] = useState([]);
+  // const { sortedTypefaceNames, setSorted } = props;
 
   useEffect(() => {
     // sort general preferences into a list of high to low popularity
@@ -40,11 +39,12 @@ export default function DataRow(props) {
       totalPercentLocal += curScore;
       namesArr.push(scorePairs[i].typeface);
     }
-
     namesArr.push("Other");
 
     percentArr.push(100 - totalPercentLocal);
     setTotalPercent(totalPercentLocal);
+
+    //seem to only be running once
     setPercentage(percentArr);
     setSorted(namesArr);
 
@@ -63,7 +63,7 @@ export default function DataRow(props) {
           {props.descriptor}
         </h1>
       </div>
-      {/* chart */}
+      {/* bar graph */}
       <div className="hidden md:flex flex-row col-start-2 mb-4">
         {percentages.map((percentage, index) => {
           return (
