@@ -4,7 +4,7 @@ import DataBar from "./DataBar";
 export default function MobileDataBar(props) {
   return (
     <div
-      onClick={props.mobileBarClick}
+      onClick={() => props.mobileBarClick(props.descriptor)}
       className="md:hidden relative flex items-center w-full bg-[#2B2C32] rounded-full overflow-hidden"
     >
       <p className="ml-4 text-white min-w-[48px] z-10">

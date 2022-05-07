@@ -8,7 +8,6 @@ import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
 import { FONTS, KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
-import JoyRide from "../components/Joyride";
 
 // backend
 import axios from "axios";

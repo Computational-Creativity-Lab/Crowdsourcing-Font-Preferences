@@ -53,7 +53,6 @@ export default function DataRow(props) {
     });
 
     setSelectIdx(userSelect);
-    console.log(localStorage);
   }, []);
 
   return (

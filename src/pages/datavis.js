@@ -5,6 +5,7 @@ import HeadComp from "../components/HeadComp";
 import DataRow from "../components/datavis/DataRow";
 import connectToMongoDB from "../utils/backend/connectDb";
 import { DB_COLLECTION_NAME, FONTS, KEYWORDS_ALL } from "../utils/settings";
+import MobileDataCard from "../components/datavis/MobileDataCard";
 
 const descriptors = KEYWORDS_ALL;
 const DB_DEBUG = true;
@@ -15,6 +16,7 @@ export default function Datavis(props) {
   const [fontModal, setFontModal] = useState(false);
   const [sortedTypefaceNames, setSorted] = useState([]);
   const [percentages, setPercentage] = useState([]);
+  const [currDescriptor, setCurrDescriptor] = useState("");
 
   const countryOptions = [
     { label: "All countries", value: "all countries" },
@@ -55,7 +57,6 @@ export default function Datavis(props) {
     }
 
     setGeneral(counters);
-    console.log(sortedTypefaceNames);
   }, []);
 
   /** User Data */
@@ -76,8 +77,9 @@ export default function Datavis(props) {
     }
   }, []);
 
-  const mobileBarClick = () => {
+  const mobileBarClick = (descriptor) => {
     console.log("clicked!");
+    setCurrDescriptor(descriptor);
     setFontModal(true);
   };
 
@@ -144,7 +146,6 @@ export default function Datavis(props) {
           </div>
           <div>
             {Object.keys(choices).map((key) => {
-              console.log(choices);
               return (
                 <DataRow
                   sortedTypefaceNames={sortedTypefaceNames}
@@ -161,44 +162,16 @@ export default function Datavis(props) {
             })}
           </div>
         </div>
-        {fontModal && (
-          <motion.div
-            initial={{ opacity: 1, translateY: "200%" }}
-            animate={{ opacity: 1, translateY: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ type: "ease", ease: [0.16, 1, 0.3, 1], duration: 1 }}
-            className="text-white bottom-0 z-10 p-4 absolute w-full h-[90vh] bg-zinc-900 rounded-t-2xl"
-          >
-            <h1 className="px-4 py-2 border inline-block text-2xl border-white border-solid rounded-full w-auto">
-              Keyword
-            </h1>
-            <p className="mt-4 text-lg">
-              You have picked Roboto for ‘Authorative’. It matches to other 60%
-              of people.{" "}
-            </p>
-
-            {sortedTypefaceNames.map((font, index) => {
-              return (
-                <div
-                  key={index}
-                  className={`grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full ${
-                    index == props.index ? "bg-white text-black" : "text-white"
-                  }`}
-                >
-                  <p>{index + 1}</p>
-                  <p
-                    style={{
-                      fontFamily: `${font != "Other" ? font : ""}`,
-                    }}
-                  >
-                    {font}
-                  </p>
-                  <p className="flex justify-self-end">{percentages[index]}%</p>
-                </div>
-              );
-            })}
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {fontModal && (
+            <MobileDataCard
+              descriptor={currDescriptor}
+              sortedTypefaceNames={sortedTypefaceNames}
+              percentages={percentages}
+              setFontModal={setFontModal}
+            ></MobileDataCard>
+          )}
+        </AnimatePresence>
       </motion.main>
     </>
   );
