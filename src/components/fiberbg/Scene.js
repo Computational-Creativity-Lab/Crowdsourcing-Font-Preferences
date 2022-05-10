@@ -7,15 +7,12 @@ import { vertexShader } from "./Vert";
 import { KEYWORDS } from "../../utils/settings";
 
 function Scene(props) {
-  const [maps, setMaps] = useState({});
-
-  let mapsArr;
-  let tempMaps = {};
-  KEYWORDS.forEach((word) => {
-    tempMaps[word] = useTexture("/textures/" + word + ".png");
-  });
-  mapsArr = tempMaps;
-
+  var textureUrls = [];
+  for (let i = 0; i < KEYWORDS.length; i++) {
+    textureUrls.push("/textures/" + KEYWORDS[i] + ".png");
+  }
+  const [map0, map1, map2, map3, map4, map5, map6, map7, map8, map9] =
+    useTexture(textureUrls);
   const initialMap = useTexture("/textures/" + props.keyword + ".png");
   const [prevMap, setPrevMap] = useState(initialMap);
   const [currentMap, setCurrentMap] = useState(initialMap);
@@ -44,7 +41,9 @@ function Scene(props) {
   useEffect(() => {
     console.log("Shader prop:", props);
     setPrevMap(currentMap);
-    data.uniforms.TextureCurrent.value = mapsArr[props.keyword];
+    // data.uniforms.TextureCurrent.value = useTexture(
+    //   "/textures/" + props.keyword + ".png"
+    // );
   }, [props.keyword]);
 
   if (window) {
@@ -54,11 +53,6 @@ function Scene(props) {
           attach="geometry"
           args={[window.innerWidth / 100, window.innerHeight / 100]}
         />
-        {/* <meshBasicMaterial
-          attach="material"
-          map={colorMap}
-          toneMapped={false}
-        /> */}
         <shaderMaterial attach="material" {...data} />
       </mesh>
     );

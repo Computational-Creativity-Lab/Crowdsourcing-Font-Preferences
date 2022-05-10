@@ -5,7 +5,7 @@ import HeadComp from "../components/HeadComp";
 import Router from "next/router";
 import GlobalContainer from "../components/layout/GlobalContainer";
 import Container from "../components/layout/Container";
-import JoyRide from "../components/Joyride";
+import JoyRide from "../components/JoyRide";
 
 export default function Home() {
   const [intro, showIntro] = useState(false);
