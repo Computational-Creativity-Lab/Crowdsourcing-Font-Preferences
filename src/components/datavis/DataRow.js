@@ -53,7 +53,7 @@ export default function DataRow(props) {
     });
 
     setSelectIdx(userSelect);
-  }, []);
+  }, [props.generalPreference, props.chosen]);
 
   return (
     <div className="grid md:grid-cols-[300px_1fr] grid-cols-[3fr_5fr] mb-4">

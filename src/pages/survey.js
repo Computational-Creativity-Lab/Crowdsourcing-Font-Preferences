@@ -13,7 +13,7 @@ import { FONTS, KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
 import axios from "axios";
 import FiberScene from "../components/fiberbg/Scene";
 import { useFBO } from "@react-three/drei";
-import getFirstBrowserLanguage from "../utils/backend/getLanguage";
+import getFirstBrowserLanguage from "../utils/backend/getLanguage.module";
 const WRITE_TO_DB = true;
 
 export default function Survey() {
@@ -102,7 +102,6 @@ export default function Survey() {
         : { country_name: locationData.country_name };
     const time = Date().toLocaleString();
     const language = getFirstBrowserLanguage();
-    console.log("Language", language);
     const data = {
       font: payload.chosenStyle,
       keyword: payload.keyword,
@@ -110,7 +109,7 @@ export default function Survey() {
       time: time,
       language: language,
     };
-    // console.log("Adding data to db: ", data);
+    console.log("Adding data to db: ", data);
 
     await fetch("/api/new-preference", {
       method: "POST",
