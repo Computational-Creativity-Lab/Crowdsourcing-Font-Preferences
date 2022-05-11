@@ -13,6 +13,7 @@ import { FONTS, KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
 import axios from "axios";
 import FiberScene from "../components/fiberbg/Scene";
 import { useFBO } from "@react-three/drei";
+import getFirstBrowserLanguage from "../utils/backend/getLanguage";
 const WRITE_TO_DB = true;
 
 export default function Survey() {
@@ -100,11 +101,14 @@ export default function Survey() {
         ? { country_name: locationData.country_name, state: locationData.state }
         : { country_name: locationData.country_name };
     const time = Date().toLocaleString();
+    const language = getFirstBrowserLanguage();
+    console.log("Language", language);
     const data = {
       font: payload.chosenStyle,
       keyword: payload.keyword,
       location: location,
       time: time,
+      language: language,
     };
     // console.log("Adding data to db: ", data);
 
@@ -121,8 +125,9 @@ export default function Survey() {
 
   async function handleClick(payload) {
     // NEEDS REVISION
-    if ((qIdx + 1) % 4 == 0 && qIdx !== 0) {
+    if ((kwRound + 1) % 4 == 0 && kwRound !== 0) {
       await addPreferenceHandler(payload);
+      console.log("Added preference");
     }
 
     // go to data page

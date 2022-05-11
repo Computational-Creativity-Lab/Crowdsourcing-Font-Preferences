@@ -45,6 +45,7 @@ export default function Datavis(props) {
   /** DB Data */
   useEffect(() => {
     // Rank most popular fonts by going through all entries in the database
+    // By default, we display data from all countries
     let counters = {};
     descriptors.forEach((d) => {
       counters[d] = {};
@@ -66,7 +67,7 @@ export default function Datavis(props) {
   /** User Data */
   const [choices, setChoices] = useState({});
   useEffect(() => {
-    //store user's word selections
+    // store user's word selections
     // Make sure we are on client side
     if (typeof window !== "undefined") {
       var tempChoices = [];
@@ -96,7 +97,7 @@ export default function Datavis(props) {
 
   return (
     <>
-      <HeadComp></HeadComp>
+      <HeadComp />
       <Navbar rightLink="Exit" isBlack={false} />
       <motion.main
         initial={{ opacity: 0 }}
