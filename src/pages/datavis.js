@@ -40,7 +40,6 @@ export default function Datavis(props) {
   // Takes in two arrays of the filter categories and the chosen filter
   // Returns an object of ranked fonts for different keywords
   const parseDBPreferences = (filterCategories, filters) => {
-    console.log("Parsing DB with filters", filterCategories, filters);
     const empty_filter = filterCategories.length === 0 || filters.length === 0;
 
     // init counter
@@ -61,11 +60,11 @@ export default function Datavis(props) {
           satisfy &= pref[category] === filters[index];
         } else {
           // must be a length 2 array
-          console.log(
-            pref[category[0]][category[1]] === filters[index],
-            pref[category[0]][category[1]],
-            filters[index]
-          );
+          // console.log(
+          //   pref[category[0]][category[1]] === filters[index],
+          //   pref[category[0]][category[1]],
+          //   filters[index]
+          // );
           satisfy &= pref[category[0]][category[1]] === filters[index];
         }
         hasSatisfy |= satisfy;
@@ -90,7 +89,7 @@ export default function Datavis(props) {
   const handleChange = (event, category) => {
     setValue(event.target.value);
     const newVal = event.target.value;
-    console.log(category, "changed to", newVal);
+    // console.log(category, "changed to", newVal);
 
     if (category === "location") {
       setLocationFilter(newVal);
@@ -117,12 +116,11 @@ export default function Datavis(props) {
       filters = [locationFilter, languageFilter];
     }
     let [newCounter, hasSatisfy] = parseDBPreferences(categories, filters);
-    console.log("Set new counter to", newCounter);
     if (hasSatisfy) {
       setFiltered(newCounter);
     } else {
       // TODO: display different screen or warning for this case
-      console.log("Current filter has no valid entry");
+      // console.log("Current filter has no valid entry");
     }
   }, [locationFilter, languageFilter]);
 
@@ -149,7 +147,6 @@ export default function Datavis(props) {
     percentages,
     selectedIndex
   ) => {
-    console.log("clicked!");
     setCurrDescriptor(descriptor);
     setGlobalTypeNames(sortedTypefaceNames);
     setGlobalPercentages(percentages);
@@ -263,7 +260,7 @@ export async function getStaticProps(context) {
 
   client.close();
 
-  console.log("Disconnect from db");
+  // console.log("Disconnect from db");
 
   return {
     props: {

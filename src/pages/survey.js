@@ -55,7 +55,7 @@ export default function Survey() {
   // change keyword every 4 words
   useEffect(() => {
     setAdj(KEYWORDS[qIdx]);
-    console.log(qIdx);
+    console.log(qIdx + 1, MAX_Q_IDX);
   }, [qIdx]);
 
   useEffect(() => {
@@ -109,7 +109,6 @@ export default function Survey() {
       time: time,
       language: language,
     };
-    console.log("Adding data to db: ", data);
 
     await fetch("/api/new-preference", {
       method: "POST",
@@ -120,13 +119,12 @@ export default function Survey() {
     });
   }
 
-  const MAX_Q_IDX = NUM_QUESTIONS - 1;
+  const MAX_Q_IDX = NUM_QUESTIONS;
 
   async function handleClick(payload) {
     // NEEDS REVISION
     if ((kwRound + 1) % 4 == 0 && kwRound !== 0) {
       await addPreferenceHandler(payload);
-      console.log("Added preference");
     }
 
     // go to data page
@@ -137,11 +135,8 @@ export default function Survey() {
 
     // setQIdx(qIdx + 1);
     setKwRound(kwRound + 1);
+    console.log(localStorage);
   }
-
-  const joyrideState = () => {
-    setJoyride(false);
-  };
 
   const updateChosenFont = (font) => {
     setChosenFont(font);

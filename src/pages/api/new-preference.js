@@ -10,7 +10,6 @@ export default async function handler(req, res) {
 
     const preferencesCollection = db.collection(DB_COLLECTION_NAME);
     const result = await preferencesCollection.insertOne(data);
-    console.log("Result id: ", result);
 
     client.close();
 

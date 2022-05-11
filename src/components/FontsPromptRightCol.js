@@ -61,24 +61,20 @@ export default function FontsPromptRightCol(props) {
     if (topIsMounted.current) {
       if (topCardState) {
         props.setFFS(props.getRandomItem());
-        // console.log("randomizing top");
       }
     } else {
       topIsMounted.current = true;
     }
-    console.log(topCardState);
   }, [topCardState]);
 
   useEffect(() => {
     if (botIsMounted.current) {
       if (botCardState) {
         props.setSFS(props.getRandomItem());
-        // console.log("randomizing bot");
       }
     } else {
       botIsMounted.current = true;
     }
-    console.log(botCardState);
   }, [botCardState]);
 
   //if user refreshes, route them to home page to start over
@@ -120,7 +116,6 @@ export default function FontsPromptRightCol(props) {
     // setCurrentPengram(pengrams[pengramIndex]);
 
     if (props.kwRound < 3) {
-      console.log();
       if (option != 1) {
         setTopCardState(false);
         setTimeout(() => {
