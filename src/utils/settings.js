@@ -41,7 +41,14 @@ export const KEYWORDS_ALL = [
 // Used in production
 // These are the keywords we have gradient textures for
 // They should match the texture file names
-export const KEYWORDS = ["Casual", "Formal", "Serious", "Friendly", "Playful"];
+export const KEYWORDS = [
+  "Casual",
+  "Formal",
+  "Serious",
+  "Friendly",
+  "Playful",
+  "Playful",
+];
 
 export const FONTS = [
   "Abril Fatface",

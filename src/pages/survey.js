@@ -54,8 +54,10 @@ export default function Survey() {
 
   // change keyword every 4 words
   useEffect(() => {
+    if (qIdx + 1 > MAX_Q_IDX) {
+      Router.push("datavis");
+    }
     setAdj(KEYWORDS[qIdx]);
-    console.log(qIdx + 1, MAX_Q_IDX);
   }, [qIdx]);
 
   useEffect(() => {
@@ -76,6 +78,7 @@ export default function Survey() {
     if (kwRound == 4) {
       setKwRound(0);
       setQIdx(qIdx + 1);
+
       const [font1, font2] = getTwoRandomItems();
       setFFS(font1);
       setSFS(font2);
@@ -125,12 +128,6 @@ export default function Survey() {
     // NEEDS REVISION
     if ((kwRound + 1) % 4 == 0 && kwRound !== 0) {
       await addPreferenceHandler(payload);
-    }
-
-    // go to data page
-    if (qIdx + 1 > MAX_Q_IDX) {
-      Router.push("datavis");
-      return;
     }
 
     // setQIdx(qIdx + 1);

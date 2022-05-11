@@ -23,7 +23,7 @@ export default function Navbar(props) {
             props.isBlack
               ? "border-[rgba(0,0,0,.3)]"
               : "border-[rgba(255,255,255,.3)]"
-          }`}
+          }  ${props.blackBG ? "bg-black" : ""} `}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}
@@ -32,7 +32,7 @@ export default function Navbar(props) {
           <p
             className={`cursor-default flex justify-self-start ${
               props.isBlack ? "text-black" : "text-white"
-            }`}
+            } `}
           >
             {`What's Your Type?`}
           </p>
@@ -53,21 +53,21 @@ export default function Navbar(props) {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
-                  className="absolute right-2 top-12 text-base w-[300px] bg-zinc-900 rounded-xl p-4 drop-shadow-2xl origin-top-right"
+                  className="absolute overflow-hidden right-2 top-12 text-base w-[300px] bg-zinc-900 rounded-xl drop-shadow-2xl origin-top-right"
                 >
-                  <p className="text-white">
+                  <p className="text-white  px-4 pt-4">
                     Are you sure you want to exit this page? Your work will not
                     be saved.
                   </p>
-                  <div className="grid grid-cols-2 gap-2 mt-4">
+                  <div className="grid grid-cols-2 mt-4 border-t border-solid border-[rgba(255,255,255,.2)]">
                     <button
                       onClick={() => setExitModal(false)}
-                      className="p-2 bg-[rgba(255,255,255,.05)] rounded-full text-white"
+                      className="p-4 hover:bg-[rgba(255,255,255,.05)] text-white border-r border-solid border-[rgba(255,255,255,.2)]"
                     >
                       Go back
                     </button>
                     <Link href="/">
-                      <button className="p-2 bg-[rgba(255,0,0,.1)] rounded-full text-[rgba(255,20,20)]">
+                      <button className="p-4 hover:bg-[rgba(255,0,0,.1)] text-[rgba(255,20,20)]">
                         Exit
                       </button>
                     </Link>
