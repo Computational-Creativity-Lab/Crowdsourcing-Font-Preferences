@@ -4,15 +4,28 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
 import DataRow from "../components/datavis/DataRow";
 import connectToMongoDB from "../utils/backend/connectDb";
-import { DB_COLLECTION_NAME, FONTS, KEYWORDS_ALL } from "../utils/settings";
+import {
+  COUNTRY_OPTIONS,
+  DB_COLLECTION_NAME,
+  FONTS,
+  KEYWORDS_ALL,
+  LANG_OPTIONS,
+} from "../utils/settings";
 import MobileDataCard from "../components/datavis/MobileDataCard";
 
-const descriptors = KEYWORDS_ALL;
+const DESCRIPTORS = KEYWORDS_ALL;
 const DB_DEBUG = true;
 
 export default function Datavis(props) {
+  // DB Side
   const preferenceCollection = JSON.parse(props.dbCollection);
-  const [generalPreference, setGeneral] = useState({});
+  const [filteredPreference, setFiltered] = useState({});
+  const [locationFilter, setLocationFilter] = useState(
+    COUNTRY_OPTIONS[0].value
+  );
+  const [languageFilter, setLanguageFilter] = useState(LANG_OPTIONS[0].value);
+
+  // Client side (?)
   const [fontModal, setFontModal] = useState(false);
   // const [sortedTypefaceNames, setSorted] = useState([]);
   // const [percentages, setPercentage] = useState([]);
@@ -22,55 +35,105 @@ export default function Datavis(props) {
   const [globalPercentages, setGlobalPercentages] = useState();
   const [globalSelectedIdx, setGlobalSelectedIdx] = useState(-1);
 
-  const countryOptions = [
-    { label: "All countries", value: "all countries" },
-    { label: "USA", value: "USA" },
-    { label: "China", value: "China" },
-    { label: "France", value: "France" },
-  ];
-  const langOptions = [
-    { label: "All languages", value: "All language" },
-    { label: "English", value: "English" },
-    { label: "Chinese", value: "Chinese" },
-    { label: "French", value: "French" },
-    { label: "German", value: "German" },
-  ];
-
   const [value, setValue] = React.useState("fruit");
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  // Takes in two arrays of the filter categories and the chosen filter
+  // Returns an object of ranked fonts for different keywords
+  const parseDBPreferences = (filterCategories, filters) => {
+    console.log("Parsing DB with filters", filterCategories, filters);
+    const empty_filter = filterCategories.length === 0 || filters.length === 0;
 
-  /** DB Data */
-  useEffect(() => {
-    // Rank most popular fonts by going through all entries in the database
+    // init counter
     let counters = {};
-    descriptors.forEach((d) => {
+    DESCRIPTORS.forEach((d) => {
       counters[d] = {};
       FONTS.forEach((f) => {
         counters[d][f] = 0;
       });
     });
-    preferenceCollection.forEach((pref) => {
+
+    // go through original db collection and make a filtered copy
+    let hasSatisfy = empty_filter; // if no entry satisfies, we signify the caller
+    let filteredCollection = preferenceCollection.filter((pref) => {
+      let satisfy = true;
+      filterCategories.forEach((category, index) => {
+        if (typeof category === "string") {
+          satisfy &= pref[category] === filters[index];
+        } else {
+          // must be a length 2 array
+          console.log(
+            pref[category[0]][category[1]] === filters[index],
+            pref[category[0]][category[1]],
+            filters[index]
+          );
+          satisfy &= pref[category[0]][category[1]] === filters[index];
+        }
+        hasSatisfy |= satisfy;
+      });
+
+      return satisfy;
+    });
+
+    // collect scores
+    filteredCollection.forEach((pref) => {
       counters[pref.keyword][pref.font]++;
     });
 
     if (DB_DEBUG) {
-      console.log("Collection", preferenceCollection);
+      console.log(filteredCollection);
     }
 
-    setGeneral(counters);
-  }, []);
+    return [counters, hasSatisfy];
+  };
+
+  /** Change the data we display according to the dropdown choice */
+  const handleChange = (event, category) => {
+    setValue(event.target.value);
+    const newVal = event.target.value;
+    console.log(category, "changed to", newVal);
+
+    if (category === "location") {
+      setLocationFilter(newVal);
+    }
+
+    if (category === "language") {
+      setLanguageFilter(newVal);
+    }
+  };
+
+  /** We update the data vis upon changes in filter */
+  useEffect(() => {
+    let categories = [];
+    let filters = [];
+
+    // Non-empty filters if the current dropdown choices are not the default
+    if (
+      !(
+        locationFilter === COUNTRY_OPTIONS[0].value &&
+        languageFilter === LANG_OPTIONS[0].value
+      )
+    ) {
+      categories = [["location", "country_name"], "language"];
+      filters = [locationFilter, languageFilter];
+    }
+    let [newCounter, hasSatisfy] = parseDBPreferences(categories, filters);
+    console.log("Set new counter to", newCounter);
+    if (hasSatisfy) {
+      setFiltered(newCounter);
+    } else {
+      // TODO: display different screen or warning for this case
+      console.log("Current filter has no valid entry");
+    }
+  }, [locationFilter, languageFilter]);
 
   /** User Data */
   const [choices, setChoices] = useState({});
   useEffect(() => {
-    //store user's word selections
+    // store user's word selections
     // Make sure we are on client side
     if (typeof window !== "undefined") {
       var tempChoices = [];
-      descriptors.forEach((keyword) => {
+      DESCRIPTORS.forEach((keyword) => {
         let choice = window.localStorage.getItem(keyword);
         if (choice) {
           tempChoices[keyword] = choice;
@@ -96,7 +159,7 @@ export default function Datavis(props) {
 
   return (
     <>
-      <HeadComp></HeadComp>
+      <HeadComp />
       <Navbar rightLink="Exit" isBlack={false} />
       <motion.main
         initial={{ opacity: 0 }}
@@ -126,9 +189,9 @@ export default function Datavis(props) {
                     <select
                       className="bg-inherit border-b border-solid border-b-white mr-8 "
                       value={value}
-                      onChange={handleChange}
+                      onChange={(e) => handleChange(e, "location")}
                     >
-                      {countryOptions.map((option) => (
+                      {COUNTRY_OPTIONS.map((option) => (
                         <option value={option.value} key={option.value}>
                           {option.label}
                         </option>
@@ -138,9 +201,9 @@ export default function Datavis(props) {
                     <select
                       className="bg-inherit border-b border-solid border-b-white"
                       value={value}
-                      onChange={handleChange}
+                      onChange={(e) => handleChange(e, "language")}
                     >
-                      {langOptions.map((option) => (
+                      {LANG_OPTIONS.map((option) => (
                         <option value={option.value} key={option.value}>
                           {option.label}
                         </option>
@@ -164,7 +227,7 @@ export default function Datavis(props) {
                   descriptor={key}
                   key={key}
                   chosen={choices[key]}
-                  generalPreference={generalPreference[key]}
+                  generalPreference={filteredPreference[key]}
                   mobileBarClick={mobileBarClick}
                   // percentages={percentages}
                   // setPercentage={setPercentage}

@@ -71,3 +71,19 @@ export const FONTS = [
 
 export const DB_COLLECTION_NAME = "preferences-test";
 export const NUM_QUESTIONS = 5;
+
+export const COUNTRY_OPTIONS = [
+  { label: "All countries", value: "All countries" },
+  { label: "USA", value: "United States" },
+  { label: "Canada", value: "Canada" },
+  { label: "China", value: "China" },
+  { label: "France", value: "France" },
+];
+
+export const LANG_OPTIONS = [
+  { label: "All languages", value: "All language" },
+  { label: "English", value: "English" },
+  { label: "Chinese", value: "Chinese" },
+  { label: "French", value: "French" },
+  { label: "German", value: "German" },
+];
