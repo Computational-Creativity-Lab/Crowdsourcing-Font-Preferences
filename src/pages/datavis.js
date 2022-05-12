@@ -25,7 +25,7 @@ export default function Datavis(props) {
   const [locationFilter, setLocationFilter] = useState("");
   const [languageFilter, setLanguageFilter] = useState("");
 
-  // Initialize data we need from the db
+  /**  Initialize data we need from the db */
   useEffect(() => {
     setCollection(JSON.parse(props.dbCollection));
   }, [props.dbCollection]);

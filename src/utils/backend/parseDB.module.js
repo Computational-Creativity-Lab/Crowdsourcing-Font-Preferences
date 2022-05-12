@@ -75,5 +75,17 @@ export const parseDBOptions = (preferenceCollection) => {
       langOptions[langOp] = 0;
     }
   });
-  return [Object.keys(locationOptions), Object.keys(langOptions)];
+  let locationSelect = Object.keys(locationOptions).map((k) => {
+    return {
+      value: k,
+      label: k,
+    };
+  });
+  let langSelect = Object.keys(langOptions).map((k) => {
+    return {
+      value: k,
+      label: k,
+    };
+  });
+  return [locationSelect, langSelect];
 };
