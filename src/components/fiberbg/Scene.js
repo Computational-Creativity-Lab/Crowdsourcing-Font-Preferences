@@ -1,9 +1,9 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { fragmentShader } from "./Frag";
-import { vertexShader } from "./Vert";
+import { vertexShader } from "./Vert-Test";
 import { KEYWORDS } from "../../utils/settings";
 import gsap from "gsap";
 
@@ -32,17 +32,21 @@ function Scene(props) {
     textures[KEYWORDS[i]] = loadedMaps[i];
   }
 
+  const noiseMap = useTexture("/textures/Noise.png");
+
   const [currentMap, setCurrentMap] = useState(textures[props.keyword]);
 
   const ref = useRef();
-  // useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01));
+  useFrame((state) => (data.uniforms.u_time.value = state.clock.elapsedTime));
 
   const data = useMemo(
     () => ({
       uniforms: {
         TexturePrev: { value: currentMap },
         TextureCurrent: { value: currentMap },
-        u_useTexLerp: { value: 0 },
+        NoiseMap: { value: noiseMap },
+        u_useTexLerp: { value: 0.0 },
+        u_time: { value: 0.0 },
       },
       fragmentShader,
       vertexShader,
