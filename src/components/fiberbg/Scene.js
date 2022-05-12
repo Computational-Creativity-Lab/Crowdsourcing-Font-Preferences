@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { fragmentShader } from "./Frag";
@@ -8,14 +8,30 @@ import { KEYWORDS } from "../../utils/settings";
 
 function Scene(props) {
   var textureUrls = [];
+  var textures = {};
   for (let i = 0; i < KEYWORDS.length; i++) {
     textureUrls.push("/textures/" + KEYWORDS[i] + ".png");
+    textures[KEYWORDS[i]] = undefined;
   }
   const [map0, map1, map2, map3, map4, map5, map6, map7, map8, map9] =
     useTexture(textureUrls);
-  const initialMap = useTexture("/textures/" + props.keyword + ".png");
-  const [prevMap, setPrevMap] = useState(initialMap);
-  const [currentMap, setCurrentMap] = useState(initialMap);
+  const loadedMaps = [
+    map0,
+    map1,
+    map2,
+    map3,
+    map4,
+    map5,
+    map6,
+    map7,
+    map8,
+    map9,
+  ];
+  for (let i = 0; i < KEYWORDS.length; i++) {
+    textures[KEYWORDS[i]] = loadedMaps[i];
+  }
+
+  const [currentMap, setCurrentMap] = useState(textures[props.keyword]);
 
   const ref = useRef();
   // useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01));
@@ -23,13 +39,7 @@ function Scene(props) {
   const data = useMemo(
     () => ({
       uniforms: {
-        Ka: { value: new THREE.Vector3(1, 1, 1) },
-        Kd: { value: new THREE.Vector3(1, 1, 1) },
-        Ks: { value: new THREE.Vector3(1, 1, 1) },
-        LightIntensity: { value: new THREE.Vector4(0.5, 0.5, 0.5, 1.0) },
-        LightPosition: { value: new THREE.Vector4(0.0, 2000.0, 0.0, 1.0) },
-        Shininess: { value: 200.0 },
-        TexturePrev: { value: prevMap },
+        TexturePrev: { value: currentMap },
         TextureCurrent: { value: currentMap },
       },
       fragmentShader,
@@ -40,10 +50,9 @@ function Scene(props) {
 
   useEffect(() => {
     console.log("Shader prop:", props);
-    setPrevMap(currentMap);
-    // data.uniforms.TextureCurrent.value = useTexture(
-    //   "/textures/" + props.keyword + ".png"
-    // );
+    data.uniforms.TexturePrev.value = currentMap;
+    data.uniforms.TextureCurrent.value = textures[props.keyword];
+    setCurrentMap(textures[props.keyword]);
   }, [props.keyword]);
 
   if (window) {

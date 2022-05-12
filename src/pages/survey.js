@@ -130,7 +130,7 @@ export default function Survey() {
 
     // setQIdx(qIdx + 1);
     setKwRound(kwRound + 1);
-    console.log(localStorage);
+    // console.log(localStorage);
   }
 
   const updateChosenFont = (font) => {
