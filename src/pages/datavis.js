@@ -143,8 +143,6 @@ export default function Datavis(props) {
 
   /************************ FRONTEND SIDE ************************/
   const [fontModal, setFontModal] = useState(false);
-  // const [sortedTypefaceNames, setSorted] = useState([]);
-  // const [percentages, setPercentage] = useState([]);
   const [currDescriptor, setCurrDescriptor] = useState("");
 
   const [globalTypeNames, setGlobalTypeNames] = useState();
@@ -202,7 +200,7 @@ export default function Datavis(props) {
 
                     <select
                       className="bg-inherit border-b border-solid border-b-white mr-8 "
-                      value={value}
+                      value={locationFilter}
                       onChange={(e) => handleChange(e, "location")}
                     >
                       {locations.map((option) => (
@@ -214,7 +212,7 @@ export default function Datavis(props) {
 
                     <select
                       className="bg-inherit border-b border-solid border-b-white"
-                      value={value}
+                      value={languageFilter}
                       onChange={(e) => handleChange(e, "language")}
                     >
                       {languages.map((option) => (
@@ -238,15 +236,11 @@ export default function Datavis(props) {
                 if (filteredPreference[key]) {
                   return (
                     <DataRow
-                      // sortedTypefaceNames={sortedTypefaceNames}
-                      // setSorted={setSorted}
                       descriptor={key}
                       key={key}
                       chosen={choices[key]}
                       generalPreference={filteredPreference[key]}
                       mobileBarClick={mobileBarClick}
-                      // percentages={percentages}
-                      // setPercentage={setPercentage}
                     />
                   );
                 } else {
@@ -260,7 +254,7 @@ export default function Datavis(props) {
                     <DataRow
                       descriptor={key}
                       key={key}
-                      chosen={-1000}
+                      chosen={-1000} // user did not do survey so no valid choice
                       generalPreference={filteredPreference[key]}
                       mobileBarClick={mobileBarClick}
                     />
