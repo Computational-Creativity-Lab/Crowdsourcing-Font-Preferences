@@ -1,4 +1,4 @@
-import { FONTS, KEYWORDS_ALL } from "../settings";
+import { FONTS, KEYWORDS } from "../settings";
 
 const DB_DEBUG = true;
 
@@ -19,7 +19,7 @@ export const parseDBPreferences = (
 
   // init counter
   let counters = {};
-  KEYWORDS_ALL.forEach((d) => {
+  KEYWORDS.forEach((d) => {
     counters[d] = {};
     FONTS.forEach((f) => {
       counters[d][f] = 0;
@@ -46,7 +46,9 @@ export const parseDBPreferences = (
 
   // collect scores
   filteredCollection.forEach((pref) => {
-    counters[pref.keyword][pref.font]++;
+    if (counters[pref.keyword]) {
+      counters[pref.keyword][pref.font]++;
+    }
   });
 
   // we clean up counter's entry where there are no data points

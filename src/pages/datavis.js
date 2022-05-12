@@ -4,14 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
 import DataRow from "../components/datavis/DataRow";
 import connectToMongoDB from "../utils/backend/connectDb";
-import { DB_COLLECTION_NAME, KEYWORDS_ALL } from "../utils/settings";
+import { DB_COLLECTION_NAME, KEYWORDS } from "../utils/settings";
 import MobileDataCard from "../components/datavis/MobileDataCard";
 import {
   parseDBOptions,
   parseDBPreferences,
 } from "../utils/backend/parseDB.module";
 
-const DESCRIPTORS = KEYWORDS_ALL;
+const DESCRIPTORS = KEYWORDS;
 const DEBUG_NO_SURVEY = true;
 
 export default function Datavis(props) {

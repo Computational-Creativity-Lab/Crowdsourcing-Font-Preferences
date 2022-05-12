@@ -1,33 +1,17 @@
-export const KEYWORDS_ALL = [
-  "Authoritative",
-  "Caring",
-  "Casual",
-  "Cheerful",
-  "Coarse",
-  "Conservative",
-  "Conversational",
-  "Dry",
-  "Edgy",
-  "Enthusiastic",
-  "Formal",
-  "Frank",
-  "Friendly",
-  "Fun",
-  "Funny",
-  "Playful",
-  "Serious",
-];
-
 // Used in production
 // These are the keywords we have gradient textures for
 // They should match the texture file names
 export const KEYWORDS = [
   "Casual",
-  "Formal",
   "Serious",
   "Friendly",
   "Playful",
-  "Playful",
+  "Quirky",
+  "Authoritative",
+  "Professional",
+  "Formal",
+  "Funny",
+  "Trendy",
 ];
 
 export const FONTS = [
