@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { fragmentShader } from "./Frag";
 import { vertexShader } from "./Vert";
 import { KEYWORDS } from "../../utils/settings";
+import gsap from "gsap/all";
 
 function Scene(props) {
   var textureUrls = [];
@@ -41,6 +42,7 @@ function Scene(props) {
       uniforms: {
         TexturePrev: { value: currentMap },
         TextureCurrent: { value: currentMap },
+        u_useTexLerp: { value: 0 },
       },
       fragmentShader,
       vertexShader,
@@ -53,6 +55,17 @@ function Scene(props) {
     data.uniforms.TexturePrev.value = currentMap;
     data.uniforms.TextureCurrent.value = textures[props.keyword];
     setCurrentMap(textures[props.keyword]);
+
+    data.uniforms.TextureCurrent.value;
+    const tl = gsap.timeline({
+      onComplete: function () {},
+    });
+    data.uniforms.u_useTexLerp.value = 0.0;
+    tl.to(data.uniforms.u_useTexLerp, {
+      value: 1.0,
+      duration: 2,
+      ease: "sine.out",
+    });
   }, [props.keyword]);
 
   if (window) {
