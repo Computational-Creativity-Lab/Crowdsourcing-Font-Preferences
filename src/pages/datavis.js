@@ -4,127 +4,55 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
 import DataRow from "../components/datavis/DataRow";
 import connectToMongoDB from "../utils/backend/connectDb";
-import {
-  COUNTRY_OPTIONS,
-  DB_COLLECTION_NAME,
-  FONTS,
-  KEYWORDS_ALL,
-  LANG_OPTIONS,
-} from "../utils/settings";
+import { DB_COLLECTION_NAME, FONTS, KEYWORDS_ALL } from "../utils/settings";
 import MobileDataCard from "../components/datavis/MobileDataCard";
+import {
+  parseDBOptions,
+  parseDBPreferences,
+} from "../utils/backend/parseDB.module";
 
 const DESCRIPTORS = KEYWORDS_ALL;
-const DB_DEBUG = true;
 
 export default function Datavis(props) {
-  // DB Side
-  const preferenceCollection = JSON.parse(props.dbCollection);
+  /************************ DB SIDE ************************/
+  // preferenceCollection stores the unfiltered db data
+  const [preferenceCollection, setCollection] = useState([]);
+  // filteredPreference is the actual collection of data we display in this page
   const [filteredPreference, setFiltered] = useState({});
-  const [locationFilter, setLocationFilter] = useState(
-    COUNTRY_OPTIONS[0].value
-  );
-  const [languageFilter, setLanguageFilter] = useState(LANG_OPTIONS[0].value);
+  // we populate possible dropdown option, and keep track of the current selection
+  const [locations, setLocations] = useState([]);
+  const [languages, setLang] = useState([]);
+  const [locationFilter, setLocationFilter] = useState("");
+  const [languageFilter, setLanguageFilter] = useState("");
 
-  // Client side (?)
-  const [fontModal, setFontModal] = useState(false);
-  // const [sortedTypefaceNames, setSorted] = useState([]);
-  // const [percentages, setPercentage] = useState([]);
-  const [currDescriptor, setCurrDescriptor] = useState("");
-
-  const [globalTypeNames, setGlobalTypeNames] = useState();
-  const [globalPercentages, setGlobalPercentages] = useState();
-  const [globalSelectedIdx, setGlobalSelectedIdx] = useState(-1);
-
-  const [value, setValue] = React.useState("fruit");
-
-  // Takes in two arrays of the filter categories and the chosen filter
-  // Returns an object of ranked fonts for different keywords
-  const parseDBPreferences = (filterCategories, filters) => {
-    const empty_filter = filterCategories.length === 0 || filters.length === 0;
-
-    // init counter
-    let counters = {};
-    DESCRIPTORS.forEach((d) => {
-      counters[d] = {};
-      FONTS.forEach((f) => {
-        counters[d][f] = 0;
-      });
-    });
-
-    // go through original db collection and make a filtered copy
-    let hasSatisfy = empty_filter; // if no entry satisfies, we signify the caller
-    let filteredCollection = preferenceCollection.filter((pref) => {
-      let satisfy = true;
-      filterCategories.forEach((category, index) => {
-        if (typeof category === "string") {
-          satisfy &= pref[category] === filters[index];
-        } else {
-          // must be a length 2 array
-          // console.log(
-          //   pref[category[0]][category[1]] === filters[index],
-          //   pref[category[0]][category[1]],
-          //   filters[index]
-          // );
-          satisfy &= pref[category[0]][category[1]] === filters[index];
-        }
-        hasSatisfy |= satisfy;
-      });
-
-      return satisfy;
-    });
-
-    // collect scores
-    filteredCollection.forEach((pref) => {
-      counters[pref.keyword][pref.font]++;
-    });
-
-    if (DB_DEBUG) {
-      console.log(filteredCollection);
-    }
-
-    return [counters, hasSatisfy];
-  };
-
-  /** Change the data we display according to the dropdown choice */
-  const handleChange = (event, category) => {
-    setValue(event.target.value);
-    const newVal = event.target.value;
-    // console.log(category, "changed to", newVal);
-
-    if (category === "location") {
-      setLocationFilter(newVal);
-    }
-
-    if (category === "language") {
-      setLanguageFilter(newVal);
-    }
-  };
-
-  /** We update the data vis upon changes in filter */
+  // Initialize data we need from the db
   useEffect(() => {
-    let categories = [];
-    let filters = [];
+    setCollection(JSON.parse(props.dbCollection));
+  }, [props.dbCollection]);
 
-    // Non-empty filters if the current dropdown choices are not the default
-    if (
-      !(
-        locationFilter === COUNTRY_OPTIONS[0].value &&
-        languageFilter === LANG_OPTIONS[0].value
-      )
-    ) {
-      categories = [["location", "country_name"], "language"];
-      filters = [locationFilter, languageFilter];
+  useEffect(() => {
+    if (preferenceCollection.length !== 0) {
+      const [locationOptions, langOptions] =
+        parseDBOptions(preferenceCollection);
+      console.log("Available Options from DB:", locationOptions, langOptions);
+      setLocations(locationOptions);
+      setLang(langOptions);
     }
-    let [newCounter, hasSatisfy] = parseDBPreferences(categories, filters);
-    if (hasSatisfy) {
-      setFiltered(newCounter);
-    } else {
-      // TODO: display different screen or warning for this case
-      // console.log("Current filter has no valid entry");
-    }
-  }, [locationFilter, languageFilter]);
+  }, [preferenceCollection]);
 
-  /** User Data */
+  useEffect(() => {
+    if (locations.length != 0 && languages.length != 0) {
+      console.log(
+        "Setting locations and languages filters",
+        locations,
+        languages
+      );
+      setLocationFilter(locations[0].value);
+      setLanguageFilter(languages[0].value);
+    }
+  }, [locations, languages]);
+
+  /** Populate the data vis according to what users saw */
   const [choices, setChoices] = useState({});
   useEffect(() => {
     // store user's word selections
@@ -140,6 +68,68 @@ export default function Datavis(props) {
       setChoices(tempChoices);
     }
   }, []);
+
+  /************************ CALL BACKS  ************************/
+  /** Change the data we display according to the dropdown choice */
+  const handleChange = (event, category) => {
+    setValue(event.target.value);
+    const newVal = event.target.value;
+    console.log(category, "changed to", newVal);
+
+    if (category === "location") {
+      setLocationFilter(newVal);
+    }
+
+    if (category === "language") {
+      setLanguageFilter(newVal);
+    }
+  };
+
+  /** We update the data vis upon changes in filter */
+  useEffect(() => {
+    // Edge case when we haven't finished populating drop downs
+    if (locationFilter === "" || languageFilter === "") return;
+
+    let categories = [];
+    let filters = [];
+
+    // Non-empty filters if the current dropdown choices are not the default
+    if (
+      !(
+        locationFilter === locations[0].value &&
+        languageFilter === languages[0].value
+      )
+    ) {
+      categories = [["location", "country_name"], "language"];
+      filters = [locationFilter, languageFilter];
+    }
+    let [newCounter, hasSatisfy] = parseDBPreferences(
+      preferenceCollection,
+      categories,
+      filters
+    );
+    if (hasSatisfy) {
+      setFiltered(newCounter);
+    }
+  }, [
+    locationFilter,
+    languageFilter,
+    locations,
+    languages,
+    preferenceCollection,
+  ]);
+
+  /************************ FRONTEND SIDE ************************/
+  const [fontModal, setFontModal] = useState(false);
+  // const [sortedTypefaceNames, setSorted] = useState([]);
+  // const [percentages, setPercentage] = useState([]);
+  const [currDescriptor, setCurrDescriptor] = useState("");
+
+  const [globalTypeNames, setGlobalTypeNames] = useState();
+  const [globalPercentages, setGlobalPercentages] = useState();
+  const [globalSelectedIdx, setGlobalSelectedIdx] = useState(-1);
+
+  const [value, setValue] = React.useState("fruit");
 
   const mobileBarClick = (
     descriptor,
@@ -188,7 +178,7 @@ export default function Datavis(props) {
                       value={value}
                       onChange={(e) => handleChange(e, "location")}
                     >
-                      {COUNTRY_OPTIONS.map((option) => (
+                      {locations.map((option) => (
                         <option value={option.value} key={option.value}>
                           {option.label}
                         </option>
@@ -200,7 +190,7 @@ export default function Datavis(props) {
                       value={value}
                       onChange={(e) => handleChange(e, "language")}
                     >
-                      {LANG_OPTIONS.map((option) => (
+                      {languages.map((option) => (
                         <option value={option.value} key={option.value}>
                           {option.label}
                         </option>
@@ -217,19 +207,23 @@ export default function Datavis(props) {
           </div>
           <div>
             {Object.keys(choices).map((key) => {
-              return (
-                <DataRow
-                  // sortedTypefaceNames={sortedTypefaceNames}
-                  // setSorted={setSorted}
-                  descriptor={key}
-                  key={key}
-                  chosen={choices[key]}
-                  generalPreference={filteredPreference[key]}
-                  mobileBarClick={mobileBarClick}
-                  // percentages={percentages}
-                  // setPercentage={setPercentage}
-                />
-              );
+              if (filteredPreference[key]) {
+                return (
+                  <DataRow
+                    // sortedTypefaceNames={sortedTypefaceNames}
+                    // setSorted={setSorted}
+                    descriptor={key}
+                    key={key}
+                    chosen={choices[key]}
+                    generalPreference={filteredPreference[key]}
+                    mobileBarClick={mobileBarClick}
+                    // percentages={percentages}
+                    // setPercentage={setPercentage}
+                  />
+                );
+              } else {
+                return <></>;
+              }
             })}
           </div>
         </div>
@@ -249,7 +243,7 @@ export default function Datavis(props) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   const client = await connectToMongoDB();
   const db = client.db();
 
@@ -260,7 +254,7 @@ export async function getStaticProps(context) {
 
   client.close();
 
-  // console.log("Disconnect from db");
+  console.log("Disconnect from db");
 
   return {
     props: {

@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
 import GlobalContainer from "../components/layout/GlobalContainer";
 import FontsPromptRightCol from "../components/FontsPromptRightCol";
-import Container from "../components/layout/Container";
 import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
 import { FONTS, KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
@@ -12,7 +11,6 @@ import { FONTS, KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
 // backend
 import axios from "axios";
 import FiberScene from "../components/fiberbg/Scene";
-import { useFBO } from "@react-three/drei";
 import getFirstBrowserLanguage from "../utils/backend/getLanguage.module";
 const WRITE_TO_DB = true;
 

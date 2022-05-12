@@ -79,6 +79,7 @@ export const FONTS = [
 export const DB_COLLECTION_NAME = "preferences-test";
 export const NUM_QUESTIONS = 5;
 
+// DUMMY DATA
 export const COUNTRY_OPTIONS = [
   { label: "All countries", value: "All countries" },
   { label: "USA", value: "United States" },
