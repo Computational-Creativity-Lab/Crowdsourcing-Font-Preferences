@@ -300,9 +300,17 @@ export async function getStaticProps() {
 
   console.log("Disconnect from db");
 
+  // we clean the data a bit
+  let parsedCollection = preferencesCollection;
+  parsedCollection.forEach((entry) => {
+    if (entry["language"] === undefined || entry["language"] === null) {
+      entry["language"] = "en-US";
+    }
+  });
+
   return {
     props: {
-      dbCollection: JSON.stringify(preferencesCollection),
+      dbCollection: JSON.stringify(parsedCollection),
     },
   };
 }
