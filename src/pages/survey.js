@@ -8,6 +8,8 @@ import FontsPromptLeftCol from "../components/FontsPromptLeftCol";
 import Router from "next/router";
 import { FONTS, KEYWORDS, NUM_QUESTIONS } from "../utils/settings";
 
+const MAX_Q_IDX = NUM_QUESTIONS - 1;
+
 // backend
 import axios from "axios";
 import FiberScene from "../components/fiberbg/Scene";
@@ -52,9 +54,6 @@ export default function Survey() {
 
   // change keyword every 4 words
   useEffect(() => {
-    if (qIdx + 1 > MAX_Q_IDX) {
-      Router.push("datavis");
-    }
     setAdj(KEYWORDS[qIdx]);
   }, [qIdx]);
 
@@ -75,24 +74,27 @@ export default function Survey() {
   useEffect(() => {
     if (kwRound == 4) {
       setKwRound(0);
-      setQIdx(qIdx + 1);
+      if (qIdx + 1 > MAX_Q_IDX) {
+        Router.push("datavis");
+      } else {
+        setQIdx(qIdx + 1);
+        const [font1, font2] = getTwoRandomItems();
+        setFFS(font1);
+        setSFS(font2);
 
-      const [font1, font2] = getTwoRandomItems();
-      setFFS(font1);
-      setSFS(font2);
-
-      //animation
-      setTopCardState(false);
-      setBotCardState(false);
-      setTimeout(() => {
-        setTopCardState(true);
-        setBotCardState(true);
-      }, 1000);
+        //animation
+        setTopCardState(false);
+        setBotCardState(false);
+        setTimeout(() => {
+          setTopCardState(true);
+          setBotCardState(true);
+        }, 1000);
+      }
 
       //store font
       localStorage.setItem(adj, chosenFont);
     }
-  }, [kwRound]);
+  }, [kwRound, adj, chosenFont, qIdx]);
 
   async function addPreferenceHandler(payload) {
     if (!WRITE_TO_DB) return;
@@ -119,8 +121,6 @@ export default function Survey() {
       },
     });
   }
-
-  const MAX_Q_IDX = NUM_QUESTIONS;
 
   async function handleClick(payload) {
     // NEEDS REVISION

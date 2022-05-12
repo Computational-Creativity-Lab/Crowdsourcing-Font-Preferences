@@ -12,10 +12,10 @@ import {
 } from "../utils/backend/parseDB.module";
 
 const DESCRIPTORS = KEYWORDS;
-const DEBUG_NO_SURVEY = true;
+const DEBUG_NO_SURVEY = false;
 
 export default function Datavis(props) {
-  /************************ DB SIDE ************************/
+  /************************ BACKEND SIDE ************************/
   // preferenceCollection stores the unfiltered db data
   const [preferenceCollection, setCollection] = useState([]);
   // filteredPreference is the actual collection of data we display in this page
@@ -85,7 +85,6 @@ export default function Datavis(props) {
   /************************ CALL BACKS  ************************/
   /** Change the data we display according to the dropdown choice */
   const handleChange = (event, category) => {
-    setValue(event.target.value);
     const newVal = event.target.value;
     console.log(category, "changed to", newVal);
 
@@ -144,12 +143,9 @@ export default function Datavis(props) {
   /************************ FRONTEND SIDE ************************/
   const [fontModal, setFontModal] = useState(false);
   const [currDescriptor, setCurrDescriptor] = useState("");
-
   const [globalTypeNames, setGlobalTypeNames] = useState();
   const [globalPercentages, setGlobalPercentages] = useState();
   const [globalSelectedIdx, setGlobalSelectedIdx] = useState(-1);
-
-  const [value, setValue] = React.useState("fruit");
 
   const mobileBarClick = (
     descriptor,
