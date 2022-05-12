@@ -12,6 +12,13 @@ export default function DataRow(props) {
   // const { sortedTypefaceNames, setSorted } = props;
 
   useEffect(() => {
+    if (
+      props.generalPreference === null ||
+      props.generalPreference === undefined
+    )
+      return;
+
+    console.log("Populating row");
     // sort general preferences into a list of high to low popularity
     let scorePairs = [];
     let countSum = 0;

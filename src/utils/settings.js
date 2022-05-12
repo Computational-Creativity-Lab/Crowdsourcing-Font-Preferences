@@ -18,26 +18,6 @@ export const KEYWORDS_ALL = [
   "Serious",
 ];
 
-// const keywordColors = {
-//   "Authoritative":"ye"
-//   "Caring",
-//   "Casual",
-//   "Cheerful",
-//   "Coarse",
-//   "Conservative",
-//   "Conversational",
-//   "Dry",
-//   "Edgy",
-//   "Enthusiastic",
-//   "Formal",
-//   "Frank",
-//   "Friendly",
-//   "Fun",
-//   "Funny",
-//   "Playful",
-//   "Serious",
-// }
-
 // Used in production
 // These are the keywords we have gradient textures for
 // They should match the texture file names

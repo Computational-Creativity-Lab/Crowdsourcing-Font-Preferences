@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
 import DataRow from "../components/datavis/DataRow";
 import connectToMongoDB from "../utils/backend/connectDb";
-import { DB_COLLECTION_NAME, FONTS, KEYWORDS_ALL } from "../utils/settings";
+import { DB_COLLECTION_NAME, KEYWORDS_ALL } from "../utils/settings";
 import MobileDataCard from "../components/datavis/MobileDataCard";
 import {
   parseDBOptions,
@@ -12,6 +12,7 @@ import {
 } from "../utils/backend/parseDB.module";
 
 const DESCRIPTORS = KEYWORDS_ALL;
+const DEBUG_NO_SURVEY = true;
 
 export default function Datavis(props) {
   /************************ DB SIDE ************************/
@@ -30,6 +31,7 @@ export default function Datavis(props) {
     setCollection(JSON.parse(props.dbCollection));
   }, [props.dbCollection]);
 
+  // Only gets run once when we get the db collection
   useEffect(() => {
     if (preferenceCollection.length !== 0) {
       const [locationOptions, langOptions] =
@@ -40,6 +42,7 @@ export default function Datavis(props) {
     }
   }, [preferenceCollection]);
 
+  // Only gets run once when we finish populating dropdown options
   useEffect(() => {
     if (locations.length != 0 && languages.length != 0) {
       console.log(
@@ -52,19 +55,29 @@ export default function Datavis(props) {
     }
   }, [locations, languages]);
 
-  /** Populate the data vis according to what users saw */
+  // Only gets run once.  Populate the data vis according to what users saw in survey
   const [choices, setChoices] = useState({});
+  const [noSurvey, setNoSurvey] = useState(false);
   useEffect(() => {
     // store user's word selections
     // Make sure we are on client side
     if (typeof window !== "undefined") {
-      var tempChoices = [];
+      // we keep a flag to know whether if the user directly came to this page
+      var didSurvey = false;
+      var tempChoices = {};
       DESCRIPTORS.forEach((keyword) => {
         let choice = window.localStorage.getItem(keyword);
         if (choice) {
           tempChoices[keyword] = choice;
+          didSurvey |= true;
         }
       });
+
+      if (!didSurvey) {
+        console.log("User did not do survey.");
+        setNoSurvey(true);
+      }
+
       setChoices(tempChoices);
     }
   }, []);
@@ -102,6 +115,8 @@ export default function Datavis(props) {
     ) {
       categories = [["location", "country_name"], "language"];
       filters = [locationFilter, languageFilter];
+    } else {
+      console.log("View all filters");
     }
     let [newCounter, hasSatisfy] = parseDBPreferences(
       preferenceCollection,
@@ -110,6 +125,8 @@ export default function Datavis(props) {
     );
     if (hasSatisfy) {
       setFiltered(newCounter);
+    } else {
+      console.log("NO satisfy");
     }
   }, [
     locationFilter,
@@ -156,6 +173,11 @@ export default function Datavis(props) {
         <div className="p-4">
           <div className="grid md:grid-cols-2 mt-16 mb-24 md:mb-48">
             <div>
+              {noSurvey && DEBUG_NO_SURVEY && (
+                <h1 className="text-5xl text-white mb-8">
+                  DEBUG: NO SURVEY CASE{" "}
+                </h1>
+              )}
               <h1 className="text-5xl text-white mb-8">
                 {``}
                 You&apos;re a <span className="underline">Traditionalist</span>
@@ -206,25 +228,38 @@ export default function Datavis(props) {
             <p>Top 5 Fonts</p>
           </div>
           <div>
-            {Object.keys(choices).map((key) => {
-              if (filteredPreference[key]) {
+            {!noSurvey &&
+              Object.keys(choices).map((key) => {
+                if (filteredPreference[key]) {
+                  return (
+                    <DataRow
+                      // sortedTypefaceNames={sortedTypefaceNames}
+                      // setSorted={setSorted}
+                      descriptor={key}
+                      key={key}
+                      chosen={choices[key]}
+                      generalPreference={filteredPreference[key]}
+                      mobileBarClick={mobileBarClick}
+                      // percentages={percentages}
+                      // setPercentage={setPercentage}
+                    />
+                  );
+                } else {
+                  return <></>;
+                }
+              })}
+            {noSurvey &&
+              DESCRIPTORS.map((key) => {
                 return (
                   <DataRow
-                    // sortedTypefaceNames={sortedTypefaceNames}
-                    // setSorted={setSorted}
                     descriptor={key}
                     key={key}
-                    chosen={choices[key]}
+                    chosen={-1}
                     generalPreference={filteredPreference[key]}
                     mobileBarClick={mobileBarClick}
-                    // percentages={percentages}
-                    // setPercentage={setPercentage}
                   />
                 );
-              } else {
-                return <></>;
-              }
-            })}
+              })}
           </div>
         </div>
         <AnimatePresence>

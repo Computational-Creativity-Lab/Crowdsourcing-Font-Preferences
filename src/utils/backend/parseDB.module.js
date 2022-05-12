@@ -75,6 +75,7 @@ export const parseDBOptions = (preferenceCollection) => {
       langOptions[langOp] = 0;
     }
   });
+
   let locationSelect = Object.keys(locationOptions).map((k) => {
     return {
       value: k,
@@ -87,5 +88,10 @@ export const parseDBOptions = (preferenceCollection) => {
       label: k,
     };
   });
+
+  // we add the view all options
+  locationSelect.unshift({ value: "All Locations", label: "All Locations" });
+  langSelect.unshift({ value: "All Languages", label: "All Languages" });
+
   return [locationSelect, langSelect];
 };
