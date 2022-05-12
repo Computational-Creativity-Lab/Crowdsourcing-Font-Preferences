@@ -1,6 +1,6 @@
 import { FONTS, KEYWORDS_ALL } from "../settings";
 
-const DB_DEBUG = false;
+const DB_DEBUG = true;
 
 // Takes in two arrays of the filter categories and the chosen filter
 // Returns an object of ranked fonts for different keywords
@@ -15,6 +15,7 @@ export const parseDBPreferences = (
   }
 
   const empty_filter = filterCategories.length === 0 || filters.length === 0;
+  console.log("Filters: ", filterCategories, filters);
 
   // init counter
   let counters = {};
@@ -29,16 +30,23 @@ export const parseDBPreferences = (
   let hasSatisfy = empty_filter; // if no entry satisfies, we signify the caller
   let filteredCollection = preferenceCollection.filter((pref) => {
     let satisfy = true;
+
+    // for each entry in db collection, we check for all the filters
     filterCategories.forEach((category, index) => {
       if (typeof category === "string") {
         satisfy &= pref[category] === filters[index];
       } else {
         // must be a length 2 array
+        // console.log(
+        //   pref[category[0]][category[1]],
+        //   filters[index],
+        //   pref[category[0]][category[1]] === filters[index]
+        // );
         satisfy &= pref[category[0]][category[1]] === filters[index];
       }
-      hasSatisfy |= satisfy;
     });
 
+    hasSatisfy |= satisfy;
     return satisfy;
   });
 
@@ -47,8 +55,23 @@ export const parseDBPreferences = (
     counters[pref.keyword][pref.font]++;
   });
 
+  // we clean up counter's entry where there are no data points
+  let keys = Object.keys(counters);
+  for (let i = 0; i < keys.length; i++) {
+    let sum = 0;
+    FONTS.forEach((f) => {
+      sum += counters[keys[i]][f];
+    });
+
+    if (sum === 0) {
+      // no data point for the current keyword
+      console.log("No data point for", keys[i]);
+      counters[keys[i]] = undefined;
+    }
+  }
+
   if (DB_DEBUG) {
-    console.log(filteredCollection);
+    console.log("Filtered collection", filteredCollection);
   }
 
   return [counters, hasSatisfy];

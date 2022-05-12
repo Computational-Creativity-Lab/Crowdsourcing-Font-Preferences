@@ -18,7 +18,6 @@ export default function DataRow(props) {
     )
       return;
 
-    console.log("Populating row");
     // sort general preferences into a list of high to low popularity
     let scorePairs = [];
     let countSum = 0;
@@ -36,6 +35,8 @@ export default function DataRow(props) {
       return b.count - a.count;
     });
 
+    // console.log(scorePairs);
+
     // populate percentage array
     let percentArr = [];
     let totalPercentLocal = 0;
@@ -47,7 +48,6 @@ export default function DataRow(props) {
       namesArr.push(scorePairs[i].typeface);
     }
     namesArr.push("Other");
-
     percentArr.push(100 - totalPercentLocal);
     setTotalPercent(totalPercentLocal);
 
@@ -60,6 +60,8 @@ export default function DataRow(props) {
     });
 
     setSelectIdx(userSelect);
+
+    // console.log(props.descriptor, percentArr);
   }, [props.generalPreference, props.chosen]);
 
   return (

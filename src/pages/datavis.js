@@ -107,24 +107,29 @@ export default function Datavis(props) {
     let filters = [];
 
     // Non-empty filters if the current dropdown choices are not the default
-    if (
-      !(
-        locationFilter === locations[0].value &&
-        languageFilter === languages[0].value
-      )
-    ) {
-      categories = [["location", "country_name"], "language"];
-      filters = [locationFilter, languageFilter];
-    } else {
-      console.log("View all filters");
+    if (!(locationFilter === locations[0].value)) {
+      categories.push(["location", "country_name"]);
+      filters.push(locationFilter);
+      console.log("Has location filter");
     }
+    if (!(languageFilter === languages[0].value)) {
+      categories.push("language");
+      filters.push(languageFilter);
+      console.log("Has language filter");
+    }
+
+    // Get a new collection to display according to our filters
     let [newCounter, hasSatisfy] = parseDBPreferences(
       preferenceCollection,
       categories,
       filters
     );
+
+    // We only change if there are valid entries, which should always be true
+    // since we populated the dropdown options from the db data
     if (hasSatisfy) {
       setFiltered(newCounter);
+      console.log("Update filtered data to", newCounter);
     } else {
       console.log("NO satisfy");
     }
@@ -250,15 +255,19 @@ export default function Datavis(props) {
               })}
             {noSurvey &&
               DESCRIPTORS.map((key) => {
-                return (
-                  <DataRow
-                    descriptor={key}
-                    key={key}
-                    chosen={-1}
-                    generalPreference={filteredPreference[key]}
-                    mobileBarClick={mobileBarClick}
-                  />
-                );
+                if (filteredPreference[key]) {
+                  return (
+                    <DataRow
+                      descriptor={key}
+                      key={key}
+                      chosen={-1000}
+                      generalPreference={filteredPreference[key]}
+                      mobileBarClick={mobileBarClick}
+                    />
+                  );
+                } else {
+                  return <></>;
+                }
               })}
           </div>
         </div>
