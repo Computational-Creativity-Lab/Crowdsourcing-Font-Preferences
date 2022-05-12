@@ -36,12 +36,6 @@ export const parseDBPreferences = (
       if (typeof category === "string") {
         satisfy &= pref[category] === filters[index];
       } else {
-        // must be a length 2 array
-        // console.log(
-        //   pref[category[0]][category[1]],
-        //   filters[index],
-        //   pref[category[0]][category[1]] === filters[index]
-        // );
         satisfy &= pref[category[0]][category[1]] === filters[index];
       }
     });
