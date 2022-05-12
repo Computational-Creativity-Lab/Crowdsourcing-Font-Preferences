@@ -6,13 +6,26 @@ import FontCard from "./FontCard";
 import { FONTS } from "../utils/settings";
 
 const pengrams = [
-  "Waltz, bad nymph, for quick jigs vex.",
-  "Glib jocks quiz nymph to vex dwarf.",
-  "Sphinx of black quartz, judge my vow.",
-  "How vexingly quick daft zebras jump!",
-  "The five boxing wizards jump quickly.",
-  "Jackdaws love my big sphinx of quartz.",
-  "Pack my box with five dozen liquor jugs.",
+  "Algorithms",
+  "Background",
+  "Binoculars",
+  "Birthplace",
+  "Blueprints",
+  "Clipboards",
+  "Cornflakes",
+  "Educations",
+  "Flamingoes",
+  "Importance",
+  "Journalism",
+  "Lifeguards",
+  "Microwaves",
+  "Documentary",
+  "Personality",
+  "Regulations",
+  "Speculation",
+  "Workmanship",
+  "Housewarming",
+  "Xylographers",
 ];
 
 let pengramIndex = 0;
@@ -109,11 +122,11 @@ export default function FontsPromptRightCol(props) {
     });
 
     // Change pengram
-    // if (pengramIndex == pengrams.length - 1) {
-    //   pengramIndex = 0;
-    // }
-    // pengramIndex++;
-    // setCurrentPengram(pengrams[pengramIndex]);
+    if (pengramIndex == pengrams.length - 1) {
+      pengramIndex = 0;
+    }
+    pengramIndex++;
+    setCurrentPengram(pengrams[pengramIndex]);
 
     if (props.kwRound < 3) {
       if (option != 1) {
