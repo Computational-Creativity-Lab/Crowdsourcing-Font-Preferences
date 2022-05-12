@@ -14,16 +14,19 @@ export default function DataBar(props) {
 
   // Update 'width' and 'height' when the window resizes
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      setBarWidth(ref.current.clientWidth);
-    });
+    // Make sure we are on client side
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", () => {
+        setBarWidth(ref.current.clientWidth);
+      });
 
-    if (props.index == props.userSelected) {
-      setActiveBar(true);
-    }
+      if (props.index == props.userSelected) {
+        setActiveBar(true);
+      }
 
-    if (props.userSelected == -1 && props.index == 5) {
-      setActiveOther(true);
+      if (props.userSelected == -1 && props.index == 5) {
+        setActiveOther(true);
+      }
     }
   }, []);
 
@@ -46,8 +49,10 @@ export default function DataBar(props) {
       {(activeBar || activeOther) && (
         <img
           className="absolute z-0 top-0 left-0 w-full min-w-full min-h-full max-w-full max-h-full rounded-full"
+          width={100}
           src={`/textures/${props.currentDescriptor}.png`}
-        ></img>
+          alt={props.currentDescriptor}
+        />
       )}
 
       <motion.p
