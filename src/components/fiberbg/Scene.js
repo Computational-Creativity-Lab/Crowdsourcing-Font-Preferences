@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { fragmentShader } from "./Frag";
 import { vertexShader } from "./Vert";
 import { KEYWORDS } from "../../utils/settings";
-import gsap from "gsap/all";
+import gsap from "gsap";
 
 function Scene(props) {
   var textureUrls = [];
