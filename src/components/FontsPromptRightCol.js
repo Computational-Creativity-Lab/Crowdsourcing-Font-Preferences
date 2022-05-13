@@ -5,30 +5,6 @@ import { motion } from "framer-motion";
 import FontCard from "./FontCard";
 import { FONTS } from "../utils/settings";
 
-const pengrams = [
-  "Algorithms",
-  "Background",
-  "Binoculars",
-  "Birthplace",
-  "Blueprints",
-  "Clipboards",
-  "Cornflakes",
-  "Educations",
-  "Flamingoes",
-  "Importance",
-  "Journalism",
-  "Lifeguards",
-  "Microwaves",
-  "Documentary",
-  "Personality",
-  "Regulations",
-  "Speculation",
-  "Workmanship",
-  "Housewarming",
-  "Xylographers",
-];
-
-let pengramIndex = 0;
 const cardPop = {
   hide: {
     opacity: 0,
@@ -51,8 +27,6 @@ const cardPop = {
 };
 
 export default function FontsPromptRightCol(props) {
-  //mount and unmount card
-
   const {
     FFS,
     SFS,
@@ -60,38 +34,23 @@ export default function FontsPromptRightCol(props) {
     setTopCardState,
     botCardState,
     setBotCardState,
+    currentPengram,
+    setCurrentPengram,
+    pengramIndex,
+    setPengramIndex,
+    pengrams,
   } = props;
 
   const [chosenCard, setChosenCard] = useState();
-  const [currentPengram, setCurrentPengram] = useState(pengrams[pengramIndex]);
+
   const [textFade, startTextFade] = useState(false);
 
   const topIsMounted = useRef(false);
   const botIsMounted = useRef(false);
 
+  //RUN AT BEGINNING
   useEffect(() => {
-    //don't do this first time
-    if (topIsMounted.current) {
-      if (topCardState) {
-        props.setFFS(props.getRandomItem());
-      }
-    } else {
-      topIsMounted.current = true;
-    }
-  }, [topCardState]);
-
-  useEffect(() => {
-    if (botIsMounted.current) {
-      if (botCardState) {
-        props.setSFS(props.getRandomItem());
-      }
-    } else {
-      botIsMounted.current = true;
-    }
-  }, [botCardState]);
-
-  //if user refreshes, route them to home page to start over
-  useEffect(() => {
+    //if user refreshes, route them to home page to start over
     if (localStorage.length != 0) {
       Router.push("/");
     }
@@ -99,6 +58,34 @@ export default function FontsPromptRightCol(props) {
     props.setFFS(font1);
     props.setSFS(font2);
   }, []);
+
+  //TOP CARD CHANGE
+  useEffect(() => {
+    //is skipped first time
+    if (!props.disable1Random) {
+      if (topIsMounted.current) {
+        if (topCardState) {
+          props.setFFS(props.getRandomItem());
+        }
+      } else {
+        topIsMounted.current = true;
+      }
+    }
+  }, [topCardState]);
+
+  //BOTTOM CARD CHANGE
+  useEffect(() => {
+    //is skipped first time
+    if (!props.disable1Random) {
+      if (botIsMounted.current) {
+        if (botCardState) {
+          props.setSFS(props.getRandomItem());
+        }
+      } else {
+        botIsMounted.current = true;
+      }
+    }
+  }, [botCardState]);
 
   //fade paragraph text
   const fadeText = () => {
@@ -123,24 +110,29 @@ export default function FontsPromptRightCol(props) {
 
     // Change pengram
     if (pengramIndex == pengrams.length - 1) {
-      pengramIndex = 0;
+      setPengramIndex(0);
     }
-    pengramIndex++;
-    setCurrentPengram(pengrams[pengramIndex]);
+    setPengramIndex(pengramIndex + 1);
 
     if (props.kwRound < 3) {
       if (option != 1) {
         setTopCardState(false);
         setTimeout(() => {
           setTopCardState(true);
+          setCurrentPengram(pengrams[pengramIndex]);
         }, 500);
       } else {
         //top card is clicked
         setBotCardState(false);
         setTimeout(() => {
           setBotCardState(true);
+          setCurrentPengram(pengrams[pengramIndex]);
         }, 500);
       }
+    } else {
+      setTimeout(() => {
+        setCurrentPengram(pengrams[pengramIndex]);
+      }, 1000);
     }
   };
 

@@ -16,18 +16,49 @@ import FiberScene from "../components/fiberbg/Scene";
 import getFirstBrowserLanguage from "../utils/backend/getLanguage.module";
 const WRITE_TO_DB = true;
 
+// pengram
+const pengrams = [
+  "Algorithms",
+  "Background",
+  "Binoculars",
+  "Birthplace",
+  "Blueprints",
+  "Clipboards",
+  "Cornflakes",
+  "Educations",
+  "Flamingoes",
+  "Importance",
+  "Journalism",
+  "Lifeguards",
+  "Microwaves",
+  "Documentary",
+  "Personality",
+  "Regulations",
+  "Speculation",
+  "Workmanship",
+  "Housewarming",
+  "Xylographers",
+];
+
 export default function Survey() {
   // count questions
   const [qIdx, setQIdx] = useState(0);
   const [adj, setAdj] = useState(KEYWORDS[qIdx]);
   const [kwRound, setKwRound] = useState(0);
-  const [joyride, setJoyride] = useState(true);
   const [chosenFont, setChosenFont] = useState();
   const [remainingFonts, setRemainingFonts] = useState(new Set(FONTS));
   const [FFS, setFFS] = useState("");
   const [SFS, setSFS] = useState("");
   const [topCardState, setTopCardState] = useState(true);
   const [botCardState, setBotCardState] = useState(true);
+  const [pengramIndex, setPengramIndex] = useState(0);
+  const [currentPengram, setCurrentPengram] = useState(pengrams[pengramIndex]);
+
+  const [disable1Random, setDisable1Random] = useState(false);
+
+  useEffect(() => {
+    console.log(currentPengram);
+  }, [currentPengram]);
 
   function getRandomItem() {
     let items = Array.from(remainingFonts);
@@ -42,12 +73,17 @@ export default function Survey() {
   //reset full
   function getTwoRandomItems() {
     let items = Array.from(new Set(FONTS));
-    let item1 = items[Math.floor(Math.random() * items.length)];
     let tmp = new Set(items);
+
+    //remove first item
+    let item1 = items[Math.floor(Math.random() * items.length)];
     tmp.delete(item1);
     items = Array.from(tmp);
+
+    //remove second item
     let item2 = items[Math.floor(Math.random() * items.length)];
     tmp.delete(item2);
+
     setRemainingFonts(tmp);
     return [item1, item2];
   }
@@ -70,7 +106,7 @@ export default function Survey() {
     setLocationData(res.data);
   }
 
-  //when each keyword round is over
+  //KEYWORD ROUND IS OVER
   useEffect(() => {
     if (kwRound == 4) {
       setKwRound(0);
@@ -79,8 +115,8 @@ export default function Survey() {
       } else {
         setQIdx(qIdx + 1);
         const [font1, font2] = getTwoRandomItems();
-        setFFS(font1);
-        setSFS(font2);
+
+        setDisable1Random(true);
 
         //animation
         setTopCardState(false);
@@ -88,7 +124,12 @@ export default function Survey() {
         setTimeout(() => {
           setTopCardState(true);
           setBotCardState(true);
+          setFFS(font1);
+          setSFS(font2);
         }, 1000);
+        setTimeout(() => {
+          setDisable1Random(false);
+        }, 1200);
       }
 
       //store font
@@ -130,7 +171,6 @@ export default function Survey() {
 
     // setQIdx(qIdx + 1);
     setKwRound(kwRound + 1);
-    // console.log(localStorage);
   }
 
   const updateChosenFont = (font) => {
@@ -143,13 +183,14 @@ export default function Survey() {
       <GlobalContainer>
         <Navbar rightLink="Exit" isBlack={true} />
 
-        {/* {localStorage.length == 0 && joyride && (
-          <JoyRide joyrideState={joyrideState} />
-        )} */}
-
         <div className="grid h-full grid-cols-1 grid-rows-[1fr_2fr] md:grid-rows-1 md:grid-cols-2 pt-14">
           <FontsPromptLeftCol qCount={qIdx} keyword={adj} kwRound={kwRound} />
           <FontsPromptRightCol
+            pengramIndex={pengramIndex}
+            setPengramIndex={setPengramIndex}
+            pengrams={pengrams}
+            currentPengram={currentPengram}
+            setCurrentPengram={setCurrentPengram}
             onclickHandler={handleClick}
             qCount={qIdx}
             keyword={adj}
@@ -166,6 +207,7 @@ export default function Survey() {
             setTopCardState={setTopCardState}
             botCardState={botCardState}
             setBotCardState={setBotCardState}
+            disable1Random={disable1Random}
           />
         </div>
         <FiberScene keyword={adj} />
