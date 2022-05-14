@@ -21,11 +21,34 @@ export default function MobileDataCard(props) {
       }}
       className="text-white bottom-0 z-10 p-4 fixed w-full h-[90vh] bg-zinc-800 rounded-t-2xl"
     >
-      <h1 className="px-4 py-2 border inline-block text-2xl border-white border-solid rounded-full w-auto">
-        {props.descriptor}
-      </h1>
-      <p onClick={() => props.setFontModal(false)} className="mt-4 text-lg">
-        {`You have picked Roboto for ${props.descriptor}. It matches to other 60% of
+      <div className="grid grid-cols-2 w-full">
+        <h1 className="justify-self-start px-4 py-2 border inline-block text-2xl border-white border-solid rounded-full w-auto">
+          {props.descriptor}
+        </h1>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 justify-self-end"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          onClick={() => props.setFontModal(false)}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </div>
+      <p className="mt-4 text-lg">
+        {`You have picked ${localStorage.getItem(props.descriptor)} for ${
+          props.descriptor
+        }. It matches to other ${
+          props.globalSelectedIdx == -1
+            ? 100 - props.globalTotalPercent
+            : props.globalPercentages[props.globalSelectedIdx]
+        }% of
         people.`}
       </p>
 
@@ -40,9 +63,7 @@ export default function MobileDataCard(props) {
                 : props.globalSelectedIdx == -1 && index == 5
                 ? "bg-white text-black"
                 : "text-white"
-            }
-
-            `}
+            }`}
           >
             <p>{index + 1}</p>
             <p

@@ -41,7 +41,7 @@ export const FONTS = [
 ];
 
 export const DB_COLLECTION_NAME = "preferences-test";
-export const NUM_QUESTIONS = 5;
+export const NUM_QUESTIONS = 10;
 
 // DUMMY DATA
 export const COUNTRY_OPTIONS = [

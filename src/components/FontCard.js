@@ -26,7 +26,7 @@ export default function FontCard({ fontStyle, pengram, chosenCard, cardNum }) {
       >
         <p className="absolute block top-5 text-slate-50">{fontStyle}</p>
         <h3
-          className="text-2xl md:text-5xl text-white block text-center px-5 "
+          className="text-3xl md:text-5xl text-white block text-center px-5 "
           style={{ fontFamily: `${fontStyle}` }}
         >
           {pengram}

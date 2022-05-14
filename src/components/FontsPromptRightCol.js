@@ -108,13 +108,14 @@ export default function FontsPromptRightCol(props) {
       keyword: props.keyword,
     });
 
-    // Change pengram
-    if (pengramIndex == pengrams.length - 1) {
+    if (pengramIndex > pengrams.length - 1) {
       setPengramIndex(0);
+      console.log("restart pengram");
     }
-    setPengramIndex(pengramIndex + 1);
 
+    // Change pengram
     if (props.kwRound < 3) {
+      setPengramIndex(pengramIndex + 1);
       if (option != 1) {
         setTopCardState(false);
         setTimeout(() => {

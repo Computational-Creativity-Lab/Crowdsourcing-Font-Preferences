@@ -57,8 +57,8 @@ export default function Survey() {
   const [disable1Random, setDisable1Random] = useState(false);
 
   useEffect(() => {
-    console.log(currentPengram);
-  }, [currentPengram]);
+    console.log(pengramIndex, currentPengram);
+  }, [currentPengram, pengramIndex]);
 
   function getRandomItem() {
     let items = Array.from(remainingFonts);

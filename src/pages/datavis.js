@@ -146,18 +146,21 @@ export default function Datavis(props) {
   const [globalTypeNames, setGlobalTypeNames] = useState();
   const [globalPercentages, setGlobalPercentages] = useState();
   const [globalSelectedIdx, setGlobalSelectedIdx] = useState(-1);
+  const [globalTotalPercent, setGlobalTotalPercent] = useState();
 
   const mobileBarClick = (
     descriptor,
     sortedTypefaceNames,
     percentages,
-    selectedIndex
+    selectedIndex,
+    totalPercent
   ) => {
     setCurrDescriptor(descriptor);
     setGlobalTypeNames(sortedTypefaceNames);
     setGlobalPercentages(percentages);
     setGlobalSelectedIdx(selectedIndex);
     setFontModal(true);
+    setGlobalTotalPercent(totalPercent);
   };
 
   return (
@@ -167,7 +170,7 @@ export default function Datavis(props) {
       <motion.main
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="bg-black min-h-[100vh] overflow-hidden"
+        className=" min-h-[100vh] overflow-hidden bg-zinc-900"
       >
         <div className="p-4">
           <div className="grid md:grid-cols-2 mt-16 mb-24 md:mb-48">
@@ -267,6 +270,7 @@ export default function Datavis(props) {
               descriptor={currDescriptor}
               globalTypeNames={globalTypeNames}
               globalPercentages={globalPercentages}
+              globalTotalPercent={globalTotalPercent}
               globalSelectedIdx={globalSelectedIdx}
               setFontModal={setFontModal}
             ></MobileDataCard>

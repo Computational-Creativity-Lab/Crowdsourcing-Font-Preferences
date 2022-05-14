@@ -27,12 +27,12 @@ export default function JoyRide(props) {
           initial={{ translateY: 20 }}
           animate={{ translateY: 0 }}
           transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
-          className="rounded-xl drop-shadow-2xl max-h-[90%] overflow-hidden overflow-y-auto max-w-[800px] w-[90%] bg-zinc-900"
+          className="rounded-xl drop-shadow-2xl  overflow-hidden overflow-y-auto max-w-[800px] w-[90%] max-h-[95%] bg-zinc-900"
         >
           <div className="px-8 pt-8">
-            <p className="leading-10 text-3xl text-zinc-100 mb-10">
+            <p className="leading-10 text-2xl md:text-3xl text-zinc-100 mb-10">
               Select the font that best matches each{" "}
-              <span className="pb-1 px-4 border border-solid border-zinc-100 rounded-full">
+              <span className="py-1 px-3 md:px-4 border border-solid border-zinc-100 rounded-full">
                 Keyword
               </span>
             </p>
