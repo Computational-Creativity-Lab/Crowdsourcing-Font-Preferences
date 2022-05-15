@@ -43,6 +43,29 @@ export const FONTS = [
 export const DB_COLLECTION_NAME = "preferences-test";
 export const NUM_QUESTIONS = 10;
 
+export const PANGRAMS = [
+  "Algorithms",
+  "Background",
+  "Binoculars",
+  "Birthplace",
+  "Blueprints",
+  "Clipboards",
+  "Cornflakes",
+  "Educations",
+  "Flamingoes",
+  "Importance",
+  "Journalism",
+  "Lifeguards",
+  "Microwaves",
+  "Documentary",
+  "Personality",
+  "Regulations",
+  "Speculation",
+  "Workmanship",
+  "Housewarming",
+  "Xylographers",
+];
+
 // DUMMY DATA
 export const COUNTRY_OPTIONS = [
   { label: "All countries", value: "All countries" },

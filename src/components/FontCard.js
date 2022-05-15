@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function FontCard({ fontStyle, pengram, chosenCard, cardNum }) {
+export default function FontCard({ fontStyle, pangram, chosenCard, cardNum }) {
   return (
     <AnimatePresence>
       <motion.div
@@ -29,7 +29,7 @@ export default function FontCard({ fontStyle, pengram, chosenCard, cardNum }) {
           className="text-3xl md:text-5xl text-white block text-center px-5 "
           style={{ fontFamily: `${fontStyle}` }}
         >
-          {pengram}
+          {pangram}
         </h3>
       </motion.div>
     </AnimatePresence>

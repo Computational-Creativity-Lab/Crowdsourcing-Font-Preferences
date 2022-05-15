@@ -16,30 +16,6 @@ import FiberScene from "../components/fiberbg/Scene";
 import getFirstBrowserLanguage from "../utils/backend/getLanguage.module";
 const WRITE_TO_DB = true;
 
-// pengram
-const pengrams = [
-  "Algorithms",
-  "Background",
-  "Binoculars",
-  "Birthplace",
-  "Blueprints",
-  "Clipboards",
-  "Cornflakes",
-  "Educations",
-  "Flamingoes",
-  "Importance",
-  "Journalism",
-  "Lifeguards",
-  "Microwaves",
-  "Documentary",
-  "Personality",
-  "Regulations",
-  "Speculation",
-  "Workmanship",
-  "Housewarming",
-  "Xylographers",
-];
-
 export default function Survey() {
   // count questions
   const [qIdx, setQIdx] = useState(0);
@@ -51,14 +27,8 @@ export default function Survey() {
   const [SFS, setSFS] = useState("");
   const [topCardState, setTopCardState] = useState(true);
   const [botCardState, setBotCardState] = useState(true);
-  const [pengramIndex, setPengramIndex] = useState(0);
-  const [currentPengram, setCurrentPengram] = useState(pengrams[pengramIndex]);
 
   const [disable1Random, setDisable1Random] = useState(false);
-
-  useEffect(() => {
-    console.log(pengramIndex, currentPengram);
-  }, [currentPengram, pengramIndex]);
 
   function getRandomItem() {
     let items = Array.from(remainingFonts);
@@ -186,11 +156,6 @@ export default function Survey() {
         <div className="grid h-full grid-cols-1 grid-rows-[1fr_2fr] md:grid-rows-1 md:grid-cols-2 pt-14">
           <FontsPromptLeftCol qCount={qIdx} keyword={adj} kwRound={kwRound} />
           <FontsPromptRightCol
-            pengramIndex={pengramIndex}
-            setPengramIndex={setPengramIndex}
-            pengrams={pengrams}
-            currentPengram={currentPengram}
-            setCurrentPengram={setCurrentPengram}
             onclickHandler={handleClick}
             qCount={qIdx}
             keyword={adj}

@@ -3,7 +3,7 @@ import Router from "next/router";
 import styles from "../pages/index.module.css";
 import { motion } from "framer-motion";
 import FontCard from "./FontCard";
-import { FONTS } from "../utils/settings";
+import { PANGRAMS } from "../utils/settings";
 
 const cardPop = {
   hide: {
@@ -34,19 +34,15 @@ export default function FontsPromptRightCol(props) {
     setTopCardState,
     botCardState,
     setBotCardState,
-    currentPengram,
-    setCurrentPengram,
-    pengramIndex,
-    setPengramIndex,
-    pengrams,
   } = props;
 
   const [chosenCard, setChosenCard] = useState();
-
   const [textFade, startTextFade] = useState(false);
 
   const topIsMounted = useRef(false);
   const botIsMounted = useRef(false);
+
+  const [pangramIdx, setPangramIdx] = useState(0);
 
   //RUN AT BEGINNING
   useEffect(() => {
@@ -100,7 +96,7 @@ export default function FontsPromptRightCol(props) {
   const handleClick = (option) => {
     //determine which card was clicked
     let chosenFont = option === 1 ? FFS : SFS;
-    setChosenCard(option === 1 ? 1 : 2);
+    setChosenCard(option);
     props.updateChosenFont(chosenFont);
 
     props.onclickHandler({
@@ -108,31 +104,26 @@ export default function FontsPromptRightCol(props) {
       keyword: props.keyword,
     });
 
-    if (pengramIndex > pengrams.length - 1) {
-      setPengramIndex(0);
-      console.log("restart pengram");
-    }
-
-    // Change pengram
+    // Change pangram
     if (props.kwRound < 3) {
-      setPengramIndex(pengramIndex + 1);
-      if (option != 1) {
+      if (option === 2) {
+        // bottom card
         setTopCardState(false);
         setTimeout(() => {
           setTopCardState(true);
-          setCurrentPengram(pengrams[pengramIndex]);
+          setPangramIdx((pangramIdx + 1) % PANGRAMS.length);
         }, 500);
       } else {
         //top card is clicked
         setBotCardState(false);
         setTimeout(() => {
           setBotCardState(true);
-          setCurrentPengram(pengrams[pengramIndex]);
+          setPangramIdx((pangramIdx + 1) % PANGRAMS.length);
         }, 500);
       }
     } else {
       setTimeout(() => {
-        setCurrentPengram(pengrams[pengramIndex]);
+        setPangramIdx(pangramIdx % PANGRAMS.length);
       }, 1000);
     }
   };
@@ -151,7 +142,7 @@ export default function FontsPromptRightCol(props) {
       >
         <FontCard
           fontStyle={FFS}
-          pengram={currentPengram}
+          pangram={PANGRAMS[pangramIdx]}
           chosenCard={chosenCard}
           cardNum={1}
         />
@@ -168,7 +159,7 @@ export default function FontsPromptRightCol(props) {
         <FontCard
           fontStyle={SFS}
           textFadeState={textFade}
-          pengram={currentPengram}
+          pangram={PANGRAMS[pangramIdx]}
           chosenCard={chosenCard}
           cardNum={2}
         />
