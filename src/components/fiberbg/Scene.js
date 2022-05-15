@@ -89,7 +89,7 @@ function Scene(props) {
 export default function FiberScene(props) {
   return (
     <div className={"top-0 absolute w-screen h-screen z-[-1]"}>
-      <Canvas>
+      <Canvas className={"top-0 absolute w-screen h-screen z-[-1]"}>
         <Suspense fallback={null}>
           <Scene keyword={props.keyword} />
         </Suspense>
