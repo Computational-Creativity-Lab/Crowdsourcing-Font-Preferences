@@ -12,14 +12,14 @@ export default function MobileDataCard(props) {
   return (
     <motion.div
       initial={{ opacity: 1, translateY: "200%" }}
-      animate={{ opacity: 1, translateY: 0 }}
+      animate={{ opacity: 1, translateY: "0%" }}
       exit={{ opacity: 1, translateY: "200%" }}
       transition={{
         type: "ease",
         ease: [0.16, 1, 0.3, 1],
         duration: 1,
       }}
-      className="text-white bottom-0 z-10 p-4 fixed w-full h-[90vh] bg-zinc-800 rounded-t-2xl"
+      className="text-white bottom-0 z-10 p-4 fixed w-full border border-zinc-700 border-solid h-[90vh] bg-zinc-800 rounded-t-2xl"
     >
       <div className="grid grid-cols-2 w-full">
         <h1 className="justify-self-start px-4 py-2 border inline-block text-2xl border-white border-solid rounded-full w-auto">
@@ -27,7 +27,7 @@ export default function MobileDataCard(props) {
         </h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 justify-self-end"
+          className="h-6 w-6 justify-self-end text-zinc-500"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

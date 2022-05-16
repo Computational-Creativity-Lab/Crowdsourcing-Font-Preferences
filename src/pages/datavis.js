@@ -225,7 +225,7 @@ export default function Datavis(props) {
               </div>
             </div>
           </div>
-          <div className="text-white grid md:grid-cols-[300px_1fr] grid-cols-[3fr_5fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8">
+          <div className="text-white grid md:grid-cols-[300px_1fr] grid-cols-[1fr_1fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8">
             <p>Keywords</p>
             <p>Top 5 Fonts</p>
           </div>
