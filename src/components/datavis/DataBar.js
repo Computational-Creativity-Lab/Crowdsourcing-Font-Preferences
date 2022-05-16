@@ -43,7 +43,7 @@ export default function DataBar(props) {
           ? `hover:opacity-[1] hover:cursor-pointer`
           : `bg-[#2B2C32] hover:cursor-default`
       } flex flex-col border-solid border-[#ffffff00]
-      border p-4 rounded-full relative min-w-[48px]`}
+      border py-4 px-2 rounded-full relative min-w-[48px]`}
       style={{ width: `${props.percentage}%` }}
     >
       {(activeBar || activeOther) && (
@@ -56,7 +56,7 @@ export default function DataBar(props) {
       )}
 
       <motion.p
-        className="text-black font-semibold whitespace-nowrap min-w-[48px] z-10 max-w-full max-h-full rounded-full overflow-hidden"
+        className="text-black font-medium whitespace-nowrap min-w-[48px] z-10 max-w-full max-h-full rounded-full overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -77,7 +77,7 @@ export default function DataBar(props) {
             transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
             className="absolute !top-[-340px] !left-[-5px] origin-bottom z-10 mb-6 h-[344px] hover:cursor-default"
           >
-            <div className=" text-white bg-zinc-900 rounded-xl overflow-y-auto p-4 overflow-hidden drop-shadow-2xl w-[340px] h-[324px]">
+            <div className="border border-zinc-700 border-solid text-white bg-zinc-800 rounded-xl overflow-y-auto p-4 overflow-hidden drop-shadow-2xl w-[340px] h-[324px]">
               <p className="text-xl mb-8">
                 You picked Roboto which is a unique choice!
               </p>

@@ -53,7 +53,7 @@ export default function Navbar(props) {
             props.isBlack
               ? "border-[rgba(0,0,0,.3)]"
               : "border-[rgba(255,255,255,.3)]"
-          }  ${props.blackBG ? "bg-black" : ""} `}
+          }  ${props.blackBG ? "bg-zinc-900" : ""} `}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}
