@@ -32,12 +32,7 @@ export default function DataBar(props) {
   }, []);
 
   return (
-    <div
-      className="relative"
-      flex
-      flex-col
-      style={{ width: `${props.percentage}%` }}
-    >
+    <div className="relative" style={{ width: `${props.percentage}%` }}>
       <div
         ref={ref}
         onClick={() => {
@@ -91,28 +86,32 @@ export default function DataBar(props) {
               </p>
 
               {props.fontList.map((font, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={`grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full ${
-                      index == props.index
-                        ? "bg-white text-black"
-                        : "text-white"
-                    }`}
-                  >
-                    <p>{index + 1}</p>
-                    <p
-                      style={{
-                        fontFamily: `${font != "Other" ? font : ""}`,
-                      }}
+                if (props.allPercentages[index] == 0) {
+                  return;
+                } else {
+                  return (
+                    <div
+                      key={index}
+                      className={`grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full ${
+                        index == props.index
+                          ? "bg-white text-black"
+                          : "text-white"
+                      }`}
                     >
-                      {font}
-                    </p>
-                    <p className="flex justify-self-end">
-                      {props.allPercentages[index]}%
-                    </p>
-                  </div>
-                );
+                      <p>{index + 1}</p>
+                      <p
+                        style={{
+                          fontFamily: `${font != "Other" ? font : ""}`,
+                        }}
+                      >
+                        {font}
+                      </p>
+                      <p className="flex justify-self-end">
+                        {props.allPercentages[index]}%
+                      </p>
+                    </div>
+                  );
+                }
               })}
             </div>
           </motion.div>

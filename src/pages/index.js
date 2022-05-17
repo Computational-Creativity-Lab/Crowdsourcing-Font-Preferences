@@ -12,9 +12,6 @@ export default function Home() {
   const [intro, showIntro] = useState(false);
 
   useEffect(() => {
-    console.log(intro);
-  }, [intro]);
-  useEffect(() => {
     // Make sure we are on client side
     if (typeof window !== "undefined") {
       localStorage.clear();
@@ -46,12 +43,14 @@ export default function Home() {
           >
             Find your fonts!
           </motion.h1>
-          <div className="fixed bottom-0 left-0 px-4 py-4 pointer-events-none">
+          <div className="text-white opacity-20 fixed bottom-0 left-0 px-4 py-4 pointer-events-none inline-block flex gap-2 items-center">
+            <p>By the</p>
             <img
               src={"/ccl-logo.svg"}
               alt="ccl logo"
-              className="w-[48px] h-[48px] block"
+              className="w-[24px] h-[24px] inline"
             />
+            <p>Computational Creativity Lab</p>
           </div>
         </GlobalContainer>
       </motion.main>

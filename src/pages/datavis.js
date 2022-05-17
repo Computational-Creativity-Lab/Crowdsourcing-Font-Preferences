@@ -36,7 +36,7 @@ export default function Datavis(props) {
     if (preferenceCollection.length !== 0) {
       const [locationOptions, langOptions] =
         parseDBOptions(preferenceCollection);
-      console.log("Available Options from DB:", locationOptions, langOptions);
+      // console.log("Available Options from DB:", locationOptions, langOptions);
       setLocations(locationOptions);
       setLang(langOptions);
     }
@@ -45,11 +45,11 @@ export default function Datavis(props) {
   // Only gets run once when we finish populating dropdown options
   useEffect(() => {
     if (locations.length != 0 && languages.length != 0) {
-      console.log(
-        "Setting locations and languages filters",
-        locations,
-        languages
-      );
+      // console.log(
+      //   "Setting locations and languages filters",
+      //   locations,
+      //   languages
+      // );
       setLocationFilter(locations[0].value);
       setLanguageFilter(languages[0].value);
     }
@@ -74,7 +74,7 @@ export default function Datavis(props) {
       });
 
       if (!didSurvey) {
-        console.log("User did not do survey.");
+        // console.log("User did not do survey.");
         setNoSurvey(true);
       }
 
@@ -86,7 +86,7 @@ export default function Datavis(props) {
   /** Change the data we display according to the dropdown choice */
   const handleChange = (event, category) => {
     const newVal = event.target.value;
-    console.log(category, "changed to", newVal);
+    // console.log(category, "changed to", newVal);
 
     if (category === "location") {
       setLocationFilter(newVal);
@@ -109,12 +109,12 @@ export default function Datavis(props) {
     if (!(locationFilter === locations[0].value)) {
       categories.push(["location", "country_name"]);
       filters.push(locationFilter);
-      console.log("Has location filter");
+      // console.log("Has location filter");
     }
     if (!(languageFilter === languages[0].value)) {
       categories.push("language");
       filters.push(languageFilter);
-      console.log("Has language filter");
+      // console.log("Has language filter");
     }
 
     // Get a new collection to display according to our filters
@@ -128,9 +128,9 @@ export default function Datavis(props) {
     // since we populated the dropdown options from the db data
     if (hasSatisfy) {
       setFiltered(newCounter);
-      console.log("Update filtered data to", newCounter);
+      // console.log("Update filtered data to", newCounter);
     } else {
-      console.log("NO satisfy");
+      // console.log("NO satisfy");
     }
   }, [
     locationFilter,
@@ -143,6 +143,8 @@ export default function Datavis(props) {
   /************************ FRONTEND SIDE ************************/
   const [fontModal, setFontModal] = useState(false);
   const [currDescriptor, setCurrDescriptor] = useState("");
+
+  //for mobile purposes
   const [globalTypeNames, setGlobalTypeNames] = useState();
   const [globalPercentages, setGlobalPercentages] = useState();
   const [globalSelectedIdx, setGlobalSelectedIdx] = useState(-1);
@@ -292,7 +294,7 @@ export async function getStaticProps() {
 
   client.close();
 
-  console.log("Disconnect from db");
+  // console.log("Disconnect from db");
 
   // we clean the data a bit
   let parsedCollection = preferencesCollection;

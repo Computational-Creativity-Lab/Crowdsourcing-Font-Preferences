@@ -68,7 +68,7 @@ export default function DataRow(props) {
     <div className="grid md:grid-cols-[300px_1fr] grid-cols-[1fr_1fr] mb-4">
       {/* descriptor */}
       <div className="col-start-1">
-        <h1 className="text-white text-xl w-fit border border-solid border-white rounded-full px-4 py-2">
+        <h1 className="text-white text-xl md:text-2xl w-fit border border-solid border-white rounded-full px-4 py-2">
           {props.descriptor}
         </h1>
       </div>

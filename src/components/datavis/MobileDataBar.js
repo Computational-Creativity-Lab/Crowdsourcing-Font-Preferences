@@ -24,7 +24,7 @@ export default function MobileDataBar(props) {
         </span>
       </p>
       <img
-        className="absolute top-0 left-0 h-full rounded-full bg-red-400"
+        className="absolute top-0 left-0 h-full rounded-full bg-red-400 "
         style={{
           width: `${
             props.userSelectIdx == -1

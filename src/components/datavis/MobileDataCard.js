@@ -5,10 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function MobileDataCard(props) {
   let isOther = true;
 
-  useEffect(() => {
-    console.log(props.globalSelectedIdx);
-  }, []);
-
   return (
     <motion.div
       initial={{ opacity: 1, translateY: "200%" }}
@@ -27,7 +23,7 @@ export default function MobileDataCard(props) {
         </h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 justify-self-end text-zinc-500"
+          className="h-6 w-6 justify-self-end text-zinc-500 hover:cursor-pointer"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
