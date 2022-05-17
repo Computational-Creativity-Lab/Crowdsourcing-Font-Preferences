@@ -23,6 +23,8 @@ export default function DataBar(props) {
 
       if (props.index == props.userSelected) {
         setActiveBar(true);
+
+        props.updateTop5Count();
       }
 
       if (props.userSelected == -1 && props.index == 5) {
@@ -45,7 +47,7 @@ export default function DataBar(props) {
             ? ` hover:cursor-pointer hover:scale-[1.005] ease-in-out transition-transform`
             : `bg-[#2B2C32] hover:cursor-default border-[#ffffff00]`
         } flex flex-col border-solid
-      border py-4 pl-2 rounded-full relative min-w-[48px] overflow-hidden`}
+      border py-4 pl-2 rounded-full relative overflow-hidden`}
       >
         {(activeBar || activeOther) && (
           <img
@@ -57,7 +59,7 @@ export default function DataBar(props) {
         )}
 
         <motion.p
-          className="text-black font-medium whitespace-nowrap min-w-[48px] z-[1] max-w-full max-h-full rounded-full overflow-hidden"
+          className="text-black font-medium whitespace-nowrap z-[1] max-w-full max-h-full rounded-full overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
