@@ -43,17 +43,21 @@ export default function Home() {
           >
             Find your fonts!
           </motion.h1>
-          <div className="text-white fixed bottom-0 left-0 px-4 py-4 pointer-events-none inline-block flex gap-4 items-center">
-            <img
-              src={"/ccl-logo.svg"}
-              alt="ccl logo"
-              className="w-auto h-[32px]  opacity-50 inline"
-            />
-            <img
-              src={"/creativeinquiry-logo.png"}
-              alt="creative inquiry logo"
-              className="w-auto h-[32px] inline"
-            />
+          <div className="text-white fixed bottom-0 left-0 px-4 py-4 inline-block flex gap-4 items-center">
+            <a href="http://computational-creativity.org" target="_blank">
+              <img
+                src={"/ccl-logo.svg"}
+                alt="ccl logo"
+                className="w-auto h-[32px]  opacity-50 inline hover:opacity-100"
+              />
+            </a>
+            <a href="https://studioforcreativeinquiry.org/" target="_blank">
+              <img
+                src={"/creativeinquiry-logo.png"}
+                alt="creative inquiry logo"
+                className="w-auto h-[32px] inline"
+              />
+            </a>
           </div>
         </GlobalContainer>
       </motion.main>
