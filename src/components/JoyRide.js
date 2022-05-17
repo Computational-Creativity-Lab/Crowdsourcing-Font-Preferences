@@ -19,12 +19,12 @@ export default function JoyRide(props) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
+      transition={{ ease: [0.16, 1, 0.3, 1], duration: 2 }}
       className="fixed top-0 left-0 w-full h-full  bg-[rgba(0,0,0,.5)] z-20"
     >
       <div className="flex items-center justify-center h-full">
         <motion.div
-          initial={{ translateY: 20 }}
+          initial={{ translateY: 40 }}
           animate={{ translateY: 0 }}
           transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
           className="rounded-xl drop-shadow-2xl  overflow-hidden overflow-y-auto max-w-[800px] w-[90%] max-h-[95%] bg-zinc-900"

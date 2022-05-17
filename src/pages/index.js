@@ -46,6 +46,13 @@ export default function Home() {
           >
             Find your fonts!
           </motion.h1>
+          <div className="fixed bottom-0 left-0 px-4 py-4 pointer-events-none">
+            <img
+              src={"/ccl-logo.svg"}
+              alt="ccl logo"
+              className="w-[48px] h-[48px] block"
+            />
+          </div>
         </GlobalContainer>
       </motion.main>
     </AnimatePresence>
