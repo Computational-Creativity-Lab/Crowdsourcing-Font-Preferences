@@ -43,14 +43,17 @@ export default function Home() {
           >
             Find your fonts!
           </motion.h1>
-          <div className="text-white opacity-20 fixed bottom-0 left-0 px-4 py-4 pointer-events-none inline-block flex gap-2 items-center">
-            <p>By the</p>
+          <div className="text-white fixed bottom-0 left-0 px-4 py-4 pointer-events-none inline-block flex gap-4 items-center">
             <img
               src={"/ccl-logo.svg"}
               alt="ccl logo"
-              className="w-[24px] h-[24px] inline"
+              className="w-auto h-[32px]  opacity-50 inline"
             />
-            <p>Computational Creativity Lab</p>
+            <img
+              src={"/creativeinquiry-logo.png"}
+              alt="creative inquiry logo"
+              className="w-auto h-[32px] inline"
+            />
           </div>
         </GlobalContainer>
       </motion.main>
