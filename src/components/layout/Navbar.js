@@ -50,7 +50,7 @@ export default function Navbar(props) {
       </AnimatePresence>
       <AnimatePresence>
         <motion.div
-          className={`fixed w-full grid px-4 py-5 grid-cols-2 border-b border-solid z-10 ${
+          className={`fixed w-full grid px-[40px] py-5 grid-cols-2 border-b border-solid z-10 ${
             props.isBlack ? "border-zinc-500" : "border-zinc-800"
           }  ${props.blackBG ? "bg-black" : ""} `}
           initial={{ opacity: 0 }}

@@ -24,7 +24,7 @@ export default function FontCard({ fontStyle, pangram, chosenCard, cardNum }) {
           boxShadow: "0px 0px 35px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <p className="absolute block top-5 text-slate-50">{fontStyle}</p>
+        <p className="absolute block top-5 text-zinc-600">{fontStyle}</p>
         <h3
           className="text-3xl md:text-5xl text-white block text-center px-5 "
           style={{ fontFamily: `${fontStyle}` }}

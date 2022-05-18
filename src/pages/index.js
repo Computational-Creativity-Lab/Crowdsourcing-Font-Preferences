@@ -46,14 +46,14 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
-            className="text-zinc-100 px-4 py-4 text-7xl border-2 border-gray-900 pt-24"
+            className="text-zinc-100 px-[40px] py-4 text-7xl border-2 border-gray-900 pt-24"
           >
             Find your fonts!
           </motion.h1>
           <div
             onMouseEnter={() => setCursorActive(false)}
             onMouseLeave={() => setCursorActive(true)}
-            className="text-white fixed bottom-0 left-0 px-4 py-6 inline-block flex gap-6 items-center "
+            className="text-white fixed bottom-0 left-0 px-[40px] py-6 inline-block flex gap-6 items-center "
           >
             <a href="http://computational-creativity.org" target="_blank">
               <img
