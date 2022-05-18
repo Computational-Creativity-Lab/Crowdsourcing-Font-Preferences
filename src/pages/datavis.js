@@ -187,7 +187,7 @@ export default function Datavis(props) {
       <motion.main
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className=" min-h-[100vh] overflow-hidden bg-zinc-900"
+        className=" min-h-[100vh] overflow-hidden bg-black"
       >
         <div className="p-4">
           <div className="grid md:grid-cols-2 mt-16 mb-24 md:mb-48">

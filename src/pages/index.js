@@ -10,6 +10,7 @@ import JoyRide from "../components/JoyRide";
 
 export default function Home() {
   const [intro, showIntro] = useState(false);
+  const [cursorActive, setCursorActive] = useState(true);
 
   useEffect(() => {
     // Make sure we are on client side
@@ -24,16 +25,22 @@ export default function Home() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className={`${!intro ? "cursor-pointer" : ""} bg-zinc-900`}
+        className={`${!intro && cursorActive ? "cursor-pointer" : ""} bg-black`}
         onClick={() => {
           showIntro(true);
         }}
       >
         {intro && <JoyRide></JoyRide>}
-        <AnimatePresence>{!intro && <CustomCursor />}</AnimatePresence>
+        <AnimatePresence>
+          {!intro && cursorActive && <CustomCursor />}
+        </AnimatePresence>
         <HeadComp />
         <GlobalContainer>
-          <Navbar isBlack={false} />
+          <Navbar
+            isBlack={false}
+            setCursorActive={setCursorActive}
+            cursorActive={cursorActive}
+          />
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -43,19 +50,23 @@ export default function Home() {
           >
             Find your fonts!
           </motion.h1>
-          <div className="text-white fixed bottom-0 left-0 px-4 py-4 inline-block flex gap-4 items-center">
+          <div
+            onMouseEnter={() => setCursorActive(false)}
+            onMouseLeave={() => setCursorActive(true)}
+            className="text-white fixed bottom-0 left-0 px-4 py-6 inline-block flex gap-6 items-center "
+          >
             <a href="http://computational-creativity.org" target="_blank">
               <img
                 src={"/ccl-logo.svg"}
                 alt="ccl logo"
-                className="w-auto h-[32px]  opacity-50 inline hover:opacity-100"
+                className="w-auto h-[32px]  opacity-50 inline hover:opacity-100 transition-opacity"
               />
             </a>
             <a href="https://studioforcreativeinquiry.org/" target="_blank">
               <img
-                src={"/creativeinquiry-logo.png"}
+                src={"/creativeinquiry-logo.svg"}
                 alt="creative inquiry logo"
-                className="w-auto h-[32px] inline"
+                className="w-auto h-[32px] opacity-50 inline hover:opacity-100 transition-opacity"
               />
             </a>
           </div>
@@ -91,7 +102,7 @@ const CustomCursor = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.1 }}
       className="absolute will-change-transform text-white"
       style={{
         transform: `translate(${x - 60}px, ${y - 30}px)`,

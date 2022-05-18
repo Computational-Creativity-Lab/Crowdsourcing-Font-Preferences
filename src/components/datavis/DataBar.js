@@ -31,6 +31,7 @@ export default function DataBar(props) {
         setActiveOther(true);
       }
     }
+    console.log(localStorage);
   }, []);
 
   return (
@@ -84,7 +85,15 @@ export default function DataBar(props) {
           >
             <div className="border border-zinc-700 border-solid text-white bg-zinc-800 rounded-xl overflow-y-auto p-4 overflow-hidden drop-shadow-2xl w-[340px] h-[324px]">
               <p className="text-xl mb-8">
-                You picked Roboto which is a unique choice!
+                {`
+                ${
+                  localStorage.length != 0
+                    ? `You picked ${localStorage.getItem(
+                        props.currentDescriptor
+                      )} as the most ${props.currentDescriptor} font.`
+                    : `Here are the top 5 font preferences for ${props.currentDescriptor}.`
+                }
+                `}
               </p>
 
               {props.fontList.map((font, index) => {

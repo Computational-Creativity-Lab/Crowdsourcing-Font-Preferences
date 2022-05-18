@@ -20,14 +20,14 @@ export default function JoyRide(props) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ ease: [0.16, 1, 0.3, 1], duration: 2 }}
-      className="fixed top-0 left-0 w-full h-full  bg-[rgba(0,0,0,.5)] z-20"
+      className="fixed top-0 left-0 w-full h-full  bg-[rgba(0,0,0,.5)] z-20 "
     >
       <div className="flex items-center justify-center h-full">
         <motion.div
           initial={{ translateY: 40 }}
           animate={{ translateY: 0 }}
           transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
-          className="rounded-xl drop-shadow-2xl  overflow-hidden overflow-y-auto max-w-[800px] w-[90%] max-h-[95%] bg-zinc-900"
+          className="rounded-xl drop-shadow-2xl  overflow-hidden overflow-y-auto max-w-[800px] w-[90%] max-h-[95%] bg-zinc-900 border border-solid border-zinc-800"
         >
           <div className="px-8 pt-8">
             <p className="leading-10 text-2xl md:text-3xl text-zinc-100 mb-10">
@@ -56,7 +56,7 @@ export default function JoyRide(props) {
             onClick={() => {
               Router.push("/survey");
             }}
-            className="bottom-0 w-full px-2 py-6 hover:bg-[rgba(255,255,255,.05)] border-t border-solid border-[rgba(255,255,255,.2)] text-white mt-8"
+            className="bottom-0 w-full px-2 py-6 hover:bg-[rgba(255,255,255,.05)] border-t border-solid border-zinc-800 text-white mt-8"
           >
             Begin
           </button>
