@@ -3,7 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { fragmentShader } from "./Frag";
-import { vertexShader } from "./Vert-Test";
+import { vertexShader } from "./Vert";
 import { KEYWORDS } from "../../utils/settings";
 import gsap from "gsap";
 
@@ -47,6 +47,9 @@ function Scene(props) {
         NoiseMap: { value: noiseMap },
         u_useTexLerp: { value: 0.0 },
         u_time: { value: 0.0 },
+        u_resolution: {
+          value: { x: window.innerWidth, y: window.innerHeight },
+        },
       },
       fragmentShader,
       vertexShader,
