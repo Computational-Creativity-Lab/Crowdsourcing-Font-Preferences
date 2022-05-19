@@ -30,7 +30,7 @@ void main() {
   vec3 color = mix(mapped1, mapped2, u_useTexLerp);
 
   vec2 sp = gl_FragCoord.xy / u_resolution.xy - vec2(0.5, 0.5);
-  vec3 cols = texture2D(TextureCurrent, UV).rgb;
+  vec3 cols = color;
   vec2 p = (0.8 * 0.8 *sp) * 12.0;
   vec2 i = p;
   float c = 1.0;
@@ -59,12 +59,16 @@ void main() {
   
   vec3 wave = vec3( 0.5 * sin(color.r + u_time + st.x), 0.5 * sin(color.g + u_time + st.y), cos(color.b + u_time + st.x + st.y) * 0.5);
   vec3 finalColor = mix(color, wave, 0.05);
-
-  vec3 rotatedCols = texture2D(TextureCurrent, rotate2D(UV,  PI * cos(u_time) * 0.825 / 10.0)).rgb;
-  vec3 rotatedCols1 = texture2D(TextureCurrent, rotate2D(UV,  PI * cos(u_time * 1.5) * 0.825 / 15.0)).rgb;
   finalColor = mix(cols, finalColor, 0.5);
-  finalColor = mix(finalColor, rotatedCols, 0.5);
-  finalColor = mix(finalColor, rotatedCols1, 0.3);
+
+  for (int i = 1; i < 4; i ++) { 
+    vec2 rotate_UV = rotate2D(UV,  PI * cos(u_time) * 0.825 / (5.0 * float(i)));
+    vec3 rotatedCols_prev = texture2D(TexturePrev, rotate_UV).rgb;
+    vec3 rotatedCols_cur = texture2D(TextureCurrent, rotate_UV).rgb;
+    vec3 rotatedCols = mix(rotatedCols_prev, rotatedCols_cur, u_useTexLerp);
+    finalColor = mix(finalColor, rotatedCols, 1.0 / float(i));
+  }
+
   finalColor = mix(finalColor, distortColor, 0.2);
   finalColor *= vec3(1.15, 1.15, 1.15);
 

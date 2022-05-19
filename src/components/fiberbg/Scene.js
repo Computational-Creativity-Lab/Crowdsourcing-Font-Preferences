@@ -59,14 +59,16 @@ function Scene(props) {
   );
 
   useEffect(() => {
-    // console.log("Shader prop:", props);
+    console.log("Shader prop:", props);
     data.uniforms.TexturePrev.value = currentMap;
     data.uniforms.TextureCurrent.value = textures[props.keyword];
     setCurrentMap(textures[props.keyword]);
 
     data.uniforms.TextureCurrent.value;
     const tl = gsap.timeline({
-      onComplete: function () {},
+      onComplete: function () {
+        console.log("Finished lerp");
+      },
     });
     data.uniforms.u_useTexLerp.value = 0.0;
     tl.to(data.uniforms.u_useTexLerp, {
