@@ -61,8 +61,8 @@ export default function DataRow(props) {
 
     setSelectIdx(userSelect);
 
-    // console.log(props.descriptor, percentArr);
-  }, [props.generalPreference, props.chosen]);
+    console.log(props.descriptor, percentArr, userSelect);
+  }, [props.generalPreference, props.chosen, props.descriptor]);
 
   return (
     <div className="grid md:grid-cols-[300px_1fr] grid-cols-[1fr_1fr] mb-4">

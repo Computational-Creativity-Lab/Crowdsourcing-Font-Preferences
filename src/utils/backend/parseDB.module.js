@@ -15,7 +15,6 @@ export const parseDBPreferences = (
   }
 
   const empty_filter = filterCategories.length === 0 || filters.length === 0;
-  // console.log("Filters: ", filterCategories, filters);
 
   // init counter
   let counters = {};
@@ -67,7 +66,7 @@ export const parseDBPreferences = (
   }
 
   if (DB_DEBUG) {
-    // console.log("Filtered collection", filteredCollection);
+    console.log("Filtered collection", filteredCollection);
   }
 
   return [counters, hasSatisfy];
