@@ -50,6 +50,7 @@ function Scene(props) {
         u_resolution: {
           value: { x: window.innerWidth, y: window.innerHeight },
         },
+        u_wave_intensity: { value: props.waveIntensity },
       },
       fragmentShader,
       vertexShader,
@@ -75,6 +76,10 @@ function Scene(props) {
     });
   }, [props.keyword]);
 
+  useEffect(() => {
+    data.uniforms.u_wave_intensity.value = props.waveIntensity;
+  }, [props.waveIntensity]);
+
   if (window) {
     return (
       <mesh ref={ref}>
@@ -94,7 +99,10 @@ export default function FiberScene(props) {
     <div className={"top-0 absolute w-screen h-screen z-[-1]"}>
       <Canvas className={"top-0 absolute w-screen h-screen z-[-1]"}>
         <Suspense fallback={null}>
-          <Scene keyword={props.keyword} />
+          <Scene
+            keyword={props.keyword}
+            waveIntensity={props.waveIntensity ? props.waveIntensity : 1.0}
+          />
         </Suspense>
       </Canvas>
     </div>
