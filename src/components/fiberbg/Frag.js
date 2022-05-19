@@ -10,6 +10,8 @@ uniform sampler2D NoiseMap;
 uniform float u_useTexLerp;
 uniform float u_time;
 
+uniform float u_wave_intensity;
+
 vec2 rotate2D(vec2 _st, float _angle){
   _st -= 0.5;
   _st =  mat2(cos(_angle),-sin(_angle), sin(_angle),cos(_angle)) * _st;
@@ -33,7 +35,7 @@ void main() {
   vec2 i = p;
   float c = 1.0;
 
-  float intensity = 1.0;
+  float intensity = u_wave_intensity;
 
   for(int n = 0; n < 3; n++){
     float t = u_time * (1.0 - (3.0 / float(n + 7)));
@@ -46,7 +48,6 @@ void main() {
 
   vec3 distortColor = vec3(c*c*cols.r, c*c*cols.g, c*c*cols.b);
 
-  // wave
   vec2 st = sp;
   
   for (int n = 1; n < 3; n ++){
@@ -54,7 +55,7 @@ void main() {
       st += vec2(0.7/i * sin(i*st.y + u_time + 0.5 * i), 0.8/i * sin(st.x + u_time + 0.2 * i) + 2.0 * 1.0);
       
   }
-  st = rotate2D(st, PI * (cos(u_time)) * 0.825 / 10.0);
+  st = rotate2D(st, PI * (cos(u_time)) * 0.825 / 5.0);
   
   vec3 wave = vec3( 0.5 * sin(color.r + u_time + st.x), 0.5 * sin(color.g + u_time + st.y), cos(color.b + u_time + st.x + st.y) * 0.5);
   vec3 finalColor = mix(color, wave, 0.05);
@@ -65,7 +66,6 @@ void main() {
   finalColor = mix(finalColor, rotatedCols, 0.5);
   finalColor = mix(finalColor, rotatedCols1, 0.3);
   finalColor = mix(finalColor, distortColor, 0.2);
-  // finalColor *= rotatedCols;
   finalColor *= vec3(1.15, 1.15, 1.15);
 
   gl_FragColor = vec4(finalColor, 1.0); 

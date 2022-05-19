@@ -8,8 +8,14 @@ import { KEYWORDS } from "../utils/settings";
 
 export default function TestGradient() {
   const [adj, setAdj] = useState(KEYWORDS[0]);
+  const [waveIntensity, setWave] = useState(1.0);
   function handleChange(event) {
     setAdj(event.target.value);
+  }
+
+  function handleIntensitySlider(event) {
+    console.log(event.target.value);
+    setWave(event.target.value / 100.0);
   }
   return (
     <motion.main>
@@ -28,8 +34,18 @@ export default function TestGradient() {
               </option>
             ))}
           </select>{" "}
+          <input
+            type="range"
+            min="1"
+            max="500"
+            value={waveIntensity * 100}
+            className="slider"
+            id="waveSlider"
+            onInput={handleIntensitySlider}
+          />
+          <label htmlFor="waveSlider">wave intensity: {waveIntensity} </label>
         </div>
-        <FiberScene keyword={adj} />
+        <FiberScene keyword={adj} waveIntensity={waveIntensity} />
       </GlobalContainer>
     </motion.main>
   );
