@@ -47,6 +47,9 @@ function Scene(props) {
         NoiseMap: { value: noiseMap },
         u_useTexLerp: { value: 0.0 },
         u_time: { value: 0.0 },
+        u_resolution: {
+          value: { x: window.innerWidth, y: window.innerHeight },
+        },
       },
       fragmentShader,
       vertexShader,
