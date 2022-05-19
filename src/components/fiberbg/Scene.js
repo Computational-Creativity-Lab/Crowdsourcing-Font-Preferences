@@ -3,7 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { fragmentShader } from "./Frag";
-import { vertexShader } from "./Vert-Test";
+import { vertexShader } from "./Vert";
 import { KEYWORDS } from "../../utils/settings";
 import gsap from "gsap";
 
