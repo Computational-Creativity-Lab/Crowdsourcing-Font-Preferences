@@ -25,6 +25,8 @@ export default function DataBar(props) {
         (props.userSelected == -1 && props.index == 5)
       ) {
         setActiveBar(true);
+      } else {
+        setActiveBar(false);
       }
     }
   }, [props.index, props.userSelected]);
@@ -50,6 +52,7 @@ export default function DataBar(props) {
             width={100}
             src={`/textures/${props.currentDescriptor}.png`}
             alt={props.currentDescriptor}
+            hidden={!activeBar}
           />
         )}
 
