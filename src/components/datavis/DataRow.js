@@ -9,7 +9,6 @@ export default function DataRow(props) {
   const [totalPercent, setTotalPercent] = useState(0);
   const [percentages, setPercentage] = useState([]);
   const [sortedTypefaceNames, setSorted] = useState([]);
-  // const { sortedTypefaceNames, setSorted } = props;
 
   useEffect(() => {
     if (
@@ -86,6 +85,8 @@ export default function DataRow(props) {
               allPercentages={percentages}
               userSelected={userSelectIdx}
               fontList={sortedTypefaceNames}
+              top5Count={props.top5Count}
+              updateTop5Count={props.updateTop5Count}
             />
           );
         })}

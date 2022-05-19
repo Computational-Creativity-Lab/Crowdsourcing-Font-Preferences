@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeadComp from "../components/HeadComp";
 import DataRow from "../components/datavis/DataRow";
 import connectToMongoDB from "../utils/backend/connectDb";
-import { DB_COLLECTION_NAME, KEYWORDS } from "../utils/settings";
+import { DB_COLLECTION_NAME, KEYWORDS, PERSONALITIES } from "../utils/settings";
 import MobileDataCard from "../components/datavis/MobileDataCard";
 import {
   parseDBOptions,
@@ -149,6 +149,17 @@ export default function Datavis(props) {
   const [globalPercentages, setGlobalPercentages] = useState();
   const [globalSelectedIdx, setGlobalSelectedIdx] = useState(-1);
   const [globalTotalPercent, setGlobalTotalPercent] = useState();
+  const [top5Count, setTop5Count] = useState(0);
+  const [personalityDesription, setPersonalityDescription] = useState(false);
+
+  useEffect(() => {
+    console.log(top5Count);
+  }, [top5Count]);
+
+  const updateTop5Count = () => {
+    console.log("match");
+    setTop5Count((top5Count = top5Count + 1));
+  };
 
   const mobileBarClick = (
     descriptor,
@@ -164,6 +175,10 @@ export default function Datavis(props) {
     setFontModal(true);
     setGlobalTotalPercent(totalPercent);
   };
+
+  useEffect(() => {
+    // console.log(filteredPreference);
+  }, [filteredPreference]);
 
   return (
     <>
@@ -184,14 +199,27 @@ export default function Datavis(props) {
               )}
               <h1 className="text-5xl text-white mb-8">
                 {``}
-                You&apos;re a <span className="underline">Traditionalist</span>
+                You&apos;re a{" "}
+                <span className="underline">
+                  {top5Count <= 2
+                    ? "Trailblazer"
+                    : top5Count >= 3 && top5Count <= 5
+                    ? "Pioneer"
+                    : top5Count >= 6 && top5Count <= 8
+                    ? "Generalist"
+                    : "Traditionalist"}
+                </span>
               </h1>
             </div>
             <div className="text-white text-lg">
               <p className=" mt-3 md:mr-[10%]">
-                You follow the crowd on some fonts, but forge your own path on
-                others. Overall, you matched with 50% of other responses. You
-                have a preference for types and you tend to stay away from{" "}
+                {top5Count <= 2
+                  ? PERSONALITIES["Trailblazer"]
+                  : top5Count >= 3 && top5Count <= 5
+                  ? PERSONALITIES["Pioneer"]
+                  : top5Count >= 6 && top5Count <= 8
+                  ? PERSONALITIES["Generalist"]
+                  : PERSONALITIES["Traditionalist"]}
               </p>
 
               <div className="mt-12">
@@ -242,6 +270,8 @@ export default function Datavis(props) {
                       chosen={choices[key]}
                       generalPreference={filteredPreference[key]}
                       mobileBarClick={mobileBarClick}
+                      top5Count={top5Count}
+                      updateTop5Count={updateTop5Count}
                     />
                   );
                 } else {
