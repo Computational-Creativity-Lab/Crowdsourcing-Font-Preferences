@@ -66,6 +66,8 @@ export const PANGRAMS = [
   "Xylographers",
 ];
 
+export const WAVE_INTENSITY = 0.25;
+
 // DUMMY DATA
 export const COUNTRY_OPTIONS = [
   { label: "All countries", value: "All countries" },

@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import FiberScene from "../components/fiberbg/Scene";
 import { useState } from "react";
 import Navbar from "../components/layout/Navbar";
-import { KEYWORDS } from "../utils/settings";
+import { KEYWORDS, WAVE_INTENSITY } from "../utils/settings";
 
 export default function TestGradient() {
   const [adj, setAdj] = useState(KEYWORDS[0]);
-  const [waveIntensity, setWave] = useState(1.0);
+  const [waveIntensity, setWave] = useState(WAVE_INTENSITY);
   function handleChange(event) {
     setAdj(event.target.value);
   }

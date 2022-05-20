@@ -4,7 +4,7 @@ import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { fragmentShader } from "./Frag";
 import { vertexShader } from "./Vert";
-import { KEYWORDS } from "../../utils/settings";
+import { KEYWORDS, WAVE_INTENSITY } from "../../utils/settings";
 import gsap from "gsap";
 
 function Scene(props) {
@@ -103,7 +103,9 @@ export default function FiberScene(props) {
         <Suspense fallback={null}>
           <Scene
             keyword={props.keyword}
-            waveIntensity={props.waveIntensity ? props.waveIntensity : 1.0}
+            waveIntensity={
+              props.waveIntensity ? props.waveIntensity : WAVE_INTENSITY
+            }
           />
         </Suspense>
       </Canvas>
