@@ -3,8 +3,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { fragmentShader } from "./Frag";
-import { vertexShader } from "./Vert-Test";
-import { KEYWORDS } from "../../utils/settings";
+import { vertexShader } from "./Vert";
+import { KEYWORDS, WAVE_INTENSITY } from "../../utils/settings";
 import gsap from "gsap";
 
 function Scene(props) {
@@ -47,6 +47,10 @@ function Scene(props) {
         NoiseMap: { value: noiseMap },
         u_useTexLerp: { value: 0.0 },
         u_time: { value: 0.0 },
+        u_resolution: {
+          value: { x: window.innerWidth, y: window.innerHeight },
+        },
+        u_wave_intensity: { value: props.waveIntensity },
       },
       fragmentShader,
       vertexShader,
@@ -55,14 +59,16 @@ function Scene(props) {
   );
 
   useEffect(() => {
-    // console.log("Shader prop:", props);
+    console.log("Shader prop:", props);
     data.uniforms.TexturePrev.value = currentMap;
     data.uniforms.TextureCurrent.value = textures[props.keyword];
     setCurrentMap(textures[props.keyword]);
 
     data.uniforms.TextureCurrent.value;
     const tl = gsap.timeline({
-      onComplete: function () {},
+      onComplete: function () {
+        console.log("Finished lerp");
+      },
     });
     data.uniforms.u_useTexLerp.value = 0.0;
     tl.to(data.uniforms.u_useTexLerp, {
@@ -71,6 +77,10 @@ function Scene(props) {
       ease: "sine.out",
     });
   }, [props.keyword]);
+
+  useEffect(() => {
+    data.uniforms.u_wave_intensity.value = props.waveIntensity;
+  }, [props.waveIntensity]);
 
   if (window) {
     return (
@@ -91,7 +101,12 @@ export default function FiberScene(props) {
     <div className={"top-0 absolute w-screen h-screen z-[-1]"}>
       <Canvas className={"top-0 absolute w-screen h-screen z-[-1]"}>
         <Suspense fallback={null}>
-          <Scene keyword={props.keyword} />
+          <Scene
+            keyword={props.keyword}
+            waveIntensity={
+              props.waveIntensity ? props.waveIntensity : WAVE_INTENSITY
+            }
+          />
         </Suspense>
       </Canvas>
     </div>

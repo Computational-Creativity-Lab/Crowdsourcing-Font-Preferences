@@ -7,7 +7,6 @@ export default function DataBar(props) {
   const [onBar, setOnBar] = useState(false);
   const [onPopup, setOnPopup] = useState(false);
   const [activeBar, setActiveBar] = useState(false);
-  const [activeOther, setActiveOther] = useState(false);
 
   useEffect(() => {
     setBarWidth(ref.current.clientWidth);
@@ -21,43 +20,44 @@ export default function DataBar(props) {
         setBarWidth(ref.current.clientWidth);
       });
 
-      if (props.index == props.userSelected) {
+      if (
+        props.index == props.userSelected ||
+        (props.userSelected == -1 && props.index == 5)
+      ) {
         setActiveBar(true);
-      }
-
-      if (props.userSelected == -1 && props.index == 5) {
-        setActiveOther(true);
+      } else {
+        setActiveBar(false);
       }
     }
-  }, []);
+  }, [props.index, props.userSelected]);
 
   return (
     <div className="relative" style={{ width: `${props.percentage}%` }}>
       <div
         ref={ref}
         onClick={() => {
-          // userSelected is -1 if their choice is not part of the top 5 choices
           setOnBar(true);
         }}
         onMouseLeave={() => setOnBar(false)}
         className={`${
-          activeBar || activeOther
+          activeBar
             ? ` hover:cursor-pointer hover:scale-[1.005] ease-in-out transition-transform`
             : `bg-[#2B2C32] hover:cursor-default border-[#ffffff00]`
         } flex flex-col border-solid
-      border py-4 pl-2 rounded-full relative min-w-[48px] overflow-hidden`}
+      border py-4 pl-2 rounded-full relative overflow-hidden`}
       >
-        {(activeBar || activeOther) && (
+        {activeBar && (
           <img
             className="absolute z-0 top-0 left-0 w-full min-w-full min-h-full max-w-full max-h-full rounded-full"
             width={100}
             src={`/textures/${props.currentDescriptor}.png`}
             alt={props.currentDescriptor}
+            hidden={!activeBar}
           />
         )}
 
         <motion.p
-          className="text-black font-medium whitespace-nowrap min-w-[48px] z-[1] max-w-full max-h-full rounded-full overflow-hidden"
+          className="text-black font-medium whitespace-nowrap z-[1] max-w-full max-h-full rounded-full overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -70,7 +70,7 @@ export default function DataBar(props) {
       </div>
       {/* POPUP WINDOW when user clicks bar */}
       <AnimatePresence>
-        {(onBar || onPopup) && (activeBar || activeOther) && (
+        {(onBar || onPopup) && activeBar && (
           <motion.div
             initial={{ opacity: 0, top: 5, scale: 0.95 }}
             animate={{ opacity: 1, top: 0, scale: 1 }}
