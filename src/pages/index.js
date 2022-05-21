@@ -57,14 +57,22 @@ export default function Home() {
             onMouseLeave={() => setHideCursor(false)}
             className="text-white fixed bottom-0 left-0 px-4 py-4 inline-block flex gap-2 items-center"
           >
-            <a href="http://computational-creativity.org" target="_blank">
+            <a
+              href="http://computational-creativity.org"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img
                 src={"/ccl-logo.svg"}
                 alt="ccl logo"
                 className="w-auto h-[40px] inline  opacity-20 hover:opacity-100"
               />
             </a>
-            <a href="https://studioforcreativeinquiry.org" target="_blank">
+            <a
+              href="https://studioforcreativeinquiry.org"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img
                 src={"/creativeinquiry-logo.svg"}
                 alt="creative inquiry logo"
