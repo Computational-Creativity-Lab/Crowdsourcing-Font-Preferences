@@ -36,13 +36,19 @@ export default function Home() {
         </AnimatePresence>
         <HeadComp />
         <GlobalContainer>
-          <Navbar isBlack={false} />
+          <Navbar
+            isBlack={false}
+            hideCursor={hideCursor}
+            setHideCursor={setHideCursor}
+          />
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
-            className="text-zinc-100 px-4 py-4 text-7xl border-2 border-gray-900 pt-24"
+            className="text-zinc-100 px-4 py-4 text-7xl border-2 border-gray-900 pt-24 hover:cursor-default"
+            onMouseEnter={() => setHideCursor(true)}
+            onMouseLeave={() => setHideCursor(false)}
           >
             Find your fonts!
           </motion.h1>
