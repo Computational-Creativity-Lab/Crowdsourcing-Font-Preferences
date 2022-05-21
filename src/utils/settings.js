@@ -94,4 +94,5 @@ export const PERSONALITIES = {
     "You’re a pioneer! You follow the crowd on some fonts, but forge your own path on others.  Although you identified xx% of fonts that were among the top responses for each keyword, you also made new and interesting connections between fonts and keywords.",
   Trailblazer:
     "You’re a trailblazer! Trends be damned, you follow your own taste and know what you like. You find meaning in type that others miss and never lose touch with your own creative vision. Overall, you matched with xx% of other top responses.",
+  Wanderer: "You're a wanderer BLAH",
 };
