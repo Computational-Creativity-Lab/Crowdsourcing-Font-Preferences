@@ -209,7 +209,9 @@ export default function Datavis(props) {
                 </h1>
               )}
               {noSurvey && (
-                <h1 className="text-5xl text-white mb-8">What's your type?</h1>
+                <h1 className="text-5xl text-white mb-8">
+                  What&apos;s your type?
+                </h1>
               )}
             </div>
             <div className="text-white text-lg">
