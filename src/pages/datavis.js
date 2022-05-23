@@ -10,6 +10,7 @@ import {
   parseDBOptions,
   parseDBPreferences,
 } from "../utils/backend/parseDB.module";
+import Link from "next/link";
 
 const DESCRIPTORS = KEYWORDS;
 const DEBUG_NO_SURVEY = false;
@@ -192,26 +193,24 @@ export default function Datavis(props) {
         <div className="p-4">
           <div className="grid md:grid-cols-2 mt-16 mb-24 md:mb-48">
             <div>
-              {noSurvey && DEBUG_NO_SURVEY && (
+              {!noSurvey && (
                 <h1 className="text-5xl text-white mb-8">
-                  DEBUG: NO SURVEY CASE{" "}
-                </h1>
-              )}
-              <h1 className="text-5xl text-white mb-8">
-                {``}
-                You&apos;re a{" "}
-                <span className="underline">
-                  {!noSurvey &&
-                    (top5Count <= 2
+                  {``}
+                  You&apos;re a{" "}
+                  <span className="underline">
+                    {top5Count <= 2
                       ? "Trailblazer"
                       : top5Count >= 3 && top5Count <= 5
                       ? "Pioneer"
                       : top5Count >= 6 && top5Count <= 8
                       ? "Generalist"
-                      : "Traditionalist")}
-                  {noSurvey && "Wanderer"}
-                </span>
-              </h1>
+                      : "Traditionalist"}
+                  </span>
+                </h1>
+              )}
+              {noSurvey && (
+                <h1 className="text-5xl text-white mb-8">What's your type?</h1>
+              )}
             </div>
             <div className="text-white text-lg">
               <p className=" mt-3 md:mr-[10%]">
@@ -223,8 +222,17 @@ export default function Datavis(props) {
                     : top5Count >= 6 && top5Count <= 8
                     ? PERSONALITIES["Generalist"]
                     : PERSONALITIES["Traditionalist"])}
-                {noSurvey && PERSONALITIES["Wanderer"]}
+                {noSurvey && PERSONALITIES["NoSurvey"]}
               </p>
+              {noSurvey && (
+                <p>
+                  Click{" "}
+                  <span className="underline">
+                    <Link href="/survey">here</Link>
+                  </span>{" "}
+                  to participate in the survey.
+                </p>
+              )}
 
               <div className="mt-12">
                 <div>
