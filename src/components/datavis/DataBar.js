@@ -15,7 +15,7 @@ export default function DataBar(props) {
   // Update 'width' and 'height' when the window resizes
   useEffect(() => {
     // Make sure we are on client side
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && ref.current) {
       window.addEventListener("resize", () => {
         setBarWidth(ref.current.clientWidth);
       });

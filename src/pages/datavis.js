@@ -10,6 +10,7 @@ import {
   parseDBOptions,
   parseDBPreferences,
 } from "../utils/backend/parseDB.module";
+import Link from "next/link";
 
 const DESCRIPTORS = KEYWORDS;
 const DEBUG_NO_SURVEY = false;
@@ -192,35 +193,48 @@ export default function Datavis(props) {
         <div className="p-4">
           <div className="grid md:grid-cols-2 mt-16 mb-24 md:mb-48">
             <div>
-              {noSurvey && DEBUG_NO_SURVEY && (
+              {!noSurvey && (
                 <h1 className="text-5xl text-white mb-8">
-                  DEBUG: NO SURVEY CASE{" "}
+                  {``}
+                  You&apos;re a{" "}
+                  <span className="underline">
+                    {top5Count <= 2
+                      ? "Trailblazer"
+                      : top5Count >= 3 && top5Count <= 5
+                      ? "Pioneer"
+                      : top5Count >= 6 && top5Count <= 8
+                      ? "Generalist"
+                      : "Traditionalist"}
+                  </span>
                 </h1>
               )}
-              <h1 className="text-5xl text-white mb-8">
-                {``}
-                You&apos;re a{" "}
-                <span className="underline">
-                  {top5Count <= 2
-                    ? "Trailblazer"
-                    : top5Count >= 3 && top5Count <= 5
-                    ? "Pioneer"
-                    : top5Count >= 6 && top5Count <= 8
-                    ? "Generalist"
-                    : "Traditionalist"}
-                </span>
-              </h1>
+              {noSurvey && (
+                <h1 className="text-5xl text-white mb-8">
+                  What&apos;s your type?
+                </h1>
+              )}
             </div>
             <div className="text-white text-lg">
               <p className=" mt-3 md:mr-[10%]">
-                {top5Count <= 2
-                  ? PERSONALITIES["Trailblazer"]
-                  : top5Count >= 3 && top5Count <= 5
-                  ? PERSONALITIES["Pioneer"]
-                  : top5Count >= 6 && top5Count <= 8
-                  ? PERSONALITIES["Generalist"]
-                  : PERSONALITIES["Traditionalist"]}
+                {!noSurvey &&
+                  (top5Count <= 2
+                    ? PERSONALITIES["Trailblazer"]
+                    : top5Count >= 3 && top5Count <= 5
+                    ? PERSONALITIES["Pioneer"]
+                    : top5Count >= 6 && top5Count <= 8
+                    ? PERSONALITIES["Generalist"]
+                    : PERSONALITIES["Traditionalist"])}
+                {noSurvey && PERSONALITIES["NoSurvey"]}
               </p>
+              {noSurvey && (
+                <p>
+                  Click{" "}
+                  <span className="underline">
+                    <Link href="/survey">here</Link>
+                  </span>{" "}
+                  to participate in the survey.
+                </p>
+              )}
 
               <div className="mt-12">
                 <div>
@@ -260,40 +274,21 @@ export default function Datavis(props) {
             <p>Top 5 Fonts</p>
           </div>
           <div>
-            {!noSurvey &&
-              Object.keys(choices).map((key) => {
-                if (filteredPreference[key]) {
-                  return (
-                    <DataRow
-                      descriptor={key}
-                      key={key}
-                      chosen={choices[key]}
-                      generalPreference={filteredPreference[key]}
-                      mobileBarClick={mobileBarClick}
-                      top5Count={top5Count}
-                      updateTop5Count={updateTop5Count}
-                    />
-                  );
-                } else {
-                  return <></>;
-                }
-              })}
-            {noSurvey &&
-              DESCRIPTORS.map((key) => {
-                if (filteredPreference[key]) {
-                  return (
-                    <DataRow
-                      descriptor={key}
-                      key={key}
-                      chosen={-1000} // user did not do survey so no valid choice
-                      generalPreference={filteredPreference[key]}
-                      mobileBarClick={mobileBarClick}
-                    />
-                  );
-                } else {
-                  return <></>;
-                }
-              })}
+            {DESCRIPTORS.map((key) => {
+              if (filteredPreference[key]) {
+                return (
+                  <DataRow
+                    descriptor={key}
+                    key={key}
+                    chosen={-1000} // user did not do survey so no valid choice
+                    generalPreference={filteredPreference[key]}
+                    mobileBarClick={mobileBarClick}
+                  />
+                );
+              } else {
+                return <></>;
+              }
+            })}
           </div>
         </div>
         <AnimatePresence>
