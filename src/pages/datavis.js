@@ -13,7 +13,6 @@ import {
 import Link from "next/link";
 
 const DESCRIPTORS = KEYWORDS;
-const DEBUG_NO_SURVEY = false;
 
 export default function Datavis(props) {
   /************************ BACKEND SIDE ************************/

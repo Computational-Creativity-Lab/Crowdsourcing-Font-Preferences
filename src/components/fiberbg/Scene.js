@@ -10,8 +10,10 @@ import gsap from "gsap";
 function Scene(props) {
   var textureUrls = [];
   var textures = {};
+  var baseUrl = window.innerWidth <= 480 ? "/textures/mobile/" : "textures/";
+  console.log(baseUrl);
   for (let i = 0; i < KEYWORDS.length; i++) {
-    textureUrls.push("/textures/" + KEYWORDS[i] + ".png");
+    textureUrls.push(baseUrl + KEYWORDS[i] + ".png");
     textures[KEYWORDS[i]] = undefined;
   }
   const [map0, map1, map2, map3, map4, map5, map6, map7, map8, map9] =
