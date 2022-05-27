@@ -87,12 +87,14 @@ export default function Datavis(props) {
   const handleChange = (event, category) => {
     const newVal = event.target.value;
     // console.log(category, "changed to", newVal);
-
+    // reset the other filters to all when a filter is clicked
     if (category === "location") {
+      setLocationFilter(languages[0].value);
       setLocationFilter(newVal);
     }
 
     if (category === "language") {
+      setLocationFilter(locations[0].value);
       setLanguageFilter(newVal);
     }
   };
