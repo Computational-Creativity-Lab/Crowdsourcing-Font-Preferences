@@ -108,7 +108,7 @@ export const parseDBOptions = (preferenceCollection) => {
   });
 
   // we add the view all options
-  locationSelect.unshift({ value: "All Locations", label: "All Locations" });
+  locationSelect.unshift({ value: "All Countries", label: "All Countries" });
   langSelect.unshift({ value: "All Languages", label: "All Languages" });
 
   return [locationSelect, langSelect];
