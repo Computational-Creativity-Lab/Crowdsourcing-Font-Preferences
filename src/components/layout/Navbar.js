@@ -25,21 +25,21 @@ export default function Navbar(props) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
-            className="text-white fixed overflow-hidden right-4 top-4 text-base w-[300px] bg-zinc-900 rounded-xl drop-shadow-2xl origin-top-right !z-30"
+            className="text-white fixed overflow-hidden right-8 top-4 px-6 text-base w-[380px] bg-[#1d202a] rounded-xl drop-shadow-2xl origin-top-right !z-30"
           >
-            <p className="text-white  px-4 pt-4">
-              Are you sure you want to exit this page? Your work will not be
+            <p className="text-sm text-white px-1 pt-5">
+              Are you sure you want to exit this page? <br/>Your work will not be
               saved.
             </p>
-            <div className="grid grid-cols-2 mt-4 border-t border-solid border-[rgba(255,255,255,.2)]">
+            <div className="grid grid-cols-2 mt-5 border-t border-solid border-[rgba(255,255,255,.2)] py-4">
               <button
                 onClick={() => setExitModal(false)}
-                className="p-4 hover:bg-[rgba(255,255,255,.05)] border-r border-solid border-[rgba(255,255,255,.2)]"
+                className="h-2 text-sm pb-5 text-zinc-500 hover:text-white border-r border-solid border-[rgba(255,255,255,.2)]"
               >
-                Go back
+                Continue quiz
               </button>
               <Link href="/">
-                <button className="p-4 hover:bg-[rgba(255,255,255,.05)]">
+                <button className="h-2 text-sm pb-5 text-zinc-500 hover:text-white">
                   Exit
                 </button>
               </Link>
@@ -49,7 +49,7 @@ export default function Navbar(props) {
       </AnimatePresence>
       <AnimatePresence>
         <motion.div
-          className={` hover:cursor-default fixed w-full grid px-4 py-5 grid-cols-2 border-b border-solid z-10 ${
+          className={`hover:cursor-default fixed w-full grid px-4 py-5 grid-cols-2 border-b border-solid z-10 ${
             props.isBlack
               ? "border-[rgba(0,0,0,.3)]"
               : "border-[rgba(255,255,255,.3)]"
@@ -69,17 +69,17 @@ export default function Navbar(props) {
           }}
         >
           <p
-            className={`cursor-default flex justify-self-start ${
+            className={`ml-1 lg:ml-4 font-light cursor-default flex justify-self-start ${
               props.isBlack ? "text-black" : "text-white"
             } `}
           >
             {`What's Your Type?`}
           </p>
 
-          <div className="flex justify-self-end">
+          <div className="flex justify-self-end mr-1 lg:mr-4 font-light">
             <p
               onClick={() => setExitModal(!exitModal)}
-              className={`cursor-pointer  hover:opacity-50 ${
+              className={`cursor-pointer opacity-100 lg:opacity-80 hover:opacity-50 ${
                 props.isBlack ? "text-black" : "text-white"
               }`}
             >
