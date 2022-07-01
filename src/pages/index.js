@@ -46,39 +46,47 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
-            className="text-zinc-100 px-4 py-4 text-7xl border-2 border-gray-900 pt-24 hover:cursor-default"
+            className="lg:ml-4 ml-1 text-zinc-100 px-4 py-4 text-3xl lg:text-7xl border-2 border-gray-900 pt-24 hover:cursor-default"
             onMouseEnter={() => setHideCursor(true)}
             onMouseLeave={() => setHideCursor(false)}
           >
-            Find your fonts!
+            Find your fonts
           </motion.h1>
           <div
             onMouseEnter={() => setHideCursor(true)}
             onMouseLeave={() => setHideCursor(false)}
-            className="text-white fixed bottom-0 left-0 px-4 py-4 inline-block flex gap-2 items-center"
-          >
+            className="flex lg:ml-4 ml-1 font-light text-sm text-white fixed bottom-0 left-0 mb-2 px-4 py-4 inline-block flex gap-2 items-center"
+          > 
+            <div>
             <a
               href="http://computational-creativity.org"
               target="_blank"
               rel="noreferrer"
-            >
+              className="inline opacity-50 hover:opacity-100 mr-0 lg:mr-4"
+            > 
               <img
                 src={"/ccl-logo.svg"}
                 alt="ccl logo"
-                className="w-auto h-[40px] inline  opacity-20 hover:opacity-100"
+                className="m-1 mr-2 w-auto h-[28px] lg:h-[20px] inline"
               />
+              <div className="inline hidden lg:inline-block">Computational Creativit Lab</div>
             </a>
+            </div>
+            <div>
             <a
               href="https://studioforcreativeinquiry.org"
               target="_blank"
               rel="noreferrer"
+              className ="inline opacity-50 hover:opacity-100"
             >
               <img
                 src={"/creativeinquiry-logo.svg"}
                 alt="creative inquiry logo"
-                className="w-auto h-[40px] inline opacity-40 hover:opacity-100"
+                className="m-1 mr-2 w-auto h-[28px] lg:h-[20px] inline"
               />
+              <div className="inline hidden lg:inline-block">The Frank-Ratchye STUDIO For Creative Inquiry</div>
             </a>
+            </div>
           </div>
         </GlobalContainer>
       </motion.main>
@@ -113,7 +121,7 @@ const CustomCursor = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
-      className="absolute will-change-transform text-white"
+      className="absolute will-change-transform text-gray-300 text-sm"
       style={{
         transform: `translate(${x - 60}px, ${y - 30}px)`,
       }}

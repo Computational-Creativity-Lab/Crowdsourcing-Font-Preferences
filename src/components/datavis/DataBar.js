@@ -44,8 +44,8 @@ export default function DataBar(props) {
             ? ` hover:cursor-pointer hover:scale-[1.005] ease-in-out transition-transform`
             : `bg-[#2B2C32] hover:cursor-default border-[#ffffff00]`
         } flex flex-col border-solid
-      border py-4 pl-2 rounded-full relative overflow-hidden`}
-      >
+      border py-2 pl-3 rounded-full relative overflow-hidden`}
+      > 
         {activeBar && (
           <img
             className="absolute z-0 top-0 left-0 w-full min-w-full min-h-full max-w-full max-h-full rounded-full"
@@ -57,7 +57,7 @@ export default function DataBar(props) {
         )}
 
         <motion.p
-          className="text-black font-medium whitespace-nowrap z-[1] max-w-full max-h-full rounded-full overflow-hidden"
+          className="text-sm text-black font-medium whitespace-nowrap z-[1] max-w-full max-h-full rounded-full overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -80,35 +80,39 @@ export default function DataBar(props) {
             onMouseEnter={() => setOnPopup(true)}
             onMouseLeave={() => setOnPopup(false)}
           >
-            <div className="border border-zinc-700 border-solid text-white bg-zinc-800 rounded-xl overflow-y-auto p-4 overflow-hidden drop-shadow-2xl w-[340px] h-[324px]">
-              <p className="text-xl mb-8">
+            <div className="bg-[#1d202a] text-white text-sm rounded-xl px-2 overflow-y-auto overflow-hidden drop-shadow-2xl w-[280px] h-[360px]">
+              <p className="text-sm mb-8 p-2">
                 You picked Roboto which is a unique choice!
               </p>
-
               {props.fontList.map((font, index) => {
                 if (props.allPercentages[index] == 0) {
                   return;
                 } else {
                   return (
+
                     <div
                       key={index}
-                      className={`grid grid-cols-[1fr_3fr_1fr] w-full py-4 px-6 rounded-full ${
+                      className={`grid grid-cols-[1fr_3fr_1fr] w-full my-1 px-2 rounded-full ${
                         index == props.index
                           ? "bg-white text-black"
                           : "text-white"
                       }`}
-                    >
-                      <p>{index + 1}</p>
+                    > 
+                      <p className="ml-3 mt-2">{index + 1}</p>
                       <p
+                        className="mt-2"
                         style={{
                           fontFamily: `${font != "Other" ? font : ""}`,
                         }}
                       >
                         {font}
                       </p>
-                      <p className="flex justify-self-end">
+                      <p className="mt-2 flex justify-self-start">
                         {props.allPercentages[index]}%
                       </p>
+                      <div className="bg-white w-full h-[1px] mt-2 mb-1 opacity-20"></div>
+                      <div className="bg-white w-full h-[1px] mt-2 mb-1 opacity-20"></div>
+                      <div className="bg-white w-full h-[1px] mt-2 mb-1 opacity-20"></div>
                     </div>
                   );
                 }

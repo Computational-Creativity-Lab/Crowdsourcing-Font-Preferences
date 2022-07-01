@@ -64,10 +64,10 @@ export default function DataRow(props) {
   }, [props.generalPreference, props.chosen, props.descriptor]);
 
   return (
-    <div className="grid md:grid-cols-[300px_1fr] grid-cols-[1fr_1fr] mb-4">
+    <div className="grid lg:grid-cols-[288px_1fr] grid-cols-[1fr_1fr] lg:mb-0 mb-4 lg:ml-4 ml-1">
       {/* descriptor */}
       <div className="col-start-1">
-        <h1 className="text-white text-xl md:text-2xl w-fit border border-solid border-white rounded-full px-4 py-2">
+        <h1 className="text-white text-lg md: text-lg w-fit border border-solid border-gray-400 rounded-full px-4 pt-[2px]">
           {props.descriptor}
         </h1>
       </div>

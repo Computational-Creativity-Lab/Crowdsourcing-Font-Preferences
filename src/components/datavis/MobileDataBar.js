@@ -10,9 +10,9 @@ export default function MobileDataBar(props) {
           props.totalPercent
         )
       }
-      className="cursor-pointer md:hidden relative flex items-center w-full bg-[#2B2C32] rounded-full overflow-hidden ]"
+      className="cursor-pointer md:hidden relative flex items-center w-full bg-[#2B2C32] rounded-full overflow-hidden]"
     >
-      <p className=" ml-4 text-black font-medium min-w-[48px] z-10">
+      <p className="text-sm ml-4 text-black font-medium min-w-[48px] z-10">
         {props.userSelectIdx == -1
           ? "Other"
           : localStorage.getItem(props.descriptor)}{" "}

@@ -191,14 +191,47 @@ export default function Datavis(props) {
         animate={{ opacity: 1 }}
         className=" min-h-[100vh] overflow-hidden bg-zinc-900"
       >
-        <div className="p-4">
-          <div className="grid md:grid-cols-2 mt-16 mb-24 md:mb-48">
+        <div className="p-4 font-light mt-5">
+          <div className="grid md:grid-cols-2 mt-0 lg:mt-16 mb-24 md: mb-32">
+
+              <div className="text-white mt-12 text-sm lg:ml-4 ml-1 opacity-80 inline-block lg:hidden">
+                <div>
+                  <label>
+                    <p className="mb-2 text-xs pb-2 opacity-50">You are viewing data of</p>
+
+                    <select
+                      className="bg-inherit border-b border-solid border-b-gray-500 pb-1 mr-8 w-[150px]"
+                      value={locationFilter}
+                      onChange={(e) => handleChange(e, "location")}
+                    >
+                      {locations.map((option) => (
+                        <option value={option.value} key={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+
+                    <select
+                      className="bg-inherit border-b border-solid border-b-gray-500 pb-1 w-[150px]"
+                      value={languageFilter}
+                      onChange={(e) => handleChange(e, "language")}
+                    >
+                      {languages.map((option) => (
+                        <option value={option.value} key={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+              </div>
+
             <div>
               {!noSurvey && (
-                <h1 className="text-5xl text-white mb-8">
+                <h1 className="mt-12 lg:mt-0 lg:text-6xl text-3xl text-white mb-2 lg:mb-8 lg:ml-4 ml-1">
                   {``}
                   You&apos;re a{" "}
-                  <span className="underline">
+                  <span className="underline underline-offset-4 lg:decoration-[3px] decoration-2">
                     {top5Count <= 2
                       ? "Trailblazer"
                       : top5Count >= 3 && top5Count <= 5
@@ -215,8 +248,8 @@ export default function Datavis(props) {
                 </h1>
               )}
             </div>
-            <div className="text-white text-lg">
-              <p className=" mt-3 md:mr-[10%]">
+            <div className="text-white text-lg md: text-base">
+              <p className="mt-3 md: mr-[10%] lg:ml-4 ml-1 lg:opacity-100 opacity-50">
                 {!noSurvey &&
                   (top5Count <= 2
                     ? PERSONALITIES["Trailblazer"]
@@ -237,13 +270,13 @@ export default function Datavis(props) {
                 </p>
               )}
 
-              <div className="mt-12">
+              <div className="mt-12 text-sm lg:ml-4 ml-1 opacity-80 hidden lg:inline-block">
                 <div>
                   <label>
                     <p className="mb-2">You are viewing data of</p>
 
                     <select
-                      className="bg-inherit border-b border-solid border-b-white mr-8 "
+                      className="bg-inherit border-b border-solid border-b-gray-500 pb-1 mr-8 w-[150px]"
                       value={locationFilter}
                       onChange={(e) => handleChange(e, "location")}
                     >
@@ -255,7 +288,7 @@ export default function Datavis(props) {
                     </select>
 
                     <select
-                      className="bg-inherit border-b border-solid border-b-white"
+                      className="bg-inherit border-b border-solid border-b-gray-500 pb-1 w-[150px]"
                       value={languageFilter}
                       onChange={(e) => handleChange(e, "language")}
                     >
@@ -268,9 +301,10 @@ export default function Datavis(props) {
                   </label>
                 </div>
               </div>
+
             </div>
           </div>
-          <div className="text-white grid md:grid-cols-[300px_1fr] grid-cols-[1fr_1fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8">
+          <div className="opacity-80 text-sm text-white grid lg:grid-cols-[288px_1fr] grid-cols-[1fr_1fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8 lg:ml-4 ml-1">
             <p>Keywords</p>
             <p>Top 5 Fonts</p>
           </div>

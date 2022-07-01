@@ -129,10 +129,10 @@ export default function FontsPromptRightCol(props) {
   };
 
   return (
-    <div className="grid grid-rows-2 h-full">
+    <div className="grid grid-rows-2 h-full pb-12 lg:pb-0 py-0 lg:py-5 mr-0 lg:mr-4">
       {/* <div className={styles.rightCol}> */}
       <motion.div
-        className="row-span-1 px-4 pb-2 pt-4"
+        className="row-span-1 px-4 lg:pb-4 pb-2 pt-4"
         onClick={() => {
           handleClick(1);
           fadeText();
@@ -148,7 +148,7 @@ export default function FontsPromptRightCol(props) {
         />
       </motion.div>
       <motion.div
-        className="row-span-2 px-4 pb-4 pt-2"
+        className="row-span-2 px-4 pb-4 lg:pb-8 pt-2 lg:pt-0"
         onClick={() => {
           handleClick(2);
           fadeText();

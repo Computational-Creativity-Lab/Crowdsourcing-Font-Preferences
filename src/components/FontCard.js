@@ -16,7 +16,7 @@ export default function FontCard({ fontStyle, pangram, chosenCard, cardNum }) {
           delay: cardNum - 1 * 10,
         }}
         whileHover={{
-          scale: 1.005,
+          scale: 1.02,
           boxShadow: "0px 0px 35px rgba(0, 0, 0, 0.2)",
         }}
         whileTap={{
@@ -24,7 +24,7 @@ export default function FontCard({ fontStyle, pangram, chosenCard, cardNum }) {
           boxShadow: "0px 0px 35px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <p className="absolute block top-5 text-slate-50">{fontStyle}</p>
+        <p className="absolute block top-4 lg:top-8 font-light text-slate-50 opacity-50 text-sm">{fontStyle}</p>
         <h3
           className="text-3xl md:text-5xl text-white block text-center px-5 "
           style={{ fontFamily: `${fontStyle}` }}
