@@ -6,7 +6,7 @@ export default function FontCard({ fontStyle, pangram, chosenCard, cardNum }) {
       <motion.div
         // ${chosenCard == cardNum ? "border border-solid border-white" : ""}
         className={`
-           h-full bg-black flex rounded-3xl items-center relative justify-center select-none hover:cursor-pointer`}
+           h-full bg-black flex rounded-2xl items-center relative justify-center select-none hover:cursor-pointer`}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
