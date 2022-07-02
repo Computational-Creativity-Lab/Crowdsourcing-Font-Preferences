@@ -193,38 +193,39 @@ export default function Datavis(props) {
       >
         <div className="p-4 font-light mt-5">
           <div className="grid md:grid-cols-2 mt-0 lg:mt-16 mb-24 md: mb-32">
+            <div className="text-white mt-12 text-sm lg:ml-4 ml-1 opacity-80 inline-block lg:hidden">
+              <div>
+                <label>
+                  <p className="mb-2 text-xs pb-2 opacity-50">
+                    You are viewing data of
+                  </p>
 
-              <div className="text-white mt-12 text-sm lg:ml-4 ml-1 opacity-80 inline-block lg:hidden">
-                <div>
-                  <label>
-                    <p className="mb-2 text-xs pb-2 opacity-50">You are viewing data of</p>
+                  <select
+                    className="bg-inherit border-b border-solid border-b-gray-500 pb-1 mr-8 w-[150px]"
+                    value={locationFilter}
+                    onChange={(e) => handleChange(e, "location")}
+                  >
+                    {locations.map((option) => (
+                      <option value={option.value} key={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
 
-                    <select
-                      className="bg-inherit border-b border-solid border-b-gray-500 pb-1 mr-8 w-[150px]"
-                      value={locationFilter}
-                      onChange={(e) => handleChange(e, "location")}
-                    >
-                      {locations.map((option) => (
-                        <option value={option.value} key={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-
-                    <select
-                      className="bg-inherit border-b border-solid border-b-gray-500 pb-1 w-[150px]"
-                      value={languageFilter}
-                      onChange={(e) => handleChange(e, "language")}
-                    >
-                      {languages.map((option) => (
-                        <option value={option.value} key={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                </div>
+                  <select
+                    className="bg-inherit border-b border-solid border-b-gray-500 pb-1 w-[150px]"
+                    value={languageFilter}
+                    onChange={(e) => handleChange(e, "language")}
+                  >
+                    {languages.map((option) => (
+                      <option value={option.value} key={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
               </div>
+            </div>
 
             <div>
               {!noSurvey && (
@@ -301,7 +302,6 @@ export default function Datavis(props) {
                   </label>
                 </div>
               </div>
-
             </div>
           </div>
           <div className="opacity-80 text-sm text-white grid lg:grid-cols-[288px_1fr] grid-cols-[1fr_1fr] border-b  border-[rgba(255,255,255,.3)] border-solid pb-4 mb-8 lg:ml-4 ml-1">
@@ -359,9 +359,18 @@ export async function getStaticProps() {
   // we clean the data a bit
   let parsedCollection = preferencesCollection;
   parsedCollection.forEach((entry) => {
+    // we might have legacy data from before we added the location prop for data entry
     if (entry["language"] === undefined || entry["language"] === null) {
       entry["language"] = "en-US";
     }
+
+    // to deal with problems like "en-US" and "en-us"
+    let langStr = entry["language"];
+    let dashIdx = langStr.indexOf("-");
+    let langSub = langStr.substring(0, dashIdx);
+    let locationSub = langStr.substring(dashIdx + 1);
+    let locationSubFix = locationSub.toUpperCase();
+    entry["language"] = langSub + "-" + locationSubFix;
   });
 
   return {
