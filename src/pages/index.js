@@ -56,36 +56,40 @@ export default function Home() {
             onMouseEnter={() => setHideCursor(true)}
             onMouseLeave={() => setHideCursor(false)}
             className="flex lg:ml-4 ml-1 font-light text-sm text-white fixed bottom-0 left-0 mb-2 px-4 py-4 inline-block flex gap-2 items-center"
-          > 
+          >
             <div>
-            <a
-              href="http://computational-creativity.org"
-              target="_blank"
-              rel="noreferrer"
-              className="inline opacity-50 hover:opacity-100 mr-0 lg:mr-4"
-            > 
-              <img
-                src={"/ccl-logo.svg"}
-                alt="ccl logo"
-                className="m-1 mr-2 w-auto h-[28px] lg:h-[20px] inline"
-              />
-              <div className="inline hidden lg:inline-block">Computational Creativit Lab</div>
-            </a>
+              <a
+                href="http://computational-creativity.org"
+                target="_blank"
+                rel="noreferrer"
+                className="inline opacity-50 hover:opacity-100 mr-0 lg:mr-4"
+              >
+                <img
+                  src={"/ccl-logo.svg"}
+                  alt="ccl logo"
+                  className="m-1 mr-2 w-auto h-[28px] lg:h-[20px] inline"
+                />
+                <div className="inline hidden lg:inline-block">
+                  Computational Creativity Lab
+                </div>
+              </a>
             </div>
             <div>
-            <a
-              href="https://studioforcreativeinquiry.org"
-              target="_blank"
-              rel="noreferrer"
-              className ="inline opacity-50 hover:opacity-100"
-            >
-              <img
-                src={"/creativeinquiry-logo.svg"}
-                alt="creative inquiry logo"
-                className="m-1 mr-2 w-auto h-[28px] lg:h-[20px] inline"
-              />
-              <div className="inline hidden lg:inline-block">The Frank-Ratchye STUDIO For Creative Inquiry</div>
-            </a>
+              <a
+                href="https://studioforcreativeinquiry.org"
+                target="_blank"
+                rel="noreferrer"
+                className="inline opacity-50 hover:opacity-100"
+              >
+                <img
+                  src={"/creativeinquiry-logo.svg"}
+                  alt="creative inquiry logo"
+                  className="m-1 mr-2 w-auto h-[28px] lg:h-[20px] inline"
+                />
+                <div className="inline hidden lg:inline-block">
+                  The Frank-Ratchye STUDIO For Creative Inquiry
+                </div>
+              </a>
             </div>
           </div>
         </GlobalContainer>
